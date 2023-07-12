@@ -1,5 +1,5 @@
 import { dbConnect } from "@/functions/database/database.server";
-import hexagonModel from "@/functions/database/models/hexagon.model";
+import TileModel from "@/functions/database/models/tile.model";
 import mapFixtures from "@/fixtures/tiles";
 import { NextResponse } from "next/server";
 
@@ -8,9 +8,9 @@ export async function POST() {
     //connect to db
     await dbConnect();
 
-    //delete hexagons and reset to beginning
-    await hexagonModel.deleteMany({});
-    await hexagonModel.create(mapFixtures);
+    //delete tiles and reset to beginning
+    await TileModel.deleteMany({});
+    await TileModel.create(mapFixtures);
 
     //respond with success
     return NextResponse.json({

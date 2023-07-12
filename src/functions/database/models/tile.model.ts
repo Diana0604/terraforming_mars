@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const HexagonSchema = new mongoose.Schema({
+const TileSchema = new mongoose.Schema({
   row: { type: Number },
   column: { type: String },
   resources: [
@@ -12,5 +12,4 @@ const HexagonSchema = new mongoose.Schema({
   colonizedBy: { type: Schema.Types.ObjectId, ref: "Faction" },
 });
 
-export default mongoose.models.Hexagon ||
-  mongoose.model("Hexagon", HexagonSchema);
+export default mongoose.models.Tile || mongoose.model("Tile", TileSchema);

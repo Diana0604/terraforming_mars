@@ -1,8 +1,8 @@
 import mapFixtures from "../../fixtures/tiles";
-import HexagonModel from "./models/hexagon.model";
+import TileModel from "./models/tile.model";
 
 export const seedDB = async () => {
-  await HexagonModel.deleteMany({});
-  await HexagonModel.create(mapFixtures);
+  await TileModel.deleteMany({});
+  await TileModel.create(mapFixtures);
   console.log("================== DATABASE SEEDED ==================");
 };
