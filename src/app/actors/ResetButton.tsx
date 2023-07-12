@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { DATABASE_ROUTE } from "@/constants";
 
 
-const MapUpload = () => {
+const ResetButton = () => {
 
   const [res, setRes] = useState<String>()
 
@@ -29,4 +29,4 @@ const MapUpload = () => {
   )
 }
 
-export default MapUpload
+export default ResetButton
