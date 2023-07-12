@@ -15,4 +15,4 @@ export const MAP_COLUMNS: String[] = [
 export const MAP_ROWS: Number[] = [1, 2, 3, 4, 5];
 
 //api variables
-export const RESET_ROUTE = "/api/map";
+export const DATABASE_ROUTE = "/api/database";
