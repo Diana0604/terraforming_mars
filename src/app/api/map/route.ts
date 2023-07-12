@@ -1,6 +1,6 @@
 import { dbConnect } from "@/functions/database/database.server";
 import TileModel from "@/functions/database/models/tile.model";
-import mapFixtures from "@/fixtures/tiles";
+import tileFixtures from "@/fixtures/tiles";
 import { NextResponse } from "next/server";
 
 export async function POST() {
@@ -10,7 +10,7 @@ export async function POST() {
 
     //delete tiles and reset to beginning
     await TileModel.deleteMany({});
-    await TileModel.create(mapFixtures);
+    await TileModel.create(tileFixtures);
 
     //respond with success
     return NextResponse.json({
