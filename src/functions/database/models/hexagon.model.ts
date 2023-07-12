@@ -1,14 +1,8 @@
-import { checkValidPosition } from "@/functions/map";
 import mongoose, { Schema } from "mongoose";
 
 const HexagonSchema = new mongoose.Schema({
-  coordinates: {
-    column: String,
-    row: Number,
-    validate: {
-      validator: checkValidPosition,
-    },
-  },
+  row: { type: Number },
+  column: { type: String },
   resources: [
     {
       name: { type: String },

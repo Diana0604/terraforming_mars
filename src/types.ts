@@ -23,7 +23,7 @@ export type Tile = {
     column: MAP_COLUMNS;
     row: MAP_ROWS;
     resources: Resource[];
-    colonizedBy: Faction;
+    colonizedBy?: Faction;
 }
 
 export type Building = {
