@@ -1,6 +1,5 @@
 import { dbConnect } from "@/functions/database/database.server";
-import TileModel from "@/functions/database/models/tile.model";
-import tileFixtures from "@/fixtures/tiles";
+import { seedDB } from "@/functions/database/database.seeder";
 import { NextResponse } from "next/server";
 
 export async function POST() {
@@ -8,9 +7,8 @@ export async function POST() {
     //connect to db
     await dbConnect();
 
-    //delete tiles and reset to beginning
-    await TileModel.deleteMany({});
-    await TileModel.create(tileFixtures);
+    //seed database
+    await seedDB();
 
     //respond with success
     return NextResponse.json({

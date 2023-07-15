@@ -1,8 +1,14 @@
-import mapFixtures from "../../fixtures/tiles";
-import TileModel from "./models/tile.model";
+import tileFixtures from "../../fixtures/tiles";
+import tileModel from "./models/tile.model";
+import factionModel from "./models/faction.model";
+import factionFixtures from "@/fixtures/factions";
 
 export const seedDB = async () => {
-  await TileModel.deleteMany({});
-  await TileModel.create(mapFixtures);
+  //tiles
+  await tileModel.deleteMany();
+  await tileModel.create(tileFixtures);
+  //factions
+  await factionModel.deleteMany();
+  await factionModel.create(factionFixtures);
   console.log("================== DATABASE SEEDED ==================");
 };
