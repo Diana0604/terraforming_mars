@@ -18,6 +18,7 @@ export const MAP_ROWS: Number[] = [1, 2, 3, 4, 5];
 
 //api variables
 export const DATABASE_ROUTE = "/api/database";
+export const RESET_DATABASE_ROUTE = "/api/database/reset";
 
 //============================= GAME CONSTANTS ==========================
 
