@@ -8,7 +8,7 @@ const FactionSchema = new mongoose.Schema({
       quantity: { type: String },
     },
   ],
-  colonizedHex: [{ type: Schema.Types.ObjectId, ref: "Tile" }],
+  colonizedTiles: [{ type: Schema.Types.ObjectId, ref: "Tile" }],
 });
 
 export default mongoose.models.Faction ||
