@@ -14,7 +14,6 @@ export type Faction = {
 }
 
 export type Resource = {
-    id: number;
     name: string;
     quantity: number;
 }
@@ -28,8 +27,12 @@ export type Tile = {
 
 export type Building = {
     type: BuildingType;
-    cost: Resource[];
-    produce: Resource[];
+    dailyProduction: Resource[];
+    dailyCost: Resource[];
+}
+
+export type BuildingConstant = Building & {
+    buildingCost: Resource[]
 }
 
 export type Colonist = {
