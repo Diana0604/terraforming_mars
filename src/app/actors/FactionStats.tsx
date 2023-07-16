@@ -1,8 +1,8 @@
 
 import { dbConnect } from "@/functions/database/database.server"
 import factionModel from "@/functions/database/models/faction.model";
-import { RESOURCES_LIST } from "@/constants";
 import { Faction } from "@/types";
+import UpdateResource from "./UpdateResource"
 
 const FactionStats = async () => {
 
@@ -17,7 +17,7 @@ const FactionStats = async () => {
         Resources:
         {
           faction.resourcesOwned.map((resource, index) => (<div key={index}>
-            {resource.name}: {resource.quantity}
+            {resource.name}: {resource.quantity} <UpdateResource faction={faction.name} resource={resource.name} quantity={0} />
           </div>))
         }
 
