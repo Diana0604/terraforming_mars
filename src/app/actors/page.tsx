@@ -1,14 +1,7 @@
 import ResetButton from "./ResetButton"
-import { dbConnect } from "@/functions/database/database.server"
-import factionModel from "@/functions/database/models/faction.model";
-import { Faction } from "@/types";
+import FactionStats from "./FactionStats"
 
 const ActorsPage = async () => {
-
-  await dbConnect();
-
-  const factionStats: Faction[] = await factionModel.find();
-
 
   return (<>
     <div>
@@ -16,6 +9,8 @@ const ActorsPage = async () => {
     </div>
 
     <ResetButton></ResetButton>
+
+    <FactionStats></FactionStats>
   </>)
 }
 
