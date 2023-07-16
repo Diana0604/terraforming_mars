@@ -35,4 +35,4 @@ const factionFixtures: Faction[] = [
   },
 ];
 
-export default factionFixtures
+export default factionFixtures;

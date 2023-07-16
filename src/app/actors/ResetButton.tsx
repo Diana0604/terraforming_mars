@@ -5,25 +5,29 @@ import { RESET_DATABASE_ROUTE } from "@/constants";
 
 const ResetButton = () => {
 
-  const [res, setRes] = useState<String>()
+  const [displayMessage, setDisplayMessage] = useState<String>()
 
   const onClick = async () => {
-    const res = await fetch(RESET_DATABASE_ROUTE, { method: "post" })
-    const resJson = await res.json()
-    setRes(resJson.message)
-  }
+    //set display message to calculating
+    setDisplayMessage("Resetting database")
 
-  useEffect(() => {
-    if (res) setTimeout(() => {
-      setRes(undefined)
-    }, 3000)
-  }, [res])
+    //reset database
+    try {
+      await fetch(RESET_DATABASE_ROUTE, { method: "post" })
+      //reload to display new result in server component
+      window.location.reload();
+    } catch (error: any) {
+      //if error display error
+      setDisplayMessage(error)
+    }
+
+  }
 
   return (
     <div>
       <button onClick={onClick}>Reset Database</button>
       {
-        res ? <div>Result from resetting: {res}</div> : <></>
+        displayMessage ? <div>{displayMessage}</div> : <></>
       }
     </div>
   )
