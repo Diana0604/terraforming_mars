@@ -1,176 +1,176 @@
 import { Tile } from "@/types";
 
-const tiles : Tile[] = [
+const tiles: Tile[] = [
   {
     column: "A",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "B",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "B",
     row: 2,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "C",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "C",
     row: 2,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "C",
     row: 3,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "D",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "D",
     row: 2,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "D",
     row: 3,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "D",
     row: 4,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "E",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "E",
     row: 2,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "E",
     row: 3,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "E",
     row: 4,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "E",
     row: 5,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "F",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "F",
     row: 2,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "F",
     row: 3,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "F",
     row: 4,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "G",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "G",
     row: 2,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "G",
     row: 3,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "G",
     row: 4,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "G",
     row: 5,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "H",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "H",
     row: 2,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "H",
     row: 3,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "H",
     row: 4,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "I",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "I",
     row: 2,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "I",
     row: 3,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "J",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "J",
     row: 2,
-    resources: [],
+    resourcesAvailable: [],
   },
   {
     column: "K",
     row: 1,
-    resources: [],
+    resourcesAvailable: [],
   },
 ];
 
-export default tiles
+export default tiles;

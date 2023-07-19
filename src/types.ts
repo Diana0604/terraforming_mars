@@ -3,6 +3,7 @@ export type MAP_ROWS = 1 | 2 | 3 | 4 | 5;
 export type BuildingType = "Colony Hub" | "Rock Mine" | "Ice Mine" | "Factory" | "Biome/Farm" | 
     "Temple" | "Barracks" | "Theatre" | "School" | "University" | "Hospital" | "Science Lab" | 
     "Launch Pad" | "Superconductor";
+export type ResourceName = "Rare Metal" | "Water" | "Oxygen" | "Food" | "Synthetics" | "Minerals";
 
 export type Corporation = {
     id: number;
@@ -19,7 +20,7 @@ export type Resource = {
 export type Tile = {
     column: MAP_COLUMNS;
     row: MAP_ROWS;
-    resources: Resource[];
+    resourcesAvailable: ResourceName[];
     colonizedBy?: Corporation;
 }
 
