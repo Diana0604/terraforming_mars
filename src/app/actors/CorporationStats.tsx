@@ -3,6 +3,7 @@ import { dbConnect } from "@/functions/database/database.server"
 import corporationModel from "@/functions/database/models/corporation.model";
 import { Corporation } from "@/types";
 import UpdateResource from "./UpdateResource"
+import { Collapse } from 'antd'
 
 const CorporationStats = async () => {
 
@@ -10,21 +11,23 @@ const CorporationStats = async () => {
 
   const corporationStats: Corporation[] = await corporationModel.find()
 
-  return (<>
+  const items = corporationStats.map((corporation, index) => {
 
-    <h3>Corporation Stats</h3>
-    {corporationStats.map((corporation, index) => (<div key={index}>
-      <div style={{ fontWeight: "bold" }}>Name: {corporation.name}</div>
-      <div>
-        Resources:
-        {
-          corporation.resourcesOwned.map((resource, index) => (<div key={index}>
-            {resource.name}: {resource.quantity} <UpdateResource corporation={corporation.name} resource={resource.name} quantity={0} />
-          </div>))
-        }
-
+    const resourcesList = corporation.resourcesOwned.map((resource, index) => (
+      <div key={index}>
+        {resource.name}: {resource.quantity}
+        <UpdateResource corporation={corporation.name} resource={resource.name} quantity={0}></UpdateResource>
       </div>
-    </div>))}
+    ))
+
+    return { key: index, label: corporation.name, children: resourcesList }
+  })
+
+
+  return (<>
+    <h3 style={{ marginTop: '10px' }}>Corporation Stats</h3>
+
+    <Collapse items={items} />
   </>)
 }
 
