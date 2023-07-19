@@ -11,6 +11,8 @@ const CorporationStats = async () => {
   const corporationStats: Corporation[] = await corporationModel.find()
 
   return (<>
+
+    <h3>Corporation Stats</h3>
     {corporationStats.map((corporation, index) => (<div key={index}>
       <div style={{ fontWeight: "bold" }}>Name: {corporation.name}</div>
       <div>
