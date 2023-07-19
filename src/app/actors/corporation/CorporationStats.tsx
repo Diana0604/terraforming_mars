@@ -2,8 +2,8 @@
 import { dbConnect } from "@/functions/database/database.server"
 import corporationModel from "@/functions/database/models/corporation.model";
 import { Corporation } from "@/types";
-import UpdateResource from "./UpdateResource"
 import { Collapse } from 'antd'
+import ResourceStats from "./ResourceStats";
 
 const CorporationStats = async () => {
 
@@ -13,12 +13,7 @@ const CorporationStats = async () => {
 
   const items = corporationStats.map((corporation, index) => {
 
-    const resourcesList = corporation.resourcesOwned.map((resource, index) => (
-      <div key={index}>
-        {resource.name}: {resource.quantity}
-        <UpdateResource corporation={corporation.name} resource={resource.name} quantity={0}></UpdateResource>
-      </div>
-    ))
+    const resourcesList = <ResourceStats resourcesOwned={corporation.resourcesOwned} corporationName={corporation.name} />
 
     return { key: index, label: corporation.name, children: resourcesList }
   })

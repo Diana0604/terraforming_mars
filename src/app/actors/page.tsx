@@ -1,5 +1,5 @@
 import ResetButton from "./ResetButton"
-import CorporationStats from "./CorporationStats"
+import CorporationStats from "./corporation/CorporationStats"
 
 const ActorsPage = async () => {
 
