@@ -10,18 +10,24 @@ export const seedDB = async () => {
   await tileModel.create(tileFixtures);
 
   //corporations
-  //fill resources
+
   for (const corporation of corporationFixtures) {
+    //fill init resources
     for (const resourceName of RESOURCES_LIST) {
       //check if resource already exists in fixtures
-      const initResourceValue = corporation.resourcesOwned.filter((resource) => {
-        return resource.name === resourceName;
-      });
+      const initResourceValue = corporation.resourcesOwned.filter(
+        (resource) => {
+          return resource.name === resourceName;
+        }
+      );
       if (initResourceValue && initResourceValue[0]) continue;
 
       //add resource set to 0 quantity if it doesn't exist
       corporation.resourcesOwned.push({ name: resourceName, quantity: 0 });
     }
+
+    //add empty buildings list
+    corporation.buildingsOwned = [];
   }
   //add to db
   await corporationModel.deleteMany();

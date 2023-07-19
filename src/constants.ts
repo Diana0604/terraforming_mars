@@ -40,7 +40,6 @@ export const RESOURCES_LIST = [
   MINERALS_NAME,
 ];
 
-
 //buildings
 export const COLONY_HUB_NAME = "Colony Hub";
 export const ROCK_MINE_NAME = "Rock Mine";
@@ -57,8 +56,25 @@ export const SCIENCE_LAB_NAME = "Science Lab";
 export const LAUNCH_PAD_NAME = "Launch Pad";
 export const SUPERCONDUCTOR_NAME = "Superconductor";
 
+export const PRESET_BUILDINGS_LIST = [
+  COLONY_HUB_NAME,
+  ROCK_MINE_NAME,
+  ICE_MINE_NAME,
+  FACTORY_NAME,
+  BIOME_FARM_NAME,
+  TEMPLE_NAME,
+  BARRACKS_NAME,
+  THEATRE_NAME,
+  SCHOOL_NAME,
+  UNIVERSITY_NAME,
+  HOSPITAL_NAME,
+  SCIENCE_LAB_NAME,
+  LAUNCH_PAD_NAME,
+  SUPERCONDUCTOR_NAME,
+];
+
 export const COLONY_HUB: BuildingConstant = {
-  type: COLONY_HUB_NAME,
+  buildingType: COLONY_HUB_NAME,
   buildingCost: [
     { name: WATER_NAME, quantity: 5 },
     { name: OXYGEN_NAME, quantity: 5 },
@@ -70,7 +86,7 @@ export const COLONY_HUB: BuildingConstant = {
 };
 
 export const ROCK_MINE: BuildingConstant = {
-  type: ROCK_MINE_NAME,
+  buildingType: ROCK_MINE_NAME,
   buildingCost: [
     { name: WATER_NAME, quantity: 5 },
     { name: MINERALS_NAME, quantity: 10 },
@@ -81,7 +97,7 @@ export const ROCK_MINE: BuildingConstant = {
 };
 
 export const ICE_MINE: BuildingConstant = {
-  type: ICE_MINE_NAME,
+  buildingType: ICE_MINE_NAME,
   buildingCost: [
     { name: MINERALS_NAME, quantity: 10 },
     { name: SYNTHETICS_NAME, quantity: 10 },
@@ -92,7 +108,7 @@ export const ICE_MINE: BuildingConstant = {
 };
 
 export const FACTORY: BuildingConstant = {
-  type: FACTORY_NAME,
+  buildingType: FACTORY_NAME,
   buildingCost: [
     { name: RARE_METAL_NAME, quantity: 10 },
     { name: SYNTHETICS_NAME, quantity: 10 },
@@ -103,7 +119,7 @@ export const FACTORY: BuildingConstant = {
 };
 
 export const BIOME_FARM: BuildingConstant = {
-  type: BIOME_FARM_NAME,
+  buildingType: BIOME_FARM_NAME,
   buildingCost: [
     { name: WATER_NAME, quantity: 15 },
     { name: SYNTHETICS_NAME, quantity: 5 },
@@ -115,7 +131,7 @@ export const BIOME_FARM: BuildingConstant = {
 };
 
 export const TEMPLE: BuildingConstant = {
-  type: TEMPLE_NAME,
+  buildingType: TEMPLE_NAME,
   buildingCost: [
     { name: SYNTHETICS_NAME, quantity: 10 },
     { name: OXYGEN_NAME, quantity: 5 },
@@ -126,7 +142,7 @@ export const TEMPLE: BuildingConstant = {
 };
 
 export const BARRACKS: BuildingConstant = {
-  type: BARRACKS_NAME,
+  buildingType: BARRACKS_NAME,
   buildingCost: [
     { name: SYNTHETICS_NAME, quantity: 15 },
     { name: FOOD_NAME, quantity: 10 },
@@ -137,7 +153,7 @@ export const BARRACKS: BuildingConstant = {
 };
 
 export const THEATRE: BuildingConstant = {
-  type: THEATRE_NAME,
+  buildingType: THEATRE_NAME,
   buildingCost: [
     { name: SYNTHETICS_NAME, quantity: 10 },
     { name: RARE_METAL_NAME, quantity: 5 },
@@ -147,7 +163,7 @@ export const THEATRE: BuildingConstant = {
 };
 
 export const SCHOOL: BuildingConstant = {
-  type: SCHOOL_NAME,
+  buildingType: SCHOOL_NAME,
   buildingCost: [
     { name: SYNTHETICS_NAME, quantity: 10 },
     { name: WATER_NAME, quantity: 5 },
@@ -158,7 +174,7 @@ export const SCHOOL: BuildingConstant = {
 };
 
 export const UNIVERSITY: BuildingConstant = {
-  type: UNIVERSITY_NAME,
+  buildingType: UNIVERSITY_NAME,
   buildingCost: [
     { name: SYNTHETICS_NAME, quantity: 20 },
     { name: WATER_NAME, quantity: 10 },
@@ -168,7 +184,7 @@ export const UNIVERSITY: BuildingConstant = {
 };
 
 export const HOSPITAL: BuildingConstant = {
-  type: HOSPITAL_NAME,
+  buildingType: HOSPITAL_NAME,
   buildingCost: [
     { name: SYNTHETICS_NAME, quantity: 20 },
     { name: OXYGEN_NAME, quantity: 20 },
@@ -181,7 +197,7 @@ export const HOSPITAL: BuildingConstant = {
 };
 
 export const SCIENCE_LAB: BuildingConstant = {
-  type: SCIENCE_LAB_NAME,
+  buildingType: SCIENCE_LAB_NAME,
   buildingCost: [
     { name: SYNTHETICS_NAME, quantity: 15 },
     { name: OXYGEN_NAME, quantity: 10 },
@@ -192,7 +208,7 @@ export const SCIENCE_LAB: BuildingConstant = {
 };
 
 export const LAUNCH_PAD: BuildingConstant = {
-  type: LAUNCH_PAD_NAME,
+  buildingType: LAUNCH_PAD_NAME,
   buildingCost: [
     { name: SYNTHETICS_NAME, quantity: 10 },
     { name: RARE_METAL_NAME, quantity: 10 },
@@ -202,7 +218,7 @@ export const LAUNCH_PAD: BuildingConstant = {
 };
 
 export const SUPERCONDUCTOR: BuildingConstant = {
-  type: SUPERCONDUCTOR_NAME,
+  buildingType: SUPERCONDUCTOR_NAME,
   buildingCost: [
     { name: SYNTHETICS_NAME, quantity: 100 },
     { name: RARE_METAL_NAME, quantity: 100 },

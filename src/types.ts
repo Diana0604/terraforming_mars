@@ -9,7 +9,8 @@ export type Corporation = {
     id: number;
     name: string;
     resourcesOwned: Resource[];
-    tilesOwned: Tile[];
+    buildingsOwned: Building[]
+    //tilesOwned: Tile[];
 }
 
 export type Resource = {
@@ -25,12 +26,16 @@ export type Tile = {
 }
 
 export type Building = {
-    type: BuildingType;
+    buildingType: BuildingType;
     dailyProduction: Resource[];
     dailyCost: Resource[];
+    tile: Tile;
 }
 
-export type BuildingConstant = Building & {
+export type BuildingConstant = {
+    buildingType: BuildingType;
+    dailyProduction: Resource[];
+    dailyCost: Resource[];
     buildingCost: Resource[]
 }
 

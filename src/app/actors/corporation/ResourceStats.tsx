@@ -1,5 +1,5 @@
 import { Resource } from "@/types"
-import UpdateResource from "../UpdateResource"
+import UpdateResource from "./UpdateResource"
 
 interface ResourceStatsProps {
   resourcesOwned: Resource[],

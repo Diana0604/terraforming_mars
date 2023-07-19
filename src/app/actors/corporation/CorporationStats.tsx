@@ -5,7 +5,7 @@ import { Corporation } from "@/types";
 import { Col, Row } from 'antd';
 import { Collapse } from 'antd'
 import ResourceStats from "./ResourceStats";
-import MapStats from "./MapStats";
+import BuildingStats from "./BuildingStats";
 
 const CorporationStats = async () => {
 
@@ -17,12 +17,12 @@ const CorporationStats = async () => {
 
     const resourcesList = <ResourceStats resourcesOwned={corporation.resourcesOwned} corporationName={corporation.name} />
 
-    const mapStats = <MapStats />
+    const buildingStats = <BuildingStats buildingsOwned={corporation.buildingsOwned} corporationName={corporation.name} />
 
     const children = (<>
       <Row>
         <Col span={12}>{resourcesList}</Col>
-        <Col span={12}>{mapStats}</Col>
+        <Col span={12}>{buildingStats}</Col>
       </Row>
     </>)
 

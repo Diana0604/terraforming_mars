@@ -5,13 +5,15 @@ const corporationFixtures: Corporation[] = [
     id: 0,
     name: "Player",
     resourcesOwned: [],
-    tilesOwned: [],
+    //tilesOwned: [],
+    buildingsOwned: []
   },
   {
     id: 1,
     name: "Actors",
     resourcesOwned: [],
-    tilesOwned: [],
+    //tilesOwned: [],
+    buildingsOwned: []
   },
 ]
 export default corporationFixtures;
