@@ -9,7 +9,7 @@ const TileSchema = new mongoose.Schema({
       quantity: { type: String },
     },
   ],
-  colonizedBy: { type: Schema.Types.ObjectId, ref: "Faction" },
+  colonizedBy: { type: Schema.Types.ObjectId, ref: "Corporation" },
 });
 
 export default mongoose.models.Tile || mongoose.model("Tile", TileSchema);

@@ -4,13 +4,11 @@ export type BuildingType = "Colony Hub" | "Rock Mine" | "Ice Mine" | "Factory" |
     "Temple" | "Barracks" | "Theatre" | "School" | "University" | "Hospital" | "Science Lab" | 
     "Launch Pad" | "Superconductor";
 
-export type Faction = {
+export type Corporation = {
     id: number;
     name: string;
     resourcesOwned: Resource[];
     tilesOwned: Tile[];
-    provides: Colonist[];
-    wants: Resource[];
 }
 
 export type Resource = {
@@ -22,7 +20,7 @@ export type Tile = {
     column: MAP_COLUMNS;
     row: MAP_ROWS;
     resources: Resource[];
-    colonizedBy?: Faction;
+    colonizedBy?: Corporation;
 }
 
 export type Building = {
@@ -34,19 +32,4 @@ export type Building = {
 export type BuildingConstant = Building & {
     buildingCost: Resource[]
 }
-
-export type Colonist = {
-    type: string;
-    subtype: string;
-    occupies: Building;
-    factionSupply: Faction;
-    cost: Resource[];
-}
-
-export type Leader = {
-    type: string;
-    building: Building;
-}
-
-
 

@@ -1,7 +1,7 @@
 import tileFixtures from "../../fixtures/tiles";
 import tileModel from "./models/tile.model";
-import factionModel from "./models/faction.model";
-import factionFixtures from "@/fixtures/factions";
+import corporationModel from "./models/corporation.model";
+import corporationFixtures from "@/fixtures/corporation";
 import { RESOURCES_LIST } from "@/constants";
 
 export const seedDB = async () => {
@@ -9,23 +9,23 @@ export const seedDB = async () => {
   await tileModel.deleteMany();
   await tileModel.create(tileFixtures);
 
-  //factions
+  //corporations
   //fill resources
-  for (const faction of factionFixtures) {
+  for (const corporation of corporationFixtures) {
     for (const resourceName of RESOURCES_LIST) {
       //check if resource already exists in fixtures
-      const initResourceValue = faction.resourcesOwned.filter((resource) => {
+      const initResourceValue = corporation.resourcesOwned.filter((resource) => {
         return resource.name === resourceName;
       });
       if (initResourceValue && initResourceValue[0]) continue;
 
       //add resource set to 0 quantity if it doesn't exist
-      faction.resourcesOwned.push({ name: resourceName, quantity: 0 });
+      corporation.resourcesOwned.push({ name: resourceName, quantity: 0 });
     }
   }
   //add to db
-  await factionModel.deleteMany();
-  await factionModel.create(factionFixtures);
+  await corporationModel.deleteMany();
+  await corporationModel.create(corporationFixtures);
 
   console.log("================== DATABASE SEEDED ==================");
 };

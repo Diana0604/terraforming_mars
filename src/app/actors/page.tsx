@@ -1,5 +1,5 @@
 import ResetButton from "./ResetButton"
-import FactionStats from "./FactionStats"
+import CorporationStats from "./CorporationStats"
 
 const ActorsPage = async () => {
 
@@ -10,7 +10,7 @@ const ActorsPage = async () => {
 
     <ResetButton></ResetButton>
 
-    <FactionStats></FactionStats>
+    <CorporationStats></CorporationStats>
   </>)
 }
 

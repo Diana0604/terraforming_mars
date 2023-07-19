@@ -4,7 +4,7 @@ import { RESOURCE_DATABASE_ROUTE } from "@/constants"
 import { useState } from "react"
 
 interface UpdateStatProp {
-  faction: string,
+  corporation: string,
   resource: string,
   quantity: number
 }
@@ -17,7 +17,7 @@ const UpdateResource = (props: UpdateStatProp) => {
   const onClick = async () => {
     try {
       setDisplayMessage("Adding resource to database")
-      const res = await fetch(RESOURCE_DATABASE_ROUTE, { method: "post", body: JSON.stringify({ quantity: quantity, faction: props.faction, resource: props.resource }) })
+      const res = await fetch(RESOURCE_DATABASE_ROUTE, { method: "post", body: JSON.stringify({ quantity: quantity, corporation: props.corporation, resource: props.resource }) })
       const message = await res.json();
       console.log(message.message)
       //reload to display new result in server component

@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const FactionSchema = new mongoose.Schema({
+const CorporationSchema = new mongoose.Schema({
   name: { type: String },
   resourcesOwned: [
     {
@@ -11,5 +11,5 @@ const FactionSchema = new mongoose.Schema({
   colonizedTiles: [{ type: Schema.Types.ObjectId, ref: "Tile" }],
 });
 
-export default mongoose.models.Faction ||
-  mongoose.model("Faction", FactionSchema);
+export default mongoose.models.Corporation ||
+  mongoose.model("Corporation", CorporationSchema);
