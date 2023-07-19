@@ -7,6 +7,7 @@ interface ResourceStatsProps {
 }
 
 const ResourceStats = (props: ResourceStatsProps) => {
+  <h4>Resources Stats</h4>
   return props.resourcesOwned.map((resource, index) => (
     <div key={index}>
       {resource.name}: {resource.quantity}
