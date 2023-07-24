@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { Coordinate } from "@/types";
 import styles from './page.module.css'
+import Stars from "./stars"
 
 //there's some weirdness with the image tag
 
@@ -67,6 +68,7 @@ const centerPositions:Coordinate[] = [];
     .attr("stroke","black")
     .attr("stroke-width",2)
     .attr("fill", "white")
+    .attr("filter", "drop-shadow(6px 10px 100px white)")
 }
 
 const Chart: React.FunctionComponent = () => {
@@ -79,9 +81,14 @@ const Chart: React.FunctionComponent = () => {
   return (
     <div className={styles.chart} id="chart">
       <svg ref={svg}>
+      <Stars/>
+      <ellipse  cx="500" cy="480" rx="680" ry="365" fill="rgb(60, 20, 20)"></ellipse>
       <image xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="bareMap.png" mask="url(#clip)" width="100vw" height="100%" x="-400" y="0" 
-    //   preserveAspectRatio="none"
+      preserveAspectRatio="none"
       > </image>
+
+      <filter id="mapFilter">
+      </filter>
       </svg>
       {/* xMinYMin meet */}
     </div>
