@@ -5,6 +5,8 @@ import * as d3 from "d3";
 import { Coordinate } from "@/types";
 import styles from './page.module.css'
 
+//there's some weirdness with the image tag
+
 function drawChart(svgRef: React.RefObject<SVGSVGElement>) {
 
 const h = "100%";
@@ -77,7 +79,9 @@ const Chart: React.FunctionComponent = () => {
   return (
     <div className={styles.chart} id="chart">
       <svg ref={svg}>
-      <image xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="bareMap.png" mask="url(#clip)" width="100vw" height="100%" x="0" y="0" preserveAspectRatio="none" > </image>
+      <image xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="bareMap.png" mask="url(#clip)" width="100vw" height="100%" x="-400" y="0" 
+    //   preserveAspectRatio="none"
+      > </image>
       </svg>
       {/* xMinYMin meet */}
     </div>
