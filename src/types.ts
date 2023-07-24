@@ -5,6 +5,11 @@ export type BuildingType = "Colony Hub" | "Rock Mine" | "Ice Mine" | "Factory" |
     "Launch Pad" | "Superconductor";
 export type ResourceName = "Rare Metal" | "Water" | "Oxygen" | "Food" | "Synthetics" | "Minerals";
 
+export type Coordinate = {
+    x: number;
+    y: number;
+}
+
 export type Corporation = {
     id: number;
     name: string;
