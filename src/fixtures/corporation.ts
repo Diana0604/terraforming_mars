@@ -14,7 +14,9 @@ const corporationFixtures: Corporation[] = [
   {
     _id: '1',
     name: "Actors",
-    resourcesOwned: [],
+    resourcesOwned: RESOURCES_LIST.map((value) => {
+      return { name: value, quantity: 100 };
+    }),
     //tilesOwned: [],
     buildingsOwned: [],
   },
