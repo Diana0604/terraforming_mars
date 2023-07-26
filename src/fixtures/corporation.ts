@@ -1,19 +1,22 @@
+import { RESOURCES_LIST } from "@/constants";
 import { Corporation } from "@/types";
 
 const corporationFixtures: Corporation[] = [
   {
     id: 0,
     name: "Player",
-    resourcesOwned: [],
+    resourcesOwned: RESOURCES_LIST.map((value) => {
+      return { name: value, quantity: 100 };
+    }),
     //tilesOwned: [],
-    buildingsOwned: []
+    buildingsOwned: [],
   },
   {
     id: 1,
     name: "Actors",
     resourcesOwned: [],
     //tilesOwned: [],
-    buildingsOwned: []
+    buildingsOwned: [],
   },
-]
+];
 export default corporationFixtures;

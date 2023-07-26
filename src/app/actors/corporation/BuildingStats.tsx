@@ -1,32 +1,48 @@
+//types
 import { Building, Tile } from "@/types"
-import Build from "./Build"
+import { ReactNode } from "react"
+
+//database
 import tileModel from "@/functions/database/models/tile.model"
-import corporationModel from "@/functions/database/models/corporation.model"
+
+//components
+import Build from "./Build"
 
 interface IBuildingStatsProps {
   buildingsOwned: Building[],
-  corporationName: string
+  corporationName: string,
+  corporationId: string
 }
 
+/**
+ * Display stats of all buildings owned by a specific corporation
+ */
 const BuildingStats = async (props: IBuildingStatsProps) => {
 
-  const corporation = await corporationModel.findOne({ name: props.corporationName })
+  //build list with children of all buildings owned
+  const buildingsOwnedDisplay : ReactNode[] = []
+  for (const index in props.buildingsOwned) {
+    //get building type and tile
+    const building = props.buildingsOwned[index]
+    const tile = await tileModel.findById(building.tile)
 
-  if (!corporation) throw Error("trying to access data from unknown corporation")
+    //react node object to display
+    const display = (<div key={index}>
+      <div style={{ fontWeight: "bold" }}>Type: {building.buildingType}</div>
+      <div>Tile: {`${tile.column}`}{tile.row}</div>
+    </div>)
+    buildingsOwnedDisplay.push(display)
+  }
 
-  const corporationId = corporation._id
-
-  const tilesCanBuild: Tile[] = await JSON.parse(JSON.stringify(await tileModel.find({ $or: [{ colonizedBy: corporationId }, { colonizedBy: null }] })))
+  //get the tiles that this company can build on
+  const tilesCanBuild: Tile[] = await JSON.parse(JSON.stringify(await tileModel.find({ $or: [{ colonizedBy: props.corporationId }, { colonizedBy: null }] })))
 
   return (<>
     <div>
-      {props.buildingsOwned.map((building, index) => (<div key={index}>
-        <div style={{ fontWeight: "bold" }}>Type: {building.buildingType}</div>
-        <div>Tile: {`${building.tile.column}${building.tile.row}`}</div>
-      </div>))
-      }
+      {buildingsOwnedDisplay}
     </div>
-    <Build tilesCanBuild={tilesCanBuild} />
+
+    <Build tilesCanBuild={tilesCanBuild} corporationName={props.corporationName} />
   </>)
 }
 

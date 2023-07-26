@@ -1,8 +1,12 @@
 import corporationModel from "@/functions/database/models/corporation.model";
 import { dbConnect } from "@/functions/database/database.server";
 import { NextRequest, NextResponse } from "next/server";
-import { Corporation } from "@/types";
-import { RESOURCES_LIST } from "@/constants";
+import { Corporation, Resource } from "@/types";
+import {
+  RESOURCES_LIST,
+  elementMissingFromBody,
+  invalidParameter,
+} from "@/constants";
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,23 +15,40 @@ export async function POST(request: NextRequest) {
 
     //check request contains appropriate body
     const body = await request.json();
-    if (!body.resource) return NextResponse.json({ message: "error" });
-    if (!body.quantity) return NextResponse.json({ message: "error" });
-    if (!body.corporation) return NextResponse.json({ message: "error" });
+    if (!body.resource)
+      return NextResponse.json(
+        { error: elementMissingFromBody("resource") },
+        { status: 400 }
+      );
+    if (!body.quantity)
+      return NextResponse.json(
+        { error: elementMissingFromBody("quantity") },
+        { status: 400 }
+      );
+    if (!body.corporation)
+      return NextResponse.json(
+        { error: elementMissingFromBody("corporation") },
+        { status: 400 }
+      );
 
-    //obtain params
+    //obtain params from body
     const quantity = Number(body.quantity);
     const resource = body.resource;
     if (RESOURCES_LIST.indexOf(resource) === -1)
-      return NextResponse.json({ message: "error" }); //resource name not valid
-    const corporation: Corporation | null = await corporationModel.findOne({
+      return NextResponse.json(
+        { error: invalidParameter(resource, "resource") },
+        { status: 400 }
+      );
+
+    //find corporation in database
+    const corporation = await corporationModel.findOne({
       name: body.corporation,
     });
-    if (!corporation) return NextResponse.json({ message: "error" }); //corporation doesn't exist
+    if (!corporation) return NextResponse.json({ message: "error" });
 
-    //update corporation
+    //update corporation's resources
     const resourceIndex = corporation.resourcesOwned.findIndex(
-      (value) => value.name === resource
+      (value: Resource) => value.name === resource
     );
     if (resourceIndex === -1) {
       corporation.resourcesOwned.push({ name: resource, quantity: quantity });
@@ -37,7 +58,7 @@ export async function POST(request: NextRequest) {
     }
 
     //save object in database
-    await corporationModel.findOneAndUpdate({ name: body.corporation }, corporation);
+    await corporation.save();
 
     //respond with success
     return NextResponse.json({

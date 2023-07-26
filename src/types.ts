@@ -11,11 +11,11 @@ export type Coordinate = {
 }
 
 export type Corporation = {
-    id: number;
+    _id?: string; //id in database
+    id: number; //do we need id?
     name: string;
     resourcesOwned: Resource[];
     buildingsOwned: Building[]
-    //tilesOwned: Tile[];
 }
 
 export type Resource = {

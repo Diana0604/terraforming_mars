@@ -1,4 +1,30 @@
-import { BuildingConstant, Resource } from "./types";
+import { BuildingConstant } from "./types";
+//============================ API CONSTANTS ====================
+//api variables
+export const DATABASE_ROUTE = "/api/database";
+export const RESET_DATABASE_ROUTE = `${DATABASE_ROUTE}/reset`;
+export const RESOURCE_DATABASE_ROUTE = `${DATABASE_ROUTE}/resource`;
+export const BUILD_DATABASE_ROUTE = `${DATABASE_ROUTE}/build`;
+
+//success messages
+export const DATABASE_SUCCESSFULLY_UPDATED =
+  "database has been successfully updated";
+
+//error messages
+export const elementNotFoundInDatabase = (element: string) =>
+  `${element} NOT FOUND in database`;
+export const elementMissingFromBody = (element: string) =>
+  `${element} MUST BE in body of request`;
+export const invalidParameter = (
+  parameterName: string,
+  parameterGiven: string
+) => `${parameterGiven} is not valid as a ${parameterName}`;
+export const CANNOT_BUILD_ERROR_MESSAGE =
+  "There are not enough resources for this building";
+export const TILE_ALREADY_COLONIZED =
+  "This tile has already been colonized by another team";
+
+//============================= GAME CONSTANTS ==========================
 
 //world variables
 export const MAP_COLUMNS: String[] = [
@@ -15,13 +41,6 @@ export const MAP_COLUMNS: String[] = [
   "K",
 ];
 export const MAP_ROWS: Number[] = [1, 2, 3, 4, 5];
-
-//api variables
-export const DATABASE_ROUTE = "/api/database";
-export const RESET_DATABASE_ROUTE = `${DATABASE_ROUTE}/reset`;
-export const RESOURCE_DATABASE_ROUTE = `${DATABASE_ROUTE}/resource`;
-
-//============================= GAME CONSTANTS ==========================
 
 //resources
 export const RARE_METAL_NAME = "Rare Metal";
@@ -55,23 +74,6 @@ export const HOSPITAL_NAME = "Hospital";
 export const SCIENCE_LAB_NAME = "Science Lab";
 export const LAUNCH_PAD_NAME = "Launch Pad";
 export const SUPERCONDUCTOR_NAME = "Superconductor";
-
-export const PRESET_BUILDINGS_LIST = [
-  COLONY_HUB_NAME,
-  ROCK_MINE_NAME,
-  ICE_MINE_NAME,
-  FACTORY_NAME,
-  BIOME_FARM_NAME,
-  TEMPLE_NAME,
-  BARRACKS_NAME,
-  THEATRE_NAME,
-  SCHOOL_NAME,
-  UNIVERSITY_NAME,
-  HOSPITAL_NAME,
-  SCIENCE_LAB_NAME,
-  LAUNCH_PAD_NAME,
-  SUPERCONDUCTOR_NAME,
-];
 
 export const COLONY_HUB: BuildingConstant = {
   buildingType: COLONY_HUB_NAME,
@@ -226,3 +228,20 @@ export const SUPERCONDUCTOR: BuildingConstant = {
   dailyProduction: [],
   dailyCost: [],
 };
+
+export const PRESET_BUILDINGS_LIST = [
+  COLONY_HUB,
+  ROCK_MINE,
+  ICE_MINE,
+  FACTORY,
+  BIOME_FARM,
+  TEMPLE,
+  BARRACKS,
+  THEATRE,
+  SCHOOL,
+  UNIVERSITY,
+  HOSPITAL,
+  SCIENCE_LAB,
+  LAUNCH_PAD,
+  SUPERCONDUCTOR,
+];
