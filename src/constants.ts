@@ -5,6 +5,8 @@ export const BASE_API_URL = "/api";
 export const RESET_DATABASE_ROUTE = `${BASE_API_URL}/reset`;
 export const RESOURCE_DATABASE_ROUTE = `${BASE_API_URL}/resource`;
 export const BUILD_DATABASE_ROUTE = `${BASE_API_URL}/build`;
+export const CORPORATION_ROUTE = `${BASE_API_URL}/corporation`;
+export const TILE_ROUTE = `${BASE_API_URL}/tile`;
 
 //success messages
 export const DATABASE_SUCCESSFULLY_UPDATED =
