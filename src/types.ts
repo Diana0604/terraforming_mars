@@ -11,8 +11,7 @@ export type Coordinate = {
 }
 
 export type Corporation = {
-    _id?: string; //id in database
-    id: number; //do we need id?
+    _id: string; //id in database
     name: string;
     resourcesOwned: Resource[];
     buildingsOwned: Building[]

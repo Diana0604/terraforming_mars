@@ -3,7 +3,7 @@ import { Corporation } from "@/types";
 
 const corporationFixtures: Corporation[] = [
   {
-    id: 0,
+    _id: '0',
     name: "Player",
     resourcesOwned: RESOURCES_LIST.map((value) => {
       return { name: value, quantity: 100 };
@@ -12,7 +12,7 @@ const corporationFixtures: Corporation[] = [
     buildingsOwned: [],
   },
   {
-    id: 1,
+    _id: '1',
     name: "Actors",
     resourcesOwned: [],
     //tilesOwned: [],

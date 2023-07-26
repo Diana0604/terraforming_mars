@@ -25,7 +25,6 @@ const CorporationStats = async () => {
 
   //build corporation stats for each corporation
   const items = corporationStats.map((corporation, index) => {
-    if(!corporation._id) throw Error("badly built corporation in database")
 
     //resourcesList displays all resources and allows updating
     const resourcesList = <ResourceStats resourcesOwned={corporation.resourcesOwned} corporationName={corporation.name} />
