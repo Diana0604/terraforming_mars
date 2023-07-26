@@ -1,4 +1,6 @@
+//types
 import { Resource } from "@/types"
+//components
 import UpdateResource from "./UpdateResource"
 
 interface ResourceStatsProps {
@@ -6,6 +8,9 @@ interface ResourceStatsProps {
   corporationName: string
 }
 
+/**
+ * Display list of resources and update form
+ */
 const ResourceStats = (props: ResourceStatsProps) => {
   <h4>Resources Stats</h4>
   return props.resourcesOwned.map((resource, index) => (

@@ -1,5 +1,8 @@
 "use client"
-import { useEffect, useState } from "react";
+//react hooks
+import { useState } from "react";
+
+//database routes constants
 import { RESET_DATABASE_ROUTE } from "@/constants";
 
 
@@ -12,14 +15,14 @@ const ResetButton = () => {
     setDisplayMessage("Resetting database")
 
     //reset database
-    try {
-      await fetch(RESET_DATABASE_ROUTE, { method: "post" })
-      //reload to display new result in server component
-      window.location.reload();
-    } catch (error: any) {
-      //if error display error
-      setDisplayMessage(error)
+    const res = await fetch(RESET_DATABASE_ROUTE, { method: "post" });
+    const data = await res.json()
+    if (data.error) {
+      setDisplayMessage(data.error)
+      return
     }
+    //reload to display new result in server component
+    window.location.reload();
 
   }
 

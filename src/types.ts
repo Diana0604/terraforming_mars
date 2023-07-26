@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export type MAP_COLUMNS =  "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K";
 export type MAP_ROWS = 1 | 2 | 3 | 4 | 5;
 export type BuildingType = "Colony Hub" | "Rock Mine" | "Ice Mine" | "Factory" | "Biome/Farm" | 
@@ -11,7 +13,7 @@ export type Coordinate = {
 }
 
 export type Corporation = {
-    _id: string; //id in database
+    _id: mongoose.Types.ObjectId; //id in database
     name: string;
     resourcesOwned: Resource[];
     buildingsOwned: Building[]

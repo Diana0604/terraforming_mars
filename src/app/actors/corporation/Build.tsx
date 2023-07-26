@@ -1,9 +1,15 @@
 "use client"
-
-import { useState } from "react"
-import { Card, Select, Button } from "antd"
-import { BUILD_DATABASE_ROUTE, PRESET_BUILDINGS_LIST } from "@/constants";
+//types
 import { Tile } from "@/types";
+
+//database routes
+import { BUILD_DATABASE_ROUTE, PRESET_BUILDINGS_LIST } from "@/constants";
+
+//react
+import { useState } from "react"
+
+//ant design
+import { Card, Select, Button } from "antd"
 
 interface BuildProps {
   tilesCanBuild: Tile[],
@@ -18,6 +24,9 @@ const Build = (props: BuildProps) => {
   //keep state of when building is in progress
   const [building, setBuilding] = useState<Boolean>(false)
   const [buildingButtonMessage, setBuildingButtonMessage] = useState<String>("Show Build Menu")
+
+  //error display message
+  const [errorDisplayMessage, setErrorDisplayMessage] = useState<String>()
 
   //save buildingType and tile desired to build
   const [buildingType, setBuildingType] = useState<String>()
@@ -52,11 +61,20 @@ const Build = (props: BuildProps) => {
 
   //onclickbuild event handler
   const onClickBuild = async () => {
-    const res = await fetch(BUILD_DATABASE_ROUTE, { method: "post", body: JSON.stringify({ buildingType: buildingType, corporation: props.corporationName, tile: tile }) })
-    const message = await res.json()
+    try {
+      const res = await fetch(BUILD_DATABASE_ROUTE, { method: "post", body: JSON.stringify({ buildingType: buildingType, corporation: props.corporationName, tile: tile }) })
+      const data = await res.json()
+      if (data.error) {
+        setErrorDisplayMessage(data.error)
+        setTimeout(() => setErrorDisplayMessage(undefined), 3000)
+        return
+      }
 
-    //reload to display new result in server component
-    window.location.reload();
+      //reload to display new result in server component
+      window.location.reload();
+    } catch (error) {
+      console.log('error', error)
+    }
   }
 
   return (<>
@@ -70,6 +88,7 @@ const Build = (props: BuildProps) => {
           <span style={{ width: "200px" }}>tile: </span> <Select showSearch onChange={setTile} style={{ width: "200px" }} options={tilesSelectOptions}></Select>
         </div>
         <Button onClick={onClickBuild} disabled={!buildingType && !tile}>Build</Button>
+        <div>{errorDisplayMessage}</div>
       </Card>)
     }
   </>)

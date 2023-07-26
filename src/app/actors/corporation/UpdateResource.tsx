@@ -20,16 +20,15 @@ const UpdateResource = (props: UpdateStatProp) => {
   const [quantity, setQuantity] = useState<number>(0)
 
   const onClick = async () => {
-    try {
-      setDisplayMessage("Adding resource to database")
-      const res = await fetch(RESOURCE_DATABASE_ROUTE, { method: "post", body: JSON.stringify({ quantity: quantity, corporation: props.corporation, resource: props.resource }) })
-      const message = await res.json();
-      //reload to display new result in server component
-      window.location.reload();
-    } catch (error: any) {
-      //if error display error
-      setDisplayMessage(error)
+    setDisplayMessage("Adding resource to database")
+    const res = await fetch(RESOURCE_DATABASE_ROUTE, { method: "post", body: JSON.stringify({ quantity: quantity, corporation: props.corporation, resource: props.resource }) })
+    const data = await res.json();
+    if (data.error) {
+      setDisplayMessage(data.error)
+      setTimeout(() => setDisplayMessage(undefined), 3000)
     }
+    //reload to display new result in server component
+    window.location.reload();
   }
 
   return (<div>
