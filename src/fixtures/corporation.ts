@@ -8,7 +8,6 @@ const corporationFixtures: Corporation[] = [
     resourcesOwned: RESOURCES_LIST.map((value) => {
       return { name: value, quantity: 100 };
     }),
-    //tilesOwned: [],
     buildingsOwned: [],
   },
   {
@@ -17,7 +16,6 @@ const corporationFixtures: Corporation[] = [
     resourcesOwned: RESOURCES_LIST.map((value) => {
       return { name: value, quantity: 100 };
     }),
-    //tilesOwned: [],
     buildingsOwned: [],
   },
 ];
