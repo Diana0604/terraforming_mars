@@ -3,12 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const TileSchema = new mongoose.Schema({
   row: { type: Number },
   column: { type: String },
-  resourcesAvailable: [
-    {
-      name: { type: String },
-      quantity: { type: String },
-    },
-  ],
+  resources: [String],
   colonizedBy: { type: Schema.Types.ObjectId, ref: "Corporation" },
 });
 
