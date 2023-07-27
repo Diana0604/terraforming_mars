@@ -1,10 +1,16 @@
 import tileFixtures from "../../fixtures/tiles";
 import tileModel from "./models/tile.model";
+import firstRound from "@/fixtures/round";
 import corporationModel from "./models/corporation.model";
 import corporationFixtures from "@/fixtures/corporation";
+import roundModel from "./models/round.model";
 import { RESOURCES_LIST } from "@/constants";
 
 export const seedDB = async () => {
+  //round reset
+  await roundModel.deleteMany();
+  await roundModel.create(firstRound);
+
   //tiles
   await tileModel.deleteMany();
   await tileModel.create(tileFixtures);

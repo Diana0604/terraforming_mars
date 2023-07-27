@@ -28,6 +28,9 @@ export const TILE_ALREADY_COLONIZED =
 
 //============================= GAME CONSTANTS ==========================
 
+//time management
+export const SECONDS_PER_ROUND = 60*10; //10 mins
+
 //world variables
 export const MAP_COLUMNS: String[] = [
   "A",

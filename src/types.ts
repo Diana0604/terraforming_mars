@@ -12,6 +12,11 @@ export type Coordinate = {
     y: number;
 }
 
+export type Round = {
+    number: number;
+    timeLeftInSeconds: number;
+}
+
 export type Corporation = {
     _id: mongoose.Types.ObjectId; //id in database
     name: string;
