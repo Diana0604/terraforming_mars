@@ -12,7 +12,7 @@ const Stars = () => {
     })
 
     return (
-        <g x="0" y="0" fill="white" stroke="none" preserveAspectRatio="none" filter="blur(2px)">
+        <g x="0" y="0" fill="white" stroke="none" preserveAspectRatio="none" filter="blur(1px) drop-shadow(2px 4px 10px white)">
             { positions.map(star => {
                 return <circle cx={star.x} cy={star.y} r={star.radius}/> 
             })}

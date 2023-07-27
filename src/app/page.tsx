@@ -1,7 +1,11 @@
+"use client"
 import Image from 'next/image'
 import styles from './page.module.css'
-import Chart from './chart';
+import Chart from './map/chart';
 import map from "./bareMap.png";
+import { useEffect } from 'react';
+import Timer from './map/timer';
+import InfoBar from './map/infoBar';
 
 
 export default function Home() {
@@ -9,7 +13,8 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {/* <Image className={styles.img} src={map}  alt="mars map"/> */}
+      <Timer/>
+      <InfoBar/>
       <Chart />
     </main>
   )
