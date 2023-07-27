@@ -30,7 +30,7 @@ const CorporationStats = async () => {
     const resourcesList = <ResourceStats resourcesOwned={corporation.resourcesOwned} corporationName={corporation.name} />
 
     //buuildingStats displays all buildings and allows building new ones where space empty / colonized by self
-    const buildingStats = <BuildingStats buildingsOwned={corporation.buildingsOwned} corporationName={corporation.name} corporationId={corporation._id} />
+    const buildingStats = <BuildingStats buildingsOwned={corporation.buildingsOwned} corporationName={corporation.name} corporationId={corporation._id.toString()} />
 
     //all displayed side by side
     const children = (<>
