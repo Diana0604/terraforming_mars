@@ -30,8 +30,8 @@ export const TILE_ALREADY_COLONIZED =
 //============================= GAME CONSTANTS ==========================
 
 //round management
-export const SECONDS_PER_ROUND = 60*10; //10 mins
-export const SECONDS_UPDATER_INTERVAL = 5; //5 seconds
+export const SECONDS_PER_ROUND = 10*60; //10 mins
+export const SECONDS_UPDATER_INTERVAL = 1; //1 second
 
 //round body possible params (how to do enums?)
 export const PLAY_GAME = 1

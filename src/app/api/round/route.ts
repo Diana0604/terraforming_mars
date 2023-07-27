@@ -17,7 +17,7 @@ export async function GET() {
   } catch (error) {
     //on error return error message
     return NextResponse.json({
-      message: `There was an error: ${error}`,
+      error: `There was an error: ${error}`,
     });
   }
 }
@@ -51,12 +51,13 @@ export async function POST(request: NextRequest) {
         );
       }
     }
+
     //return successfully
     return NextResponse.json(round);
   } catch (error) {
     //on error return error message
     return NextResponse.json({
-      message: `There was an error: ${error}`,
+      error: `There was an error: ${error}`,
     });
   }
 }

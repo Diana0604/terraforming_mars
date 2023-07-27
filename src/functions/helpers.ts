@@ -61,17 +61,21 @@ export const playGame = async () => {
 
   //check if we need to start a new round
   if (currentRound.timeLeftInSeconds < SECONDS_UPDATER_INTERVAL) {
+    if(currentRound.timeLeftInSeconds < 0) currentRound.timeLeftInSeconds = 0;
     currentRound.darkMode = false;
     currentRound.number = Number(currentRound.number) + 1;
     currentRound.timeLeftInSeconds = SECONDS_PER_ROUND;
-    currentRound.playing = true;
   }
+
+  currentRound.playing = true;
 
   //update database object
   await currentRound.save();
 
   //play if needs playing
   roundInterval = setInterval(roundUpdater, SECONDS_UPDATER_INTERVAL * 1000);
+
+  return currentRound;
 };
 
 export const pauseGame = async () => {
@@ -92,4 +96,6 @@ export const pauseGame = async () => {
 
   //save current round
   await currentRound.save();
+
+  return currentRound;
 };
