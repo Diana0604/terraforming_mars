@@ -1,5 +1,5 @@
 import ResetButton from "./ResetButton"
-import TurnManager from "./turns/TurnManager"
+import RoundManager from "./round/RoundManager"
 import CorporationStats from "./corporation/CorporationStats"
 
 /**
@@ -11,7 +11,7 @@ const ActorsPage = async () => {
 
     <ResetButton></ResetButton>
 
-    <TurnManager></TurnManager>
+    <RoundManager></RoundManager>
 
     <CorporationStats></CorporationStats>
   </>)

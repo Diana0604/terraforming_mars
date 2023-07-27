@@ -15,6 +15,8 @@ export type Coordinate = {
 export type Round = {
     number: number;
     timeLeftInSeconds: number;
+    playing: boolean;
+    darkMode: boolean;
 }
 
 export type Corporation = {

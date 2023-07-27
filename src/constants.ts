@@ -7,6 +7,7 @@ export const RESOURCE_DATABASE_ROUTE = `${BASE_API_URL}/resource`;
 export const BUILD_DATABASE_ROUTE = `${BASE_API_URL}/build`;
 export const CORPORATION_ROUTE = `${BASE_API_URL}/corporation`;
 export const TILE_ROUTE = `${BASE_API_URL}/tile`;
+export const ROUND_MANAGER_ROUTE = `${BASE_API_URL}/round`
 
 //success messages
 export const DATABASE_SUCCESSFULLY_UPDATED =
@@ -28,8 +29,13 @@ export const TILE_ALREADY_COLONIZED =
 
 //============================= GAME CONSTANTS ==========================
 
-//time management
+//round management
 export const SECONDS_PER_ROUND = 60*10; //10 mins
+export const SECONDS_UPDATER_INTERVAL = 5; //5 seconds
+
+//round body possible params (how to do enums?)
+export const PLAY_GAME = 1
+export const PAUSE_GAME = 2
 
 //world variables
 export const MAP_COLUMNS: String[] = [
