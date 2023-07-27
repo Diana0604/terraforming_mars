@@ -8,12 +8,7 @@ const CorporationSchema = new mongoose.Schema({
       quantity: { type: String },
     },
   ],
-  buildingsOwned: [
-    {
-      buildingType: { type: String },
-      tile: { type: Schema.Types.ObjectId, ref: "Tile" },
-    },
-  ],
+  buildingsOwned: [ {type: Schema.Types.ObjectId, ref: "Building"} ],
 });
 
 export default mongoose.models.Corporation ||

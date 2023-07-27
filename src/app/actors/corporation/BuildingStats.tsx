@@ -7,6 +7,7 @@ import tileModel from "@/functions/database/models/tile.model"
 
 //components
 import Build from "./Build"
+import buildingModel from "@/functions/database/models/building.model"
 
 interface IBuildingStatsProps {
   buildingsOwned: Building[],
@@ -23,7 +24,7 @@ const BuildingStats = async (props: IBuildingStatsProps) => {
   const buildingsOwnedDisplay : ReactNode[] = []
   for (const index in props.buildingsOwned) {
     //get building type and tile
-    const building = props.buildingsOwned[index]
+    const building = await buildingModel.findById(props.buildingsOwned[index])
     const tile = await tileModel.findById(building.tile)
 
     //react node object to display

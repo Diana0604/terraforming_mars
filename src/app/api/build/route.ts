@@ -18,6 +18,7 @@ import {
 
 //function helpers
 import { canBuild } from "@/functions/helpers";
+import buildingModel from "@/functions/database/models/building.model";
 
 export async function POST(request: NextRequest) {
   try {
@@ -83,6 +84,13 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
 
+    //create building
+    const buildingObject = await buildingModel.create({
+      ...building,
+      owner: corporation._id,
+      tile: tile._id,
+    });
+
     //update corporation resources
     for (const resourceNeeded of building.buildingCost) {
       for (const index in corporation.resourcesOwned) {
@@ -96,10 +104,7 @@ export async function POST(request: NextRequest) {
     }
 
     //add building to corporation list
-    corporation.buildingsOwned.push({
-      buildingType: body.buildingType,
-      tile: tile._id,
-    });
+    corporation.buildingsOwned.push(buildingObject._id);
 
     //save corporation object
     await corporation.save();
@@ -107,8 +112,10 @@ export async function POST(request: NextRequest) {
     //update colonization status for tile if necessary
     if (!tile.colonizedBy) {
       tile.colonizedBy = corporation._id;
-      await tile.save();
     }
+    tile.buildings.push(buildingObject._id);
+
+    await tile.save();
 
     //respond with success
     return NextResponse.json({
