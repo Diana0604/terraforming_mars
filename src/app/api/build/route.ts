@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
       column: body.tile[0],
       row: Number(body.tile[1]),
     };
-    const tile = await tileModel.findOne(tileParams);
+    const tile = await tileModel.findOne(tileParams).populate("buildings");
     if (!tile)
       return NextResponse.json(
         { message: elementNotFoundInDatabase("tile") },
@@ -86,6 +86,15 @@ export async function POST(request: NextRequest) {
         { message: TILE_ALREADY_COLONIZED },
         { status: 400 }
       );
+    }
+
+    //check building of this type does not yet exist
+    for (const building of tile.buildings) {
+      if (building.buildingType === body.buildingType)
+        return NextResponse.json(
+          { message: "Building of this type already exists in tile" },
+          { status: 400 }
+        );
     }
 
     //create building
