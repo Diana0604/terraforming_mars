@@ -23,7 +23,9 @@ export type Corporation = {
     _id: mongoose.Types.ObjectId; //id in database
     name: string;
     resourcesOwned: Resource[];
-    buildingsOwned: Building[]
+    buildingsOwned: Building[];
+    resourcesNextRound?: Resource[];
+    newBuildingsNextRound?: Building[];
 }
 
 export type Resource = {

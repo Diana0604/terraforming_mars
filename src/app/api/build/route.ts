@@ -71,18 +71,22 @@ export async function POST(request: NextRequest) {
     })[0];
 
     //check enough resources
-    if (!canBuild(corporation.resourcesOwned, building))
+    if (!canBuild(corporation.resourcesNextRound, building))
       return NextResponse.json(
         { error: CANNOT_BUILD_ERROR_MESSAGE },
         { status: 400 }
       );
 
     //check tile available
-    if (tile.colonizedBy && tile.colonizedBy != corporation._id)
+    if (
+      tile.colonizedBy &&
+      tile.colonizedBy.toString() != corporation._id.toString()
+    ) {
       return NextResponse.json(
         { message: TILE_ALREADY_COLONIZED },
         { status: 400 }
       );
+    }
 
     //create building
     const buildingObject = await buildingModel.create({
@@ -93,8 +97,8 @@ export async function POST(request: NextRequest) {
 
     //update corporation resources
     for (const resourceNeeded of building.buildingCost) {
-      for (const index in corporation.resourcesOwned) {
-        const corpResource = corporation.resourcesOwned[index];
+      for (const index in corporation.resourcesNextRound) {
+        const corpResource = corporation.resourcesNextRound[index];
         if (resourceNeeded.name === corpResource.name) {
           corpResource.quantity =
             Number(corpResource.quantity) - resourceNeeded.quantity;
@@ -104,7 +108,9 @@ export async function POST(request: NextRequest) {
     }
 
     //add building to corporation list
-    corporation.buildingsOwned.push(buildingObject._id);
+    if (!corporation.newBuildingsNextRound)
+      corporation.newBuildingsNextRound = [];
+    corporation.newBuildingsNextRound.push(buildingObject._id);
 
     //save corporation object
     await corporation.save();
@@ -113,7 +119,6 @@ export async function POST(request: NextRequest) {
     if (!tile.colonizedBy) {
       tile.colonizedBy = corporation._id;
     }
-    tile.buildings.push(buildingObject._id);
 
     await tile.save();
 
@@ -122,7 +127,6 @@ export async function POST(request: NextRequest) {
       message: DATABASE_SUCCESSFULLY_UPDATED,
     });
   } catch (error) {
-    console.log("error", error);
     return NextResponse.json({ message: error });
   }
 }

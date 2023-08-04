@@ -2,6 +2,10 @@ import { BuildingConstant, Resource, Round } from "@/types";
 import { dbConnect } from "./database/database.server";
 import roundModel from "./database/models/round.model";
 import { SECONDS_PER_ROUND, SECONDS_UPDATER_INTERVAL } from "@/constants";
+import corporationModel from "./database/models/corporation.model";
+import tileModel from "./database/models/tile.model";
+import buildingModel from "./database/models/building.model";
+import { Schema } from "mongoose";
 
 /**
  * Given a list of resources and a building to be built, check if there's enough resources to build it
@@ -46,6 +50,39 @@ const roundUpdater = async () => {
   }
 };
 
+const changeRound = async () => {
+  const corporations = await corporationModel.find();
+
+  corporations.forEach((corporation) => {
+    //get round by round updates
+    const resourcesNextRound = corporation.resourcesNextRound;
+    const newBuildingsNextRound = corporation.newBuildingsNextRound;
+
+    //update new round updates
+    corporation.resourcesOwned = resourcesNextRound;
+    corporation.buildingsOwned = corporation.buildingsOwned.concat(
+      newBuildingsNextRound
+    );
+
+    //update tiles
+    corporation.buildingsOwned.forEach(
+      async (buildingId: Schema.Types.ObjectId) => {
+        const building = await buildingModel.findById(buildingId);
+        const tile = await tileModel.findById(building.tile);
+        if (!tile.buildings) tile.bildings = [];
+        tile.buildings.push(building);
+        await tile.save();
+      }
+    );
+
+    //reset next round building updates
+    corporation.newBuildingsNextRound = [];
+
+    //save corporation
+    corporation.save();
+  });
+};
+
 export const playGame = async () => {
   //connect to db
   await dbConnect();
@@ -61,7 +98,7 @@ export const playGame = async () => {
 
   //check if we need to start a new round
   if (currentRound.timeLeftInSeconds < SECONDS_UPDATER_INTERVAL) {
-    if(currentRound.timeLeftInSeconds < 0) currentRound.timeLeftInSeconds = 0;
+    if (currentRound.timeLeftInSeconds < 0) currentRound.timeLeftInSeconds = 0;
     currentRound.darkMode = false;
     currentRound.number = Number(currentRound.number) + 1;
     currentRound.timeLeftInSeconds = SECONDS_PER_ROUND;
@@ -92,6 +129,7 @@ export const pauseGame = async () => {
   currentRound.playing = false;
   if (currentRound.timeLeftInSeconds < SECONDS_UPDATER_INTERVAL) {
     currentRound.darkMode = true;
+    changeRound();
   }
 
   //save current round

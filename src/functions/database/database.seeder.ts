@@ -32,6 +32,9 @@ export const seedDB = async () => {
       corporation.resourcesOwned.push({ name: resourceName, quantity: 0 });
     }
 
+    //set up resources next round
+    corporation.resourcesNextRound = corporation.resourcesOwned;
+
     //add empty buildings list
     corporation.buildingsOwned = [];
   }
