@@ -18,5 +18,5 @@ export async function GET(request: Request) {
   if (!corporation) return NextResponse.json({ error: "Corporation not found" }, { status: 500 })
 
 
-  return NextResponse.json({ corporation })
+  return NextResponse.json( corporation )
 }

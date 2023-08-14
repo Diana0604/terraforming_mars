@@ -80,16 +80,36 @@ const Build = (props: BuildProps) => {
   return (<>
     <Button onClick={toggleBuildMenu}>{buildingButtonMessage}</Button>
     {
-      building && (<Card>
-        <div>
-          <span style={{ width: "200px" }}>building: </span> <Select showSearch onChange={setBuildingType} style={{ width: "200px" }} options={buildingSelectOptions}></Select>
+      building && (
+        <div style={{display: "flex", }}>
+
+          <Card>
+            <h3>Add Building to Tile</h3>
+            <div>
+              <span style={{ width: "200px" }}>building: </span> <Select showSearch onChange={setBuildingType} style={{ width: "200px" }} options={buildingSelectOptions}></Select>
+            </div>
+            <div>
+              <span style={{ width: "200px" }}>tile: </span> <Select showSearch onChange={setTile} style={{ width: "200px" }} options={tilesSelectOptions}></Select>
+            </div>
+            <Button onClick={onClickBuild} disabled={!buildingType && !tile}>Build</Button>
+            <div>{errorDisplayMessage}</div>
+          </Card>
+          <Card>
+            <h3>Create New Building Type</h3>
+            <form>
+              <label htmlFor="building-name">Name</label>
+              <input name="building-name"/>
+              <div>Add Resource Requirement</div>
+              <ul>
+              </ul>
+              <div>Add Production</div>
+              <ul></ul>
+            </form>
+
+          </Card>
         </div>
-        <div>
-          <span style={{ width: "200px" }}>tile: </span> <Select showSearch onChange={setTile} style={{ width: "200px" }} options={tilesSelectOptions}></Select>
-        </div>
-        <Button onClick={onClickBuild} disabled={!buildingType && !tile}>Build</Button>
-        <div>{errorDisplayMessage}</div>
-      </Card>)
+
+      )
     }
   </>)
 }
