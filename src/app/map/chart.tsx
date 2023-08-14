@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 //@ts-ignore
 import * as d3 from "d3";
 import { Coordinate } from "@/types";
@@ -17,7 +17,7 @@ const Chart: React.FunctionComponent = () => {
   const tooltip = useRef(null)
   const [tileState, setTileState] = useState<Tile|null>(null);
 
-  const getTile = (d) => {
+  const getTile = (d: { column: number; row: any; }) => {
     let column;
     let returnData;
 
@@ -69,7 +69,7 @@ const Chart: React.FunctionComponent = () => {
     return returnData;
   }
 
-  function drawChart(svgRef: React.RefObject<SVGSVGElement>, tooltip) {
+  function drawChart(svgRef: React.RefObject<SVGSVGElement>, tooltip: MutableRefObject<null>) {
 
     const h = "100%";
     const w = "100%";
@@ -85,7 +85,7 @@ const Chart: React.FunctionComponent = () => {
     const columns = [1,2,3,4,5,4,5,4,3,2,1];
     
     //create a 1D array of positions
-    const centerPositions = [];
+    const centerPositions: { x: number; y: number; column: number; row: number; }[] = [];
     
         svg
         .attr("width", w)
@@ -126,8 +126,8 @@ const Chart: React.FunctionComponent = () => {
         .selectAll("polygon")
         .data(hexes)
         .join("polygon")
-        .attr("points", (d) => {
-          return d.map(point => {
+        .attr("points", (d: any[]) => {
+          return d.map((point: { x: any; y: any; }) => {
             return [point.x,point.y].join(",")
           }).join(" ")
         })
@@ -141,14 +141,14 @@ const Chart: React.FunctionComponent = () => {
         .selectAll("polygon")
         .data(hexes)
         .join("polygon")
-        .attr("points", (d) => {
-          return d.map(point => {
+        .attr("points", (d: any[]) => {
+          return d.map((point: { x: any; y: any; }) => {
             return [point.x,point.y].join(",")
           }).join(" ")
         })
         .attr("stroke","none")
         .attr("fill", "transparent")
-        .on("click", (event, d) => {
+        .on("click", (event: { clientY: string; clientX: string; }, d: { column: number; row: any; }[]) => {
           const tileData:Tile | void = getTile(d[0]);
           tooltipElement
             .style("top", event.clientY + "px")
@@ -191,8 +191,8 @@ const Chart: React.FunctionComponent = () => {
       <div id="tooltip" ref={tooltip} className={styles.tooltip}>
         <p>Row: {tileState?.row}</p>
         <p>Column: {tileState?.column}</p>
-        { tileState && tileState.resourcesAvailable?.map(resource => {
-          return <p>Resource: {resource}</p>
+        { tileState && tileState.resourcesAvailable?.map((resource, index) => {
+          return <p key={index}>Resource: {resource}</p>
         })}
         <p>Colonized By: {tileState?.colonizedBy?.name}</p>
         <svg style={{ position: "absolute", top: "5px", right: "5px"}} width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"

@@ -4,7 +4,7 @@ const RoundSchema = new mongoose.Schema({
   number: { type: Number },
   timeLeftInSeconds: { type: Number },
   playing: {type: Boolean},
-  darkMode: {type: Boolean}
+  darkHour: {type: Boolean}
 });
 
 export default mongoose.models.Round || mongoose.model("Round", RoundSchema);

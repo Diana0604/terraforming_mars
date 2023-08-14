@@ -99,7 +99,7 @@ export const playGame = async () => {
   //check if we need to start a new round
   if (currentRound.timeLeftInSeconds < SECONDS_UPDATER_INTERVAL) {
     if (currentRound.timeLeftInSeconds < 0) currentRound.timeLeftInSeconds = 0;
-    currentRound.darkMode = false;
+    currentRound.darkHour = false;
     currentRound.number = Number(currentRound.number) + 1;
     currentRound.timeLeftInSeconds = SECONDS_PER_ROUND;
   }
@@ -128,7 +128,7 @@ export const pauseGame = async () => {
   //check if we need to go into dark mode
   currentRound.playing = false;
   if (currentRound.timeLeftInSeconds < SECONDS_UPDATER_INTERVAL) {
-    currentRound.darkMode = true;
+    currentRound.darkHour = true;
     changeRound();
   }
 

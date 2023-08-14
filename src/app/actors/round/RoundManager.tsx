@@ -79,7 +79,7 @@ const TurnManager = () => {
           <div>CurrentRound: {round.number} </div>
           <div> Time Left In Seconds: {timeDisplay} </div>
           <div>Status: {round.playing ? "Playing" : "Paused"}</div>
-          <div>Dark Hour: {round.darkMode ? "Active" : "Inactive"}</div>
+          <div>Dark Hour: {round.darkHour ? "Active" : "Inactive"}</div>
         </div>
       )}
       <Button disabled={buttonsDisabled || playing} onClick={onClickPlay}>Play</Button>

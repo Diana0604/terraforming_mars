@@ -16,7 +16,7 @@ export type Round = {
     number: number;
     timeLeftInSeconds: number;
     playing: boolean;
-    darkMode: boolean;
+    darkHour: boolean;
 }
 
 export type Corporation = {
