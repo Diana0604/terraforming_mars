@@ -14,7 +14,7 @@ export type Coordinate = {
 
 export type Round = {
     number: number;
-    timeLeftInSeconds: number;
+    startTime?: Date,
     playing: boolean;
     darkHour: boolean;
 }

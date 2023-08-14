@@ -34,21 +34,7 @@ export const canBuild = (resources: Resource[], building: BuildingConstant) => {
   return true;
 };
 
-let roundInterval: NodeJS.Timer;
-
-const roundUpdater = async () => {
-  //get round
-  const currentRound = await roundModel.findOne();
-  //decrease 5 seconds
-  currentRound.timeLeftInSeconds =
-    Number(currentRound.timeLeftInSeconds) - SECONDS_UPDATER_INTERVAL;
-  await currentRound.save();
-
-  //pause round (dark hour reached)
-  if (currentRound.timeLeftInSeconds < SECONDS_UPDATER_INTERVAL) {
-    return await pauseGame();
-  }
-};
+let roundTimeout: NodeJS.Timer;
 
 const changeRound = async () => {
   const corporations = await corporationModel.find();
@@ -81,6 +67,16 @@ const changeRound = async () => {
     //save corporation
     corporation.save();
   });
+
+  //set round manager to next round
+  const round = await roundModel.findOne();
+
+  round.playing = false;
+  round.darkHour = true;
+  round.pausedAt = undefined;
+  round.number = round.number + 1;
+
+  await round.save();
 };
 
 export const playGame = async () => {
@@ -95,22 +91,37 @@ export const playGame = async () => {
 
   //check status
   if (currentRound.playing) return currentRound;
+  const now = new Date();
 
-  //check if we need to start a new round
-  if (currentRound.timeLeftInSeconds < SECONDS_UPDATER_INTERVAL) {
-    if (currentRound.timeLeftInSeconds < 0) currentRound.timeLeftInSeconds = 0;
+  //if it's start of round -> just start timer
+  if (currentRound.pausedAt === undefined) {
+    //set starting time
+    currentRound.startTime = new Date();
+    currentRound.playing = true;
     currentRound.darkHour = false;
-    currentRound.number = Number(currentRound.number) + 1;
-    currentRound.timeLeftInSeconds = SECONDS_PER_ROUND;
+
+    //set timeout to change round at end of turn
+    roundTimeout = setTimeout(changeRound, SECONDS_PER_ROUND * 1000);
+
+    //save round
+    await currentRound.save();
+
+    //return round
+    return currentRound;
   }
 
+  //get time ellapsed since paused
+  const timeEllapsed = now.getSeconds() - currentRound.pausedAt.getSeconds();
+
+  //create a new starting time according to when it needs to be
+  currentRound.startTime = new Date(new Date().getTime() - timeEllapsed * 1000);
   currentRound.playing = true;
+
+  //set timeout to change round at end of turn
+  setTimeout(changeRound, SECONDS_PER_ROUND - timeEllapsed);
 
   //update database object
   await currentRound.save();
-
-  //play if needs playing
-  roundInterval = setInterval(roundUpdater, SECONDS_UPDATER_INTERVAL * 1000);
 
   return currentRound;
 };
@@ -119,18 +130,17 @@ export const pauseGame = async () => {
   //connect to db
   await dbConnect();
 
-  //pause interval
-  clearInterval(roundInterval);
+  //clear timeout
+  clearTimeout(roundTimeout);
 
   //get current round
   const currentRound = await roundModel.findOne();
 
-  //check if we need to go into dark mode
+  //set playing to false
   currentRound.playing = false;
-  if (currentRound.timeLeftInSeconds < SECONDS_UPDATER_INTERVAL) {
-    currentRound.darkHour = true;
-    changeRound();
-  }
+
+  //set paused date as noew
+  currentRound.pausedAt = new Date();
 
   //save current round
   await currentRound.save();

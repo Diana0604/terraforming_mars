@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 
 const RoundSchema = new mongoose.Schema({
   number: { type: Number },
-  startTime: { type: Date },
   playing: {type: Boolean},
+  startTime: {type: Date},
+  pausedAt: {type: Date},
   darkHour: {type: Boolean}
 });
 
