@@ -240,7 +240,7 @@ export const SUPERCONDUCTOR: BuildingConstant = {
   dailyCost: [],
 };
 
-export const PRESET_BUILDINGS_LIST = [
+export let PRESET_BUILDINGS_LIST = [
   COLONY_HUB,
   ROCK_MINE,
   ICE_MINE,
