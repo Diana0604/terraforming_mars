@@ -36,7 +36,7 @@ export const canBuild = (resources: Resource[], building: BuildingConstant) => {
 
 let roundTimeout: NodeJS.Timer;
 
-const changeRound = async () => {
+const endOfRound = async () => {
   const corporations = await corporationModel.find();
 
   corporations.forEach((corporation) => {
@@ -74,10 +74,27 @@ const changeRound = async () => {
   round.playing = false;
   round.darkHour = true;
   round.pausedAt = undefined;
-  round.number = round.number + 1;
 
   await round.save();
 };
+
+const startNewRound = async (currentRound: { startTime: Date; playing: boolean; darkHour: boolean; number: number; save: () => any; }) => {
+  //set starting time
+  currentRound.startTime = new Date();
+  currentRound.playing = true;
+  currentRound.darkHour = false;
+  currentRound.number = currentRound.number + 1;
+
+  //set timeout to change round at end of turn
+  roundTimeout = setTimeout(endOfRound, SECONDS_PER_ROUND * 1000);
+
+  //save round
+  await currentRound.save();
+
+  //return round
+  return currentRound;
+
+}
 
 export const playGame = async () => {
   //connect to db
@@ -95,19 +112,7 @@ export const playGame = async () => {
 
   //if it's start of round -> just start timer
   if (currentRound.pausedAt === undefined) {
-    //set starting time
-    currentRound.startTime = new Date();
-    currentRound.playing = true;
-    currentRound.darkHour = false;
-
-    //set timeout to change round at end of turn
-    roundTimeout = setTimeout(changeRound, SECONDS_PER_ROUND * 1000);
-
-    //save round
-    await currentRound.save();
-
-    //return round
-    return currentRound;
+    return await startNewRound(currentRound);
   }
 
   //get time ellapsed since paused
@@ -118,7 +123,7 @@ export const playGame = async () => {
   currentRound.playing = true;
 
   //set timeout to change round at end of turn
-  setTimeout(changeRound, SECONDS_PER_ROUND - timeEllapsed);
+  setTimeout(endOfRound, SECONDS_PER_ROUND - timeEllapsed);
 
   //update database object
   await currentRound.save();
@@ -144,6 +149,5 @@ export const pauseGame = async () => {
 
   //save current round
   await currentRound.save();
-
   return currentRound;
 };

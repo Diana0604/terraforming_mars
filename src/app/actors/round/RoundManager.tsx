@@ -9,8 +9,6 @@ const TurnManager = () => {
   const [round, setRound] = useState<Round>()
 
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false)
-  const [playing, setPlaying] = useState<boolean>(false)
-  const [timeDisplay, setTimeDisplay] = useState<Date>()
   const [timeInterval, setTimeInterval] = useState<NodeJS.Timer>()
 
   useEffect(() => {
@@ -18,10 +16,9 @@ const TurnManager = () => {
     //get round and set state
     fetch(ROUND_MANAGER_ROUTE, { method: "get" }).then(async (response: Response) => {
       const data = await response.json();
-      setPlaying(data.playing)
       if (data.error) return //TO DO: set display message
+      if (data.startTime) data.startTime = new Date(data.startTime)
       setRound(data)
-      setTimeDisplay(new Date(data.startTime))
     })
 
   }, [])
@@ -36,9 +33,8 @@ const TurnManager = () => {
       const res = await fetch(ROUND_MANAGER_ROUTE, { method: "get" })
       const data = await res.json()
       if (!data.playing) {
+        if (data.startTime) data.startTime = new Date(data.startTime)
         setRound(data)
-        setPlaying(false)
-        setButtonsDisabled(false)
       }
     }, 5000)
     setTimeInterval(timeInt)
@@ -52,19 +48,19 @@ const TurnManager = () => {
     const res = await fetch(ROUND_MANAGER_ROUTE, { method: "post", body: JSON.stringify({ ask: PLAY_GAME }) })
     const data = await res.json();
     if (data.error) return; //TODO: set display message
-    setTimeDisplay(new Date(data.startTime))
-    setPlaying(true)
+    if (data.startTime) data.startTime = new Date(data.startTime)
+    setRound(data)
     setButtonsDisabled(false)
   }
 
 
   const onClickPause = async () => {
+    setButtonsDisabled(true)
     const res = await fetch(ROUND_MANAGER_ROUTE, { method: "post", body: JSON.stringify({ ask: PAUSE_GAME }) })
     const data = await res.json();
     if (data.error) return; //TODO: set display message
+    if (data.startTime) data.startTime = new Date(data.startTime)
     setRound(data)
-    //setTimeDisplay(data.timeLeftInSeconds)
-    setPlaying(false)
     setButtonsDisabled(false)
   }
 
@@ -75,13 +71,13 @@ const TurnManager = () => {
       {round && (
         <div>
           <div>CurrentRound: {round.number} </div>
-          <div> Round Started At: {timeDisplay ? `${timeDisplay.getHours()}:${timeDisplay.getMinutes()}:${timeDisplay?.getSeconds()}` : 'round not started'} </div>
+          <div> Round Started At: {(round && round.startTime) ? `${round.startTime.getHours()}:${round.startTime.getMinutes()}:${round.startTime.getSeconds()}` : 'round not started'} </div>
           <div>Status: {round.playing ? "Playing" : "Paused"}</div>
           <div>Dark Hour: {round.darkHour ? "Active" : "Inactive"}</div>
         </div>
       )}
-      <Button disabled={buttonsDisabled || playing} onClick={onClickPlay}>Play</Button>
-      <Button disabled={buttonsDisabled || !playing} onClick={onClickPause}>Pause</Button>
+      <Button disabled={buttonsDisabled || !round || (round.playing)} onClick={onClickPlay}>Play</Button>
+      <Button disabled={buttonsDisabled || !round || !(round.playing)} onClick={onClickPause}>Pause</Button>
     </Card>
   )
 
