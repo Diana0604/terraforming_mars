@@ -1,5 +1,5 @@
 const env =
-  process.env.NODE_ENV === "development"
+  process.env.NODE_ENV !== "production"
     ? {
         mongoUri: "mongodb://127.0.0.1:27017/terraforming-mars",
       }
