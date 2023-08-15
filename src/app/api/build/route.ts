@@ -66,6 +66,15 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
 
+    const buildingsOnTile = tile.buildings;
+    for (const building of buildingsOnTile) {
+      if (building.buildingType === body.buildingType)
+        return NextResponse.json(
+          { error: "Tile already has this building" },
+          { status: 400 }
+        );
+    }
+
     //obtain building
     const building = PRESET_BUILDINGS_LIST.filter((value) => {
       return value.buildingType === body.buildingType;
