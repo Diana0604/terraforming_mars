@@ -1,5 +1,12 @@
-import { dbConnect } from '@/functions/database/database.server'
+//necessary models that need efining
+
+//models
 import corporationModel from '@/functions/database/models/corporation.model'
+
+//database server
+import { dbConnect } from '@/functions/database/database.server'
+
+//next
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
