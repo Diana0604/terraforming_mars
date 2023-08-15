@@ -1,54 +1,53 @@
-//types
-import { Corporation } from "@/types";
+'use client'
+//constants
+import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/constants"
 
-//database
-import { dbConnect } from "@/functions/database/database.server"
-import corporationModel from "@/functions/database/models/corporation.model";
+//antd
+import { Col, Collapse, Row } from "antd";
 
-//ant design
-import { Col, Row, Collapse } from 'antd';
+//context
+import { CorporationsContextProvider } from "@/contexts/CorporationsContexts";
 
 //components
 import ResourceStats from "./ResourceStats";
 import BuildingStats from "./BuildingStats";
 
+
 /**
  * Stats display of all playing corporations
  */
-const CorporationStats = async () => {
+const CorporationStats = () => {
 
-  //make sure database is connected
-  await dbConnect();
+  //build children elements for each collapsible in the collapse
+  const buildChildren = (corporationName: string) => (<>
+    <Row>
+      <Col span={12}>
+        <ResourceStats corporationName={corporationName} />
+      </Col>
+      <Col span={12}>
+        <BuildingStats corporationName={corporationName} />
+      </Col>
+    </Row>
+  </>)
 
-  //find all corporations in the database
-  const corporationStats: Corporation[] = await corporationModel.find()
-
-  //build corporation stats for each corporation
-  const items = corporationStats.map((corporation, index) => {
-
-    //resourcesList displays all resources and allows updating
-    const resourcesList = <ResourceStats resourcesOwned={corporation.resourcesOwned} corporationName={corporation.name} />
-
-    //buuildingStats displays all buildings and allows building new ones where space empty / colonized by self
-    const buildingStats = <BuildingStats buildingsOwned={corporation.buildingsOwned} corporationName={corporation.name} corporationId={corporation._id.toString()} />
-
-    //all displayed side by side
-    const children = (<>
-      <Row>
-        <Col span={12}>{resourcesList}</Col>
-        <Col span={12}>{buildingStats}</Col>
-      </Row>
-    </>)
-
-    //return object ready for antdesign Collapse object to read
-    return { key: index, label: corporation.name, children: children }
-  })
-
+  //build items array for Collapse
+  const items = [
+    {
+      key: 0,
+      label: PLAYER_CORPORATION_NAME,
+      children: buildChildren(PLAYER_CORPORATION_NAME)
+    },
+    {
+      key: 1,
+      label: ACTORS_CORPORATION_NAME,
+      children: buildChildren(ACTORS_CORPORATION_NAME)
+    }
+  ]
 
   return (<>
-    <h3 style={{ marginTop: '10px' }}>Corporation Stats</h3>
-
-    <Collapse items={items} defaultActiveKey={[0, 1]} />
+    <CorporationsContextProvider>
+      <Collapse items={items} defaultActiveKey={[0, 1]} />
+    </CorporationsContextProvider>
   </>)
 }
 

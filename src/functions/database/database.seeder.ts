@@ -13,7 +13,7 @@ export const seedDB = async () => {
 
   //tiles
   await tileModel.deleteMany();
-  await tileModel.create(tileFixtures);
+  const newTiles = await tileModel.create(tileFixtures);
 
   //corporations
 
@@ -37,6 +37,13 @@ export const seedDB = async () => {
 
     //add empty buildings list
     corporation.buildingsOwned = [];
+
+    //add tilesCanBuild as all tiles
+    corporation.tilesCanBuild = [];
+
+    for (const tile of newTiles) {
+      corporation.tilesCanBuild.push(tile._id);
+    }
   }
   //add to db
   await corporationModel.deleteMany();

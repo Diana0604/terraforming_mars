@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 import styles from "../page.module.css"
 import { Resource, Corporation } from "@/types";
+import { PLAYER_CORPORATION_NAME } from "@/constants";
 
 const InfoBar = () => {
 
-    const myCorporation = "Player"
+    const myCorporation = PLAYER_CORPORATION_NAME
     const [resources, setResources] = useState<Resource[]>();
 
     useEffect(() => {
