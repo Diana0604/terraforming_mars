@@ -29,6 +29,10 @@ export const TILE_ALREADY_COLONIZED =
 
 //============================= GAME CONSTANTS ==========================
 
+//names of corporations
+export const PLAYER_CORPORATION_NAME = "Player"
+export const ACTORS_CORPORATION_NAME = "Actors"
+
 //round management
 export const SECONDS_PER_ROUND = 10*60; //10 mins
 

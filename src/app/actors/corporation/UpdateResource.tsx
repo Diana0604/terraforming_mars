@@ -3,7 +3,7 @@
 import { RESOURCE_DATABASE_ROUTE } from "@/constants"
 
 //react hooks
-import { useState } from "react"
+import {useState } from "react"
 
 interface UpdateStatProp {
   corporation: string,
@@ -25,14 +25,15 @@ const UpdateResource = (props: UpdateStatProp) => {
     const data = await res.json();
     if (data.error) {
       setDisplayMessage(data.error)
-      setTimeout(() => setDisplayMessage(undefined), 3000)
     }
-    //reload to display new result in server component
-    window.location.reload();
+    setTimeout(() => {
+      setQuantity(0)
+      setDisplayMessage(undefined)
+    }, 3000)
   }
 
   return (<div>
-    Add / Remove resources (can take negative numbers): <input type="number" onChange={(event) => { setQuantity(Number(event.target.value)) }}></input>
+    Add / Remove {props.resource}: <input type="number" value={quantity || 0} onChange={(event) => { setQuantity(Number(event.target.value)) }}></input>
     <button onClick={onClick}>Add</button>
     {displayMessage ? displayMessage : <></>}
   </div>)

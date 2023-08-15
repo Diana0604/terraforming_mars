@@ -21,8 +21,6 @@ const ResetButton = () => {
       setDisplayMessage(data.error)
       return
     }
-    //reload to display new result in server component
-    window.location.reload();
 
   }
 

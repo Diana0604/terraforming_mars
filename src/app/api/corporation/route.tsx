@@ -6,8 +6,18 @@ export async function GET(request: Request) {
   const id = searchParams.get('id')
   const name = searchParams.get('name')
 
-  if (!id && !name) return NextResponse.json({ error: "At least property id or name is needed in params" }, { status: 400 })
+  //return all corporations
+  if (!id && !name) {
+    const corporations = await corporationModel.find().populate('buildingsOwned').populate('tilesCanBuild')
+    for (const corporation of corporations) {
+      for (const building of corporation.buildingsOwned) {
+        await building.populate('tile')
+      }
+    }
+    return NextResponse.json({ corporations: corporations })
+  }
 
+  //if only one corporation asked for return single corporation
   let corporation;
 
   if (id) {
@@ -18,5 +28,5 @@ export async function GET(request: Request) {
   if (!corporation) return NextResponse.json({ error: "Corporation not found" }, { status: 500 })
 
 
-  return NextResponse.json( corporation )
+  return NextResponse.json(corporation)
 }

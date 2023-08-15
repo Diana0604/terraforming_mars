@@ -19,6 +19,7 @@ import {
 //function helpers
 import { canBuild } from "@/functions/helpers";
 import buildingModel from "@/functions/database/models/building.model";
+import { Tile } from "@/types";
 
 export async function POST(request: NextRequest) {
   try {
@@ -130,6 +131,20 @@ export async function POST(request: NextRequest) {
     }
 
     await tile.save();
+
+    //remove tile from other corporations
+    const otherCorps = await corporationModel.find();
+    for (const otherCorp of otherCorps) {
+      if (otherCorp.name === corporation.name) continue;
+      const tileIndex = otherCorp.tilesCanBuild.filter((otherTile: Tile) => {
+        return (
+          otherTile._id && otherTile._id.toString() === tile._id.toString()
+        );
+      });
+      if (tileIndex.length === 0) break;
+      otherCorp.tilesCanBuild.splice(tileIndex, 1);
+      await otherCorp.save();
+    }
 
     //respond with success
     return NextResponse.json({

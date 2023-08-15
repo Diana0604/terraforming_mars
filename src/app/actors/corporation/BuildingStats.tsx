@@ -1,50 +1,53 @@
-//types
-import { Building, Tile } from "@/types"
-import { ReactNode } from "react"
+"use client"
+//constants
+import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/constants"
 
-//database
-import tileModel from "@/functions/database/models/tile.model"
+//types
+import { Corporation, Tile } from "@/types"
+import { useContext } from "react"
+
+//contexts
+import { CorporationsContext } from "@/contexts/CorporationsContexts"
 
 //components
 import Build from "./Build"
-import buildingModel from "@/functions/database/models/building.model"
 
 interface IBuildingStatsProps {
-  buildingsOwned: Building[],
+
   corporationName: string,
-  corporationId: string
 }
 
 /**
  * Display stats of all buildings owned by a specific corporation
  */
-const BuildingStats = async (props: IBuildingStatsProps) => {
+const BuildingStats = (props: IBuildingStatsProps) => {
 
-  //build list with children of all buildings owned
-  const buildingsOwnedDisplay : ReactNode[] = []
-  for (const index in props.buildingsOwned) {
-    //get building type and tile
-    const building = await buildingModel.findById(props.buildingsOwned[index])
-    const tile = await tileModel.findById(building.tile)
+  const { playerCorporation, actorsCorporation } = useContext(CorporationsContext)
 
-    //react node object to display
-    const display = (<div key={index}>
-      <div style={{ fontWeight: "bold" }}>Type: {building.buildingType}</div>
-      <div>Tile: {`${tile.column}`}{tile.row}</div>
-    </div>)
-    buildingsOwnedDisplay.push(display)
+  //setup the display for each corporation
+  const setupCorportaion = (corporation: Corporation) => {
+    return <div>
+      {
+        corporation.buildingsOwned.map((building, index) => (
+          <div key={index}>
+            <div style={{ fontWeight: "bold" }}>Type: {building.buildingType}</div>
+            <div>Tile: {`${building.tile.column}`}{building.tile.row}</div>
+          </div>
+        ))
+      }
+      < Build tilesCanBuild={corporation.tilesCanBuild as Tile[]} corporationName={corporation.name}></Build>
+    </div >
   }
 
-  //get the tiles that this company can build on
-  const tilesCanBuild: Tile[] = await JSON.parse(JSON.stringify(await tileModel.find({ $or: [{ colonizedBy: props.corporationId }, { colonizedBy: null }] })))
+  //call setupCorporation depending on corporation name
+  if (props.corporationName === PLAYER_CORPORATION_NAME) {
+    return setupCorportaion(playerCorporation)
+  }
+  if (props.corporationName === ACTORS_CORPORATION_NAME) {
+    return setupCorportaion(actorsCorporation)
+  }
 
-  return (<>
-    <div>
-      {buildingsOwnedDisplay}
-    </div>
-
-    <Build tilesCanBuild={tilesCanBuild} corporationName={props.corporationName} />
-  </>)
+  return <>Unknown Corporation</>
 }
 
 export default BuildingStats
