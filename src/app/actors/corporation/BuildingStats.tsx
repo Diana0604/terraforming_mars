@@ -27,8 +27,19 @@ const BuildingStats = (props: IBuildingStatsProps) => {
   //setup the display for each corporation
   const setupCorportaion = (corporation: Corporation) => {
     return <div>
+      Buildings currently owned by this corporation:
       {
         corporation.buildingsOwned.map((building, index) => (
+          <div key={index}>
+            <div style={{ fontWeight: "bold" }}>Type: {building.buildingType}</div>
+            <div>Tile: {`${building.tile.column}`}{building.tile.row}</div>
+          </div>
+        ))
+      }
+
+      Buildings that will be built in the next round:
+      {
+        corporation.newBuildingsNextRound?.map((building, index) => (
           <div key={index}>
             <div style={{ fontWeight: "bold" }}>Type: {building.buildingType}</div>
             <div>Tile: {`${building.tile.column}`}{building.tile.row}</div>
