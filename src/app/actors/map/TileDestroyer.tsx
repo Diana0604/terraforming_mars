@@ -36,6 +36,7 @@ const TileDestroyer = () => {
 
   return (<div>
     Destroy Tile:
+    <div>NOTE TO DANNY: Tiles can be destroyed and this is reflected on the database (corps cannot build anymore) but not on the map</div>
     <Select showSearch onChange={setTile} style={{ width: "200px" }} options={tileSelectOptions}></Select>
     <Button disabled={!tile} onClick={onDestroyTile}>Destroy</Button>
   </div>)

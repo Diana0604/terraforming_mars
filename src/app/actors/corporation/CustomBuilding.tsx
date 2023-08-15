@@ -165,6 +165,7 @@ const CustomBuilding = () => {
 
     return(
         <Card>
+        <div>NOTE TO DANNY: The custom building menu is a work in progress so nothing will change in the database but you can play with it</div>
         <h3>Create New Building Type</h3>
         <div style={{display: "flex", flexDirection: "column", width: "40%"}}>
             <div style={{height: "40px"}}>
