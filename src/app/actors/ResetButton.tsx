@@ -22,6 +22,8 @@ const ResetButton = () => {
       return
     }
 
+    //reload window
+    window.location.reload()
   }
 
   return (
