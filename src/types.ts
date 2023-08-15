@@ -55,7 +55,7 @@ export type Corporation = {
   buildingsOwned: Building[];
   resourcesNextRound?: Resource[];
   newBuildingsNextRound?: Building[];
-  tilesCanBuild: Tile[] | mongoose.Types.ObjectId[];
+  tilesCanBuild: Tile[];
 };
 
 export type Resource = {
@@ -68,7 +68,7 @@ export type Tile = {
   column: MAP_COLUMNS;
   row: MAP_ROWS;
   resourcesAvailable: ResourceName[];
-  colonizedBy?: Corporation | mongoose.Types.ObjectId;
+  colonizedBy?: Corporation;
 };
 
 export type Building = {
