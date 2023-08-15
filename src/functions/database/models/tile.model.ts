@@ -6,6 +6,7 @@ const TileSchema = new mongoose.Schema({
   resources: [String],
   colonizedBy: { type: Schema.Types.ObjectId, ref: "Corporation" },
   buildings: [{ type: Schema.Types.ObjectId, ref: "Building" }],
+  destroyed: Boolean
 });
 
 export default mongoose.models.Tile || mongoose.model("Tile", TileSchema);

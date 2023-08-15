@@ -68,6 +68,7 @@ export type Tile = {
   column: MAP_COLUMNS;
   row: MAP_ROWS;
   resourcesAvailable: ResourceName[];
+  destroyed: boolean;
   colonizedBy?: Corporation;
 };
 
