@@ -14,6 +14,7 @@ import {
   CANNOT_BUILD_ERROR_MESSAGE,
   TILE_ALREADY_COLONIZED,
   DATABASE_SUCCESSFULLY_UPDATED,
+  COLONY_HUB_NAME,
 } from "@/constants";
 
 //function helpers
@@ -65,6 +66,23 @@ export async function POST(request: NextRequest) {
         { message: elementNotFoundInDatabase("tile") },
         { status: 500 }
       );
+
+    const buildingsOnTile = tile.buildings;
+    //check colony hub in tile
+    if (buildingsOnTile.length === 0 && body.buildingType != COLONY_HUB_NAME)
+      return NextResponse.json(
+        { error: "First building of a tile must be Colony Hub" },
+        { status: 400 }
+      );
+
+    //check buliding of this type not present in tile
+    for (const building of buildingsOnTile) {
+      if (building.buildingType === body.buildingType)
+        return NextResponse.json(
+          { error: "Tile already has this building" },
+          { status: 400 }
+        );
+    }
 
     //obtain building
     const building = PRESET_BUILDINGS_LIST.filter((value) => {
