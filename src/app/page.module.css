@@ -79,7 +79,12 @@
   font-family: "Vangba-Regular"
 }
 
-
+.icons {
+  width: 40px;
+  height: 40px;
+  overflow: none;
+  padding: 5px;
+}
 
 /* html, body, * { 
   margin: 0; 

@@ -2,20 +2,28 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 //@ts-ignore
 import * as d3 from "d3";
-import { Coordinate } from "@/types";
+import { Coordinate, Round } from "@/types";
 import styles from '../page.module.css'
 import Stars from "./stars"
 import { Tile } from "../../types"
-
-//there's some weirdness with the image tag
-
-
-
 
 const Chart: React.FunctionComponent = () => {
   const svg = useRef<SVGSVGElement>(null);
   const tooltip = useRef(null)
   const [tileState, setTileState] = useState<Tile|null>(null);
+  const [darkHour, setDarkHour] = useState<boolean>(false);
+
+  useEffect(() => {
+    const initRound:Promise<Round> = fetch("/api/round").then(res => res.json())
+    initRound.then(data => setDarkHour(data.darkHour))
+  }, [])
+
+  const handleKeyDown = (e:any) => {
+    console.log(e.key)
+    //  if(e.code == " ")
+
+
+  }
 
   const getTile = (d: { column: number; row: any; }) => {
     let column;
@@ -69,7 +77,7 @@ const Chart: React.FunctionComponent = () => {
     return returnData;
   }
 
-  function drawChart(svgRef: React.RefObject<SVGSVGElement>, tooltip: MutableRefObject<null>) {
+  function drawChart(svgRef: React.RefObject<SVGSVGElement>, tooltip: MutableRefObject<null>, darkHour:boolean) {
 
     const h = "100%";
     const w = "100%";
@@ -94,9 +102,6 @@ const Chart: React.FunctionComponent = () => {
         .style("margin-top", 0)
         .style("margin-left", 0);
     
-    
-    
-    
         columns.map((column, n) => { 
             for(let i = 0; i<column; i++) {     
               centerPositions.push({
@@ -118,11 +123,14 @@ const Chart: React.FunctionComponent = () => {
             }
           })
         })
+
+        //clear existing maps
+        svg.selectAll("g.hexes").remove()
+        svg.selectAll("mask").remove()
     
         svg
         .append("mask")       // define a clip path
         .attr("id", "clip")
-        // .enter()
         .selectAll("polygon")
         .data(hexes)
         .join("polygon")
@@ -133,11 +141,12 @@ const Chart: React.FunctionComponent = () => {
         })
         .attr("stroke","black")
         .attr("stroke-width",2)
-        .attr("fill", "white")
+        .attr("fill", () => darkHour ? "red" : "white")
         .attr("filter", "drop-shadow(6px 10px 100px white)")
 
         svg
         .append("g")
+        .attr("class", "hexes")
         .selectAll("polygon")
         .data(hexes)
         .join("polygon")
@@ -154,23 +163,12 @@ const Chart: React.FunctionComponent = () => {
             .style("top", event.clientY + "px")
             .style("left", event.clientX + "px")
             .style("visibility", "visible")
-
         })
-
-
-
-
-          // .on('click', (e) => {
-          //   return tooltipElement.style("top", e.mouseY)
-          //     .style("left", e.mouseX)
-          // })
-
-
     }
 
   useEffect(() => {
-    drawChart(svg, tooltip);
-  }, [svg, tooltip]);
+    drawChart(svg, tooltip, darkHour);
+  }, [svg, tooltip, darkHour]);
 
   const closeTooltip = () => {
     d3.select(tooltip.current)
@@ -179,8 +177,9 @@ const Chart: React.FunctionComponent = () => {
 
 
   return (
-    <div className={styles.chart} id="chart">
-      <svg ref={svg}>
+    <div className={styles.chart} id="chart" >
+      <button onClick={() => setDarkHour(!darkHour)}>Dark Hour</button>
+      <svg ref={svg} >
         <Stars/>
         <ellipse  cx="500" cy="480" rx="680" ry="365" fill="rgb(60, 20, 20)"></ellipse>
         <image xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="bareMap.png" mask="url(#clip)" width="100vw" height="100%" x="-400" y="0"
