@@ -18,12 +18,35 @@ const InfoBar = () => {
 
     }, [])
 
+    const switchIcons = (name:string) => {
+        switch(name) {
+            case "Rare Metal":
+                return <img className={styles.icons} src="/icons/gold.png"/>;
+            case "Water":
+                return <img className={styles.icons} src="/icons/waterdrop.png"/>;
+            case "Oxygen":
+                return <img className={styles.icons} src="/icons/oxygen-tank.png"/>;
+            case "Food":
+                return <img className={styles.icons} src="/icons/fork.png"/>;
+            case "Synthetics":
+                return <img className={styles.icons} src="/icons/plastic-bottle.png"/>;
+            case "Minerals":
+                return <img className={styles.icons} src="/icons/rock.png"/>;
+            default:
+                return <img className={styles.icons} src="/icons/fork.png"/>;
+        
+        }
+    }
+
     return (
         <div className={styles.infoBar}>
             <p>Corporation: {myCorporation}</p>
             { resources && resources.map((resource, index) => {
-                return <div key={index}>
-                   <p>{resource.name}</p> 
+                return <div key={index} style={{padding: "5px"}}>
+                   <div style={{width: "30px"}}>
+                    {switchIcons(resource.name)}
+                   </div>
+                   {/* <p>{resource.name}</p>  */}
                    <p>{resource.quantity}</p> 
                     </div>
             })}

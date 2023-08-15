@@ -1,12 +1,12 @@
 "use client"
 //types
-import { Resource, Tile } from "@/types";
+import { Tile } from "@/types";
 
 //database routes
-import { BUILD_DATABASE_ROUTE, PRESET_BUILDINGS_LIST, RESOURCES_LIST } from "@/constants";
+import { BUILD_DATABASE_ROUTE, PRESET_BUILDINGS_LIST } from "@/constants";
 
 //react
-import { useRef, useState } from "react"
+import { useState } from "react"
 
 //ant design
 import { Card, Select, Button } from "antd"
@@ -32,12 +32,7 @@ const Build = (props: BuildProps) => {
   const [buildingType, setBuildingType] = useState<String>()
   const [tile, setTile] = useState<String>()
 
-  //refs
-  const resourceRequirementListElement = useRef<HTMLUListElement>(null);
-  const productionResourceListElement = useRef<HTMLUListElement>(null);
 
-  const [resourceRequirementList, setResourceRequirementList] = useState<Resource[]>([])
-  const [productionResourceList, setProductionResourceList] = useState<Resource[]>([])
 
   //create list for building type choosing select
   const buildingSelectOptions = PRESET_BUILDINGS_LIST.map((value) => {
@@ -55,12 +50,7 @@ const Build = (props: BuildProps) => {
     }
   })
 
-  const resourceListOptions = RESOURCES_LIST.map(resource => {
-    return {
-      value: resource,
-      label: resource
-    }
-  })
+
 
   //toggle build menu event handler
   const toggleBuildMenu = async () => {
@@ -71,32 +61,6 @@ const Build = (props: BuildProps) => {
       setBuildingButtonMessage("Hide Build Menu")
     }
     setBuilding(!building)
-  }
-
-  const setResource = () => {
-
-  }
-
-  const addResourceRequirement = () => {
-    const resource:Resource = {
-      name: "",
-      quantity: 0
-    }
-    setResourceRequirementList([...resourceRequirementList, resource])
-  }
-
-  const addProductionResource = () => {
-    const resource:Resource = {
-      name: "",
-      quantity: 0
-    }
-    setProductionResourceList([...productionResourceList, resource])
-  }
-
-  const updateResourceRequirementList = () => {
-    resourceRequirementList.map(resource => {
-
-    })
   }
 
   //onclickbuild event handler
@@ -114,17 +78,12 @@ const Build = (props: BuildProps) => {
     }
   }
 
-  const createBuilding = () => {
 
-    //create building constant and add it to preset buildings li
-  }
 
   return (<>
     <Button onClick={toggleBuildMenu}>{buildingButtonMessage}</Button>
     {
       building && (
-        <div style={{display: "flex", }}>
-
           <Card>
             <h3>Add Building to Tile</h3>
             <div>
@@ -136,29 +95,6 @@ const Build = (props: BuildProps) => {
             <Button onClick={onClickBuild} disabled={!buildingType && !tile}>Build</Button>
             <div>{errorDisplayMessage}</div>
           </Card>
-          <Card>
-            <h3>Create New Building Type</h3>
-            <form>
-              <label htmlFor="building-name">Building Type</label>
-              <input name="building-name"/>
-              <Button onClick={addResourceRequirement}>Add Resource Requirement</Button>
-              <ul ref={resourceRequirementListElement}>
-                { resourceRequirementList.length > 0 && resourceRequirementList.map((resource) => {
-                  return (<li key={Math.random()}>
-                    <Select showSearch options={resourceListOptions}></Select>
-                    <label>{resource.name}</label>
-                    <input type="number"></input>
-                  </li>)
-                })}
-              </ul>
-              <Button onClick={addProductionResource}>Add Production Resource</Button>
-              <ul ref={productionResourceListElement}></ul>
-              <Button onClick={createBuilding} disabled>Create Building</Button>
-            </form>
-
-          </Card>
-        </div>
-
       )
     }
   </>)
