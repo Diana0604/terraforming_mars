@@ -4,7 +4,7 @@ export type MAP_COLUMNS =  "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" |
 export type MAP_ROWS = 1 | 2 | 3 | 4 | 5;
 export type BuildingType = "Colony Hub" | "Rock Mine" | "Ice Mine" | "Factory" | "Biome/Farm" | 
     "Temple" | "Barracks" | "Theatre" | "School" | "University" | "Hospital" | "Science Lab" | 
-    "Launch Pad" | "Superconductor";
+    "Launch Pad" | "Superconductor" | string;
 export type ResourceName = "Rare Metal" | "Water" | "Oxygen" | "Food" | "Synthetics" | "Minerals";
 
 export type Coordinate = {
