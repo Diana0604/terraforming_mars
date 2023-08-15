@@ -109,9 +109,6 @@ const Build = (props: BuildProps) => {
         setTimeout(() => setErrorDisplayMessage(undefined), 3000)
         return
       }
-
-      //reload to display new result in server component
-      window.location.reload();
     } catch (error) {
       console.log('error', error)
     }
