@@ -1,7 +1,11 @@
+import { dbConnect } from '@/functions/database/database.server'
 import corporationModel from '@/functions/database/models/corporation.model'
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
+
+  await dbConnect()
+
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id')
   const name = searchParams.get('name')
