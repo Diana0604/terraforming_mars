@@ -39,7 +39,7 @@ let roundTimeout: NodeJS.Timer;
 const endOfRound = async () => {
   const corporations = await corporationModel.find();
 
-  corporations.forEach((corporation) => {
+  corporations.forEach(async (corporation) => {
     //get round by round updates
     const resourcesNextRound = corporation.resourcesNextRound;
     const newBuildingsNextRound = corporation.newBuildingsNextRound;
@@ -51,15 +51,13 @@ const endOfRound = async () => {
     );
 
     //update tiles
-    corporation.buildingsOwned.forEach(
-      async (buildingId: Schema.Types.ObjectId) => {
-        const building = await buildingModel.findById(buildingId);
-        const tile = await tileModel.findById(building.tile);
-        if (!tile.buildings) tile.bildings = [];
-        tile.buildings.push(building);
-        await tile.save();
-      }
-    );
+    for (const buildingId of newBuildingsNextRound) {
+      const building = await buildingModel.findById(buildingId);
+      const tile = await tileModel.findById(building.tile);
+      if (!tile.buildings) tile.buildings = [];
+      tile.buildings.push(building);
+      await tile.save();
+    }
 
     //reset next round building updates
     corporation.newBuildingsNextRound = [];
