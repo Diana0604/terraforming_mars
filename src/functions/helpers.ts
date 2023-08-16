@@ -76,7 +76,13 @@ const endOfRound = async () => {
   await round.save();
 };
 
-const startNewRound = async (currentRound: { startTime: Date; playing: boolean; darkHour: boolean; number: number; save: () => any; }) => {
+const startNewRound = async (currentRound: {
+  startTime: Date;
+  playing: boolean;
+  darkHour: boolean;
+  number: number;
+  save: () => any;
+}) => {
   //set starting time
   currentRound.startTime = new Date();
   currentRound.playing = true;
@@ -91,8 +97,7 @@ const startNewRound = async (currentRound: { startTime: Date; playing: boolean; 
 
   //return round
   return currentRound;
-
-}
+};
 
 export const playGame = async () => {
   //connect to db
