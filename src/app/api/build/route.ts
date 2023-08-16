@@ -18,7 +18,7 @@ import {
 } from "@/constants";
 
 //function helpers
-import { canBuild } from "@/functions/helpers";
+import { canBuild } from "@/functions/roundManager";
 import buildingModel from "@/functions/database/models/building.model";
 import { Tile } from "@/types";
 
