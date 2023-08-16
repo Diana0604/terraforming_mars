@@ -1,7 +1,7 @@
 import { PAUSE_GAME, PLAY_GAME, elementMissingFromBody } from "@/constants";
 import { dbConnect } from "@/functions/database/database.server";
 import roundModel from "@/functions/database/models/round.model";
-import { pauseGame, playGame } from "@/functions/helpers";
+import { pauseGame, playGame } from "@/functions/roundManager";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
