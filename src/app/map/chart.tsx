@@ -1,5 +1,5 @@
 "use client"
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState,useCallback } from "react";
 //@ts-ignore
 import * as d3 from "d3";
 import { Coordinate, Round } from "@/types";
@@ -25,7 +25,7 @@ const Chart: React.FunctionComponent = () => {
 
   }
 
-  const getTile = (d: { column: number; row: any; }) => {
+  const getTile = async (d: { column: number; row: any; }) => {
     let column;
     let returnData;
 
@@ -67,17 +67,16 @@ const Chart: React.FunctionComponent = () => {
         break;
     }
 
-    fetch(`/api/tile?row=${d.row}&column=${column}`)
+    await fetch(`/api/tile?row=${d.row}&column=${column}`)
     .then(res=> res.json())
     .then(data => {
-      setTileState(data.tile);
       returnData = data.tile;
     }) 
 
     return returnData;
   }
 
-  function drawChart(svgRef: React.RefObject<SVGSVGElement>, tooltip: MutableRefObject<null>, darkHour:boolean) {
+  const drawChart = useCallback(async (svgRef: React.RefObject<SVGSVGElement>, tooltip: MutableRefObject<null>, darkHour:boolean) => {
 
     const h = "100%";
     const w = "100%";
@@ -93,7 +92,7 @@ const Chart: React.FunctionComponent = () => {
     const columns = [1,2,3,4,5,4,5,4,3,2,1];
     
     //create a 1D array of positions
-    const centerPositions: { x: number; y: number; column: number; row: number; }[] = [];
+    const centerPositions: { x: number; y: number; column: number; row: number; i: number}[] = [];
     
         svg
         .attr("width", w)
@@ -101,6 +100,8 @@ const Chart: React.FunctionComponent = () => {
         .attr("viewBox", viewBox)
         .style("margin-top", 0)
         .style("margin-left", 0);
+
+        let j = 0;
     
         columns.map((column, n) => { 
             for(let i = 0; i<column; i++) {     
@@ -109,7 +110,10 @@ const Chart: React.FunctionComponent = () => {
                 y: delta.y*(-column+2*i)+offset.y,
                 column: n,
                 row: i+1,
+                i: j,
               })
+
+              j++;
             }
         })
       
@@ -120,9 +124,23 @@ const Chart: React.FunctionComponent = () => {
               y: Math.sin(angle)*outerRadius+position.y,
               column: position.column,
               row: position.row,
+              i: position.i,
             }
           })
         })
+
+        const colonizations = await Promise.all(hexes.map(async (d) => {
+          const tileData:any = await getTile(d[0]);
+          if(tileData == undefined)
+            return "transparent"
+          if(tileData.colonizedBy == "Player") {
+            return "rgba(255, 0, 0, 0.4)"
+          } else if (tileData.colonizedBy =="Actors") {
+            return "rgba(0, 0, 255, 0.4)"
+          }
+          else return "transparent"
+        }))
+
 
         //clear existing maps
         svg.selectAll("g.hexes").remove()
@@ -156,15 +174,18 @@ const Chart: React.FunctionComponent = () => {
           }).join(" ")
         })
         .attr("stroke","none")
-        .attr("fill", "transparent")
-        .on("click", (event: { clientY: string; clientX: string; }, d: { column: number; row: any; }[]) => {
-          const tileData:Tile | void = getTile(d[0]);
+        .attr("fill", (d: any[]) => {
+          return colonizations[d[0]["i"]]
+        })
+        .on("click", async (event: { clientY: string; clientX: string; }, d: { column: number; row: any; }[]) => {
+          const tileData:any = await getTile(d[0]);
+          setTileState(tileData);
           tooltipElement
             .style("top", event.clientY + "px")
             .style("left", event.clientX + "px")
             .style("visibility", "visible")
         })
-    }
+    }, [])
 
   useEffect(() => {
     drawChart(svg, tooltip, darkHour);
