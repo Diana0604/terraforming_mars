@@ -52,6 +52,7 @@ export type Tile = {
   resourcesAvailable: ResourceName[];
   destroyed: boolean;
   colonizedBy?: Corporation;
+  buildings?: BuildingConstant[];
 };
 
 export type Building = {

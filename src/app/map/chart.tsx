@@ -131,11 +131,11 @@ const Chart: React.FunctionComponent = () => {
 
         const colonizations = await Promise.all(hexes.map(async (d) => {
           const tileData:any = await getTile(d[0]);
-          if(tileData == undefined)
+          if(tileData.colonizedBy == undefined)
             return "transparent"
-          if(tileData.colonizedBy == "Player") {
+          if(tileData.colonizedBy.name == "Player") {
             return "rgba(255, 0, 0, 0.4)"
-          } else if (tileData.colonizedBy =="Actors") {
+          } else if (tileData.colonizedBy.name =="Actors") {
             return "rgba(0, 0, 255, 0.4)"
           }
           else return "transparent"
@@ -215,6 +215,9 @@ const Chart: React.FunctionComponent = () => {
           return <p key={index}>Resource: {resource}</p>
         })}
         <p>Colonized By: {tileState?.colonizedBy?.name}</p>
+        <p>Buildings: { tileState && tileState.buildings?.map((building, index) => {
+          return <span>{building.buildingType},&nbsp;</span>
+        })} </p>
         <svg style={{ position: "absolute", top: "5px", right: "5px"}} width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
         onClick={closeTooltip}>
           <path d="M33.4055 34.5783L0.980469 2.15326L2.39447 0.739258L34.8195 33.1643L33.4055 34.5783Z" fill="black"/>
