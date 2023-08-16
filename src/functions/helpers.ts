@@ -121,7 +121,7 @@ export const playGame = async () => {
   currentRound.playing = true;
 
   //set timeout to change round at end of turn
-  setTimeout(endOfRound, SECONDS_PER_ROUND - timeEllapsed);
+  setTimeout(endOfRound, (SECONDS_PER_ROUND - timeEllapsed)*1000);
 
   //update database object
   await currentRound.save();
