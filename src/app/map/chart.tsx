@@ -199,7 +199,6 @@ const Chart: React.FunctionComponent = () => {
 
   return (
     <div className={styles.chart} id="chart" >
-      <button onClick={() => setDarkHour(!darkHour)}>Dark Hour</button>
       <svg ref={svg} >
         <Stars/>
         <ellipse  cx="500" cy="480" rx="680" ry="365" fill="rgb(60, 20, 20)"></ellipse>

@@ -18,10 +18,31 @@ const Timer = () => {
       setDisplayTime(displayTime);
     }
 
+
+    const startClock = () => {
+      const gameClock = setInterval(() => {
+        //advance clock 5 minutes
+        setDisplayTime((time) => {
+          let newTime = new Date();
+          newTime.setTime(time.getTime() + 5 * 60 * 1000);
+          return newTime;
+        })
+ 
+
+        if(displayTime.getHours() == 23 && displayTime.getMinutes() == 55) {
+          console.log("end of turn")
+          clearInterval(gameClock);
+        }
+      }, gameClockInterval)
+      // setClock(gameClock);
+      return () => clearInterval(gameClock)
+    }
+
     useEffect(() => {
       setHydrated(true);
       //initial display of time
       resetClock()
+      startClock()
 
       const initRound:Promise<Round> = fetch("/api/round").then(res => res.json())
       initRound.then(data => setRound(data))
@@ -34,20 +55,6 @@ const Timer = () => {
       return null;
     }
 
-    const startClock = () => {
-      const gameClock = setInterval(() => {
-        displayTime.setTime(displayTime.getTime() + 5 * 60 * 1000)
-        setDisplayTime(displayTime)
-        console.log(displayTime.getTime())
-
-        if(displayTime.getHours() == 0 && displayTime.getMinutes() == 0) {
-          console.log("end of turn")
-          clearInterval(gameClock);
-        }
-      }, gameClockInterval)
-      setClock(gameClock);
-      return () => clearInterval(gameClock)
-    }
 
 
 
@@ -55,7 +62,7 @@ const Timer = () => {
 
     return (
       <div>
-        <div className={styles.timer} onClick={startClock}>
+        <div className={styles.timer} >
           { round?.darkHour ? "Dark Hour" : displayTime.toLocaleTimeString() }
         </div>
       </div>
