@@ -1,7 +1,7 @@
 import { Building, BuildingConstant, Resource, Round } from "@/types";
 import { dbConnect } from "./database/database.server";
 import roundModel from "./database/models/round.model";
-import { SECONDS_PER_ROUND } from "@/constants";
+import { PRESET_BUILDINGS_LIST, SECONDS_PER_ROUND } from "@/constants";
 import corporationModel from "./database/models/corporation.model";
 import tileModel from "./database/models/tile.model";
 import buildingModel from "./database/models/building.model";
@@ -63,10 +63,7 @@ const updateCorporationStats = async () => {
     //update tiles and resources next round
     for (const buildingId of newBuildingsNextRound) {
       //get building
-      const building = (await buildingModel
-        .findById(buildingId)
-        .populate("resources")) as Building;
-      if (!building) continue;
+      const building = await buildingModel.findById(buildingId);
 
       //update tile
       const tile = await tileModel.findById(building.tile);
@@ -75,7 +72,11 @@ const updateCorporationStats = async () => {
       await tile.save();
 
       //update resources next round from buildings daily cost
-      for (const resource of building.dailyCost) {
+      const buildingConstant = PRESET_BUILDINGS_LIST.filter(
+        (buildingConstant) =>
+          buildingConstant.buildingType === building.buildingType
+      )[0];
+      for (const resource of buildingConstant.dailyCost) {
         for (const corporationResource of corporation.resourcesNextRound) {
           if (resource.name === corporationResource.name) {
             corporationResource.quantity =
@@ -86,7 +87,7 @@ const updateCorporationStats = async () => {
       }
 
       //update resources next round from building daily production
-      for (const resource of building.dailyProduction) {
+      for (const resource of buildingConstant.dailyProduction) {
         for (const corporationResource of corporation.resourcesNextRound) {
           if (resource.name === corporationResource.name) {
             corporationResource.quantity =
