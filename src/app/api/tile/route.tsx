@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ tiles: allTiles })
   }
 
-  const tile = await tileModel.findOne({ row: Number(row), column: column })
+  const tile = await tileModel.findOne({ row: Number(row), column: column }).populate("buildings").populate("colonizedBy")
   if (!tile) return NextResponse.json({ error: "Tile not found" }, { status: 500 })
 
   return NextResponse.json({ tile })
