@@ -20,7 +20,6 @@ const Chart: React.FunctionComponent = () => {
   const round = useContext(RoundContext);
 
 
-
   // useEffect(() => {
   //   const initRound:Promise<Round> = fetch("/api/round").then(res => res.json())
   //   initRound.then(data => setDarkHour(data.darkHour))
