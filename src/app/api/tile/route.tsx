@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   const column = searchParams.get('column')
 
   if (!row || !column) {
-    const allTiles = await tileModel.find();
+    const allTiles = await tileModel.find().populate("buildings").populate("colonizedBy");
     return NextResponse.json({ tiles: allTiles })
   }
 
