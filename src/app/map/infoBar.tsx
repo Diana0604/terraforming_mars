@@ -40,7 +40,7 @@ const InfoBar = () => {
 
     return (
         <div className={styles.infoBar}>
-            <p>Corporation: {myCorporation}</p>
+            <p>{myCorporation}</p>
             { resources && resources.map((resource, index) => {
                 return <div key={index} style={{padding: "5px"}}>
                    <div style={{width: "30px"}}>

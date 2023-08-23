@@ -63,7 +63,7 @@ const Timer = () => {
     return (
       <div>
         <div className={styles.timer} >
-          { round?.darkHour ? "Dark Hour" : displayTime.toLocaleTimeString() }
+          { round?.darkHour ? "Dark Hour" : displayTime.toLocaleTimeString('en-GB', {hour: '2-digit', minute:'2-digit'}) }
         </div>
       </div>
     )

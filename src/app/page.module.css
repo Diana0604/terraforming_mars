@@ -5,6 +5,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'ShareTechMono-Regular';
+  src: url('../../public/ShareTechMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 .main {
   width: 100%;
@@ -38,7 +45,7 @@
   position: absolute;
   top: 50px;
   right: 100px;
-  font-size: 30px;
+  font-size: 35px;
   margin: auto;
   text-align: center;
   color: white;
@@ -47,6 +54,7 @@
   border-radius: 5px;
   z-index: 10;
   padding: 10px;
+  font-family: 'ShareTechMono-Regular';
 }
 
 .infoBar {
@@ -54,13 +62,20 @@
   top: 50px;
   left: 30px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
-  column-gap: 10px;
-  padding: 10px;
+  column-gap: 15px;
+  row-gap: 15px;
+  padding: 13px;
+  margin:5px;
   border: 1px brown solid;
+  border-radius: 5px;
   background-color: black;
   color: white;
+  font-size: 23px;
+  align-items: center;
+  font-family: 'ShareTechMono-Regular';
+
 
 }
 
@@ -76,7 +91,8 @@
   border-radius: 5px;
   font-size: 25px;
   line-height: 30px;
-  font-family: "Vangba-Regular"
+  /* font-family: "Vangba-Regular" */
+  font-family: 'ShareTechMono-Regular';
 }
 
 .icons {
