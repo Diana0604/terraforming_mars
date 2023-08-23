@@ -25,6 +25,10 @@ const Timer = () => {
           let elapsedTime = (Date.now() - startTime.getTime())
           let elapsedGameTime = elapsedTime*(86400/SECONDS_PER_ROUND)
           time.setTime(newTime.getTime() + elapsedGameTime);
+
+          //floor to nearest 5 minutes
+          time.setMinutes(time.getMinutes() - time.getMinutes()%5)
+
           }
           return time
         })

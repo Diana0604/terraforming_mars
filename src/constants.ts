@@ -34,7 +34,7 @@ export const PLAYER_CORPORATION_NAME = "Player";
 export const ACTORS_CORPORATION_NAME = "Actors";
 
 //round management
-export const SECONDS_PER_ROUND = 30; //10 mins
+export const SECONDS_PER_ROUND = 60*10; //10 mins
 
 //round body possible params (how to do enums?)
 export const PLAY_GAME = 1;
