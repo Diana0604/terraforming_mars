@@ -7,7 +7,7 @@ export const RESOURCE_DATABASE_ROUTE = `${BASE_API_URL}/resource`;
 export const BUILD_DATABASE_ROUTE = `${BASE_API_URL}/build`;
 export const CORPORATION_ROUTE = `${BASE_API_URL}/corporation`;
 export const TILE_ROUTE = `${BASE_API_URL}/tile`;
-export const ROUND_MANAGER_ROUTE = `${BASE_API_URL}/round`
+export const ROUND_MANAGER_ROUTE = `${BASE_API_URL}/round`;
 
 //success messages
 export const DATABASE_SUCCESSFULLY_UPDATED =
@@ -30,15 +30,15 @@ export const TILE_ALREADY_COLONIZED =
 //============================= GAME CONSTANTS ==========================
 
 //names of corporations
-export const PLAYER_CORPORATION_NAME = "Player"
-export const ACTORS_CORPORATION_NAME = "Actors"
+export const PLAYER_CORPORATION_NAME = "Player";
+export const ACTORS_CORPORATION_NAME = "Actors";
 
 //round management
 export const SECONDS_PER_ROUND = 60*10; //10 mins
 
 //round body possible params (how to do enums?)
-export const PLAY_GAME = 1
-export const PAUSE_GAME = 2
+export const PLAY_GAME = 1;
+export const PAUSE_GAME = 2;
 
 //world variables
 export const MAP_COLUMNS: String[] = [
@@ -97,8 +97,12 @@ export const COLONY_HUB: BuildingConstant = {
     { name: FOOD_NAME, quantity: 3 },
     { name: SYNTHETICS_NAME, quantity: 5 },
   ],
-  dailyProduction: [],
-  dailyCost: [],
+  dailyProduction: [{ name: OXYGEN_NAME, quantity: 5 }],
+  dailyCost: [
+    { name: WATER_NAME, quantity: 5 },
+    { name: OXYGEN_NAME, quantity: 5 },
+    { name: FOOD_NAME, quantity: 3 },
+  ],
 };
 
 export const ROCK_MINE: BuildingConstant = {
@@ -108,8 +112,11 @@ export const ROCK_MINE: BuildingConstant = {
     { name: MINERALS_NAME, quantity: 10 },
     { name: SYNTHETICS_NAME, quantity: 5 },
   ],
-  dailyProduction: [],
-  dailyCost: [],
+  dailyProduction: [
+    { name: MINERALS_NAME, quantity: 20 },
+    { name: RARE_METAL_NAME, quantity: 15 },
+  ],
+  dailyCost: [{ name: WATER_NAME, quantity: 5 }],
 };
 
 export const ICE_MINE: BuildingConstant = {
@@ -119,8 +126,11 @@ export const ICE_MINE: BuildingConstant = {
     { name: SYNTHETICS_NAME, quantity: 10 },
     { name: WATER_NAME, quantity: 5 },
   ],
-  dailyProduction: [],
-  dailyCost: [],
+  dailyProduction: [
+    { name: WATER_NAME, quantity: 20 },
+    { name: RARE_METAL_NAME, quantity: 10 },
+  ],
+  dailyCost: [{ name: WATER_NAME, quantity: 5 }],
 };
 
 export const FACTORY: BuildingConstant = {
@@ -130,8 +140,8 @@ export const FACTORY: BuildingConstant = {
     { name: SYNTHETICS_NAME, quantity: 10 },
     { name: OXYGEN_NAME, quantity: 5 },
   ],
-  dailyProduction: [],
-  dailyCost: [],
+  dailyProduction: [{ name: SYNTHETICS_NAME, quantity: 20 }],
+  dailyCost: [{ name: OXYGEN_NAME, quantity: 5 }],
 };
 
 export const BIOME_FARM: BuildingConstant = {
@@ -142,8 +152,11 @@ export const BIOME_FARM: BuildingConstant = {
     { name: OXYGEN_NAME, quantity: 5 },
     { name: MINERALS_NAME, quantity: 10 },
   ],
-  dailyProduction: [],
-  dailyCost: [],
+  dailyProduction: [
+    { name: OXYGEN_NAME, quantity: 15 },
+    { name: FOOD_NAME, quantity: 10 },
+  ],
+  dailyCost: [{ name: OXYGEN_NAME, quantity: 15 }],
 };
 
 export const TEMPLE: BuildingConstant = {
@@ -154,7 +167,10 @@ export const TEMPLE: BuildingConstant = {
     { name: WATER_NAME, quantity: 5 },
   ],
   dailyProduction: [],
-  dailyCost: [],
+  dailyCost: [
+    { name: OXYGEN_NAME, quantity: 5 },
+    { name: WATER_NAME, quantity: 5 },
+  ],
 };
 
 export const BARRACKS: BuildingConstant = {
@@ -165,7 +181,10 @@ export const BARRACKS: BuildingConstant = {
     { name: WATER_NAME, quantity: 5 },
   ],
   dailyProduction: [],
-  dailyCost: [],
+  dailyCost: [
+    { name: FOOD_NAME, quantity: 10 },
+    { name: WATER_NAME, quantity: 5 },
+  ],
 };
 
 export const THEATRE: BuildingConstant = {
@@ -186,7 +205,7 @@ export const SCHOOL: BuildingConstant = {
     { name: FOOD_NAME, quantity: 5 },
   ],
   dailyProduction: [],
-  dailyCost: [],
+  dailyCost: [{ name: FOOD_NAME, quantity: 5 }],
 };
 
 export const UNIVERSITY: BuildingConstant = {
@@ -196,7 +215,7 @@ export const UNIVERSITY: BuildingConstant = {
     { name: WATER_NAME, quantity: 10 },
   ],
   dailyProduction: [],
-  dailyCost: [],
+  dailyCost: [{ name: WATER_NAME, quantity: 10 }],
 };
 
 export const HOSPITAL: BuildingConstant = {
@@ -209,7 +228,11 @@ export const HOSPITAL: BuildingConstant = {
     { name: MINERALS_NAME, quantity: 10 },
   ],
   dailyProduction: [],
-  dailyCost: [],
+  dailyCost: [
+    { name: OXYGEN_NAME, quantity: 20 },
+    { name: WATER_NAME, quantity: 20 },
+    { name: FOOD_NAME, quantity: 20 },
+  ],
 };
 
 export const SCIENCE_LAB: BuildingConstant = {
@@ -220,7 +243,7 @@ export const SCIENCE_LAB: BuildingConstant = {
     { name: RARE_METAL_NAME, quantity: 10 },
   ],
   dailyProduction: [],
-  dailyCost: [],
+  dailyCost: [{ name: OXYGEN_NAME, quantity: 10 }],
 };
 
 export const LAUNCH_PAD: BuildingConstant = {

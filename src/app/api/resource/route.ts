@@ -52,8 +52,15 @@ export async function POST(request: NextRequest) {
     );
     if (resourceIndex === -1) {
       corporation.resourcesOwned.push({ name: resource, quantity: quantity });
+      corporation.resourcesNextRound.push({
+        name: resource,
+        quantity: quantity,
+      });
     } else {
       corporation.resourcesOwned[resourceIndex].quantity =
+        Number(corporation.resourcesOwned[resourceIndex].quantity) + quantity;
+
+      corporation.resourcesNextRound[resourceIndex].quantity =
         Number(corporation.resourcesOwned[resourceIndex].quantity) + quantity;
     }
 
