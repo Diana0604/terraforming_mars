@@ -5,9 +5,6 @@ import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/constants"
 //antd
 import { Col, Collapse, Row } from "antd";
 
-//context
-import { CorporationsContextProvider } from "@/contexts/CorporationsContexts";
-
 //components
 import ResourceStats from "./ResourceStats";
 import BuildingStats from "./BuildingStats";
@@ -45,9 +42,7 @@ const CorporationStats = () => {
   ]
 
   return (<>
-    <CorporationsContextProvider>
       <Collapse items={items} defaultActiveKey={[0, 1]} />
-    </CorporationsContextProvider>
   </>)
 }
 
