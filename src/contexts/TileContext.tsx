@@ -33,6 +33,7 @@ export const TilesContextProvider = ({ children }: { children: React.ReactNode }
       try {
         fetch(TILE_ROUTE, { method: 'get' }).then(async response => {
           const data = await response.json();
+                
           setTiles(data.tiles)
         }, (error) => { console.log('error on fetch', error) })
       } catch (error) {

@@ -1,5 +1,5 @@
 "use client"
-import { MutableRefObject, useEffect, useRef, useState,useCallback } from "react";
+import { MutableRefObject, useEffect, useRef, useState,useCallback, useContext, useMemo } from "react";
 //@ts-ignore
 import * as d3 from "d3";
 import { Coordinate, Round } from "@/types";
@@ -7,27 +7,27 @@ import styles from '../page.module.css'
 import Stars from "./stars"
 import { Tile } from "../../types"
 import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/constants";
+import { TilesContext } from "@/contexts/TileContext";
+import { error } from "console";
+import { RoundContext } from "@/contexts/RoundContext";
 
 const Chart: React.FunctionComponent = () => {
   const svg = useRef<SVGSVGElement>(null);
-  const tooltip = useRef(null)
+  const tooltip = useRef(null);
   const [tileState, setTileState] = useState<Tile|null>(null);
   const [darkHour, setDarkHour] = useState<boolean>(false);
-
-  useEffect(() => {
-    const initRound:Promise<Round> = fetch("/api/round").then(res => res.json())
-    initRound.then(data => setDarkHour(data.darkHour))
-  }, [])
-
-  const handleKeyDown = (e:any) => {
-    console.log(e.key)
-    //  if(e.code == " ")
+  const tiles = useContext(TilesContext);
+  const round = useContext(RoundContext);
 
 
-  }
 
-  const getTile = async (d: { column: number; row: any; }) => {
-    let column;
+  // useEffect(() => {
+  //   const initRound:Promise<Round> = fetch("/api/round").then(res => res.json())
+  //   initRound.then(data => setDarkHour(data.darkHour))
+  // }, [])
+
+  const getTile = (d: { column: number; row: any; }, updatedTiles:Tile[]) => {
+    let column:string;
     let returnData;
 
     switch (d.column+1) {
@@ -68,16 +68,23 @@ const Chart: React.FunctionComponent = () => {
         break;
     }
 
-    await fetch(`/api/tile?row=${d.row}&column=${column}`)
-    .then(res=> res.json())
-    .then(data => {
-      returnData = data.tile;
-    }) 
+
+    const fetchedTiles = updatedTiles.filter((tile) => {
+      return (tile.column == column && tile.row == d.row)
+    })
+
+    if(fetchedTiles.length > 1) {
+      console.log(fetchedTiles.length + "is the length")
+      console.error("Got wrong number of tiles")
+    }
+
+
+    returnData = fetchedTiles[0];
 
     return returnData;
   }
 
-  const drawChart = useCallback(async (svgRef: React.RefObject<SVGSVGElement>, tooltip: MutableRefObject<null>, darkHour:boolean) => {
+  const drawChart = useCallback((svgRef: React.RefObject<SVGSVGElement>, tooltip: MutableRefObject<null>, darkHour:boolean, updatedTiles:Tile[]) => {
 
     const h = "100%";
     const w = "100%";
@@ -91,7 +98,7 @@ const Chart: React.FunctionComponent = () => {
     
     //columns with row lengths
     const columns = [1,2,3,4,5,4,5,4,3,2,1];
-    
+
     //create a 1D array of positions
     const centerPositions: { x: number; y: number; column: number; row: number; i: number}[] = [];
     
@@ -130,9 +137,9 @@ const Chart: React.FunctionComponent = () => {
           })
         })
 
-        const colonizations = await Promise.all(hexes.map(async (d) => {
-          const tileData:any = await getTile(d[0]);
-          if(tileData.colonizedBy == undefined)
+        const colonizations = hexes.map((d) => {
+          const tileData:any = getTile(d[0], updatedTiles);
+          if(tileData?.colonizedBy === undefined)
             return "transparent"
           if(tileData.colonizedBy.name == PLAYER_CORPORATION_NAME) {
             return "rgba(255, 0, 0, 0.4)"
@@ -140,7 +147,7 @@ const Chart: React.FunctionComponent = () => {
             return "rgba(0, 0, 255, 0.4)"
           }
           else return "transparent"
-        }))
+        })
 
 
         //clear existing maps
@@ -179,19 +186,26 @@ const Chart: React.FunctionComponent = () => {
           return colonizations[d[0]["i"]]
         })
         .on("click", async (event: { clientY: string; clientX: string; }, d: { column: number; row: any; }[]) => {
-          const tileData:any = await getTile(d[0]);
+          const tileData:any = getTile(d[0], updatedTiles);
           setTileState(tileData);
           tooltipElement
             .style("top", event.clientY + "px")
             .style("left", event.clientX + "px")
             .style("visibility", "visible")
         })
+
+        console.log("usecallback")
     }, [])
 
   useEffect(() => {
-    console.log('first render')
-    drawChart(svg, tooltip, darkHour);
-  }, []);
+
+    if(tiles.tiles.length > 0) {
+      drawChart(svg, tooltip, darkHour, tiles.tiles);
+    }
+
+    if(round != null)
+      setDarkHour(round.round.darkHour)
+  }, [tiles]);
 
   const closeTooltip = () => {
     d3.select(tooltip.current)
