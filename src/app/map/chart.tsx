@@ -6,6 +6,7 @@ import { Coordinate, Round } from "@/types";
 import styles from '../page.module.css'
 import Stars from "./stars"
 import { Tile } from "../../types"
+import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/constants";
 
 const Chart: React.FunctionComponent = () => {
   const svg = useRef<SVGSVGElement>(null);
@@ -133,9 +134,9 @@ const Chart: React.FunctionComponent = () => {
           const tileData:any = await getTile(d[0]);
           if(tileData.colonizedBy == undefined)
             return "transparent"
-          if(tileData.colonizedBy.name == "Player") {
+          if(tileData.colonizedBy.name == PLAYER_CORPORATION_NAME) {
             return "rgba(255, 0, 0, 0.4)"
-          } else if (tileData.colonizedBy.name =="Actors") {
+          } else if (tileData.colonizedBy.name ==ACTORS_CORPORATION_NAME) {
             return "rgba(0, 0, 255, 0.4)"
           }
           else return "transparent"
