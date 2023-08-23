@@ -186,7 +186,7 @@ const Chart: React.FunctionComponent = () => {
             .style("left", event.clientX + "px")
             .style("visibility", "visible")
         })
-    }, [svg, tooltip, darkHour])
+    }, [])
 
   useEffect(() => {
     console.log('first render')
@@ -218,7 +218,7 @@ const Chart: React.FunctionComponent = () => {
         <hr style={{marginTop: "5px", marginBottom: "5px", border: "black 1px solid"}}/>
         <p>Colonized By: {tileState?.colonizedBy?.name}</p>
         <p>Buildings: { tileState && tileState.buildings?.map((building, index) => {
-          return <span>{building.buildingType},&nbsp;</span>
+          return <span key={index}>{building.buildingType},&nbsp;</span>
         })} </p>
         <svg style={{ position: "absolute", top: "5px", right: "5px"}} width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
         onClick={closeTooltip}>

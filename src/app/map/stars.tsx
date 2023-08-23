@@ -5,7 +5,7 @@ const Stars = () => {
 
     const numStars = 100;
     const positions = useMemo(() => {
-        return Array(100).fill(1).map(x=> {
+        return Array(numStars).fill(1).map(x=> {
             return {
                 x:Math.random() * x * 2000- 500,
                 y:Math.random() * x * 1000,
