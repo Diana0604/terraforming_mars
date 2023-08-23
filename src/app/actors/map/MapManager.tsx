@@ -10,9 +10,7 @@ const MapManager = () => {
     <Card>
       <div style={{ margin: '10px' }}>
         <h3 style={{ marginBottom: '10px' }}>Map Manager Menu</h3>
-        <TilesContextProvider>
-          <TileDestroyer />
-        </TilesContextProvider>
+        <TileDestroyer />
       </div>
     </Card>
   )
