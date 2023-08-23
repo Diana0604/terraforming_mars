@@ -1,11 +1,10 @@
 import { Building, BuildingConstant, Resource, Round } from "@/types";
 import { dbConnect } from "./database/database.server";
 import roundModel from "./database/models/round.model";
-import { RESOURCES_LIST, SECONDS_PER_ROUND } from "@/constants";
+import { SECONDS_PER_ROUND } from "@/constants";
 import corporationModel from "./database/models/corporation.model";
 import tileModel from "./database/models/tile.model";
 import buildingModel from "./database/models/building.model";
-import { Schema } from "mongoose";
 
 /**
  * Given a list of resources and a building to be built, check if there's enough resources to build it
