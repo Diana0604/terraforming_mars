@@ -1,10 +1,8 @@
-import { Building, BuildingConstant, Resource, Round } from "@/types";
+import { BuildingConstant, Resource } from "@/types";
 import { dbConnect } from "./database/database.server";
 import roundModel from "./database/models/round.model";
 import { PRESET_BUILDINGS_LIST, SECONDS_PER_ROUND } from "@/constants";
 import corporationModel from "./database/models/corporation.model";
-import tileModel from "./database/models/tile.model";
-import buildingModel from "./database/models/building.model";
 
 /**
  * Given a list of resources and a building to be built, check if there's enough resources to build it
@@ -47,12 +45,17 @@ const endOfRound = async () => {
 };
 
 const updateCorporationStats = async () => {
-  const corporations = await corporationModel.find();
+  //get all corps with buildings populated
+  const corporations = await corporationModel
+    .find()
+    .populate("buildingsOwned")
+    .populate("newBuildingsNextRound");
 
+  //update each corporation
   corporations.forEach(async (corporation) => {
-    //get round by round updates
-    const resourcesNextRound = corporation.resourcesNextRound;
-    const newBuildingsNextRound = corporation.newBuildingsNextRound;
+    //copy round by round updates as independent object
+    const resourcesNextRound = [...corporation.resourcesNextRound];
+    const newBuildingsNextRound = [...corporation.newBuildingsNextRound];
 
     //update new round updates
     corporation.resourcesOwned = resourcesNextRound;
@@ -61,16 +64,18 @@ const updateCorporationStats = async () => {
     );
 
     //update tiles and resources next round
-    for (const buildingId of newBuildingsNextRound) {
+    for (const building of newBuildingsNextRound) {
       //get building
-      const building = await buildingModel.findById(buildingId);
+      building.populate("tile");
 
       //update tile
-      const tile = await tileModel.findById(building.tile);
+      const tile = building.tile;
       if (!tile.buildings) tile.buildings = [];
       tile.buildings.push(building);
       await tile.save();
+    }
 
+    for (const building of corporation.buildingsOwned) {
       //update resources next round from buildings daily cost
       const buildingConstant = PRESET_BUILDINGS_LIST.filter(
         (buildingConstant) =>
@@ -138,7 +143,6 @@ export const playGame = async () => {
 
   //get round
   const currentRound = await roundModel.findOne();
-
   if (!currentRound)
     throw Error("No Round found. Please reset database before continuing.");
 
