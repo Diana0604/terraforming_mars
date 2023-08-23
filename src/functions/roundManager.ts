@@ -37,6 +37,17 @@ export const canBuild = (resources: Resource[], building: BuildingConstant) => {
 let roundTimeout: NodeJS.Timer;
 
 const endOfRound = async () => {
+  //set round manager to next round
+  const round = await roundModel.findOne();
+
+  round.playing = false;
+  round.darkHour = true;
+  round.pausedAt = undefined;
+
+  await round.save();
+};
+
+const updateCorporationStats = async () => {
   const corporations = await corporationModel.find();
 
   corporations.forEach(async (corporation) => {
@@ -65,15 +76,6 @@ const endOfRound = async () => {
     //save corporation
     corporation.save();
   });
-
-  //set round manager to next round
-  const round = await roundModel.findOne();
-
-  round.playing = false;
-  round.darkHour = true;
-  round.pausedAt = undefined;
-
-  await round.save();
 };
 
 const startNewRound = async (currentRound: {
@@ -83,6 +85,9 @@ const startNewRound = async (currentRound: {
   number: number;
   save: () => any;
 }) => {
+  //update corporations
+  await updateCorporationStats();
+
   //set starting time
   currentRound.startTime = new Date();
   currentRound.playing = true;
@@ -126,7 +131,7 @@ export const playGame = async () => {
   currentRound.playing = true;
 
   //set timeout to change round at end of turn
-  setTimeout(endOfRound, (SECONDS_PER_ROUND - timeEllapsed)*1000);
+  setTimeout(endOfRound, (SECONDS_PER_ROUND - timeEllapsed) * 1000);
 
   //update database object
   await currentRound.save();
