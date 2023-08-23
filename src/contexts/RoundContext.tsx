@@ -2,6 +2,7 @@
 import { ROUND_MANAGER_ROUTE } from "@/constants";
 import { Round } from "@/types";
 import React, { useState, useEffect } from "react";
+import { SECONDS_PER_ROUND } from "@/constants";
 
 //tiles can be accessed from context
 type contextProps = {
@@ -45,6 +46,8 @@ export const RoundContextProvider = ({ children }: { children: React.ReactNode }
 
     updateRound()
 
+    // const gameInterval = Math.floor(1000*SECONDS_PER_ROUND*5/1440)
+    // console.log(gameInterval)
     const interval = setInterval(updateRound, 1000)
 
     //destroy interval at dismount
