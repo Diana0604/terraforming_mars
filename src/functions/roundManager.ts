@@ -1,7 +1,7 @@
-import { BuildingConstant, Resource, Round } from "@/types";
+import { Building, BuildingConstant, Resource, Round } from "@/types";
 import { dbConnect } from "./database/database.server";
 import roundModel from "./database/models/round.model";
-import { SECONDS_PER_ROUND } from "@/constants";
+import { RESOURCES_LIST, SECONDS_PER_ROUND } from "@/constants";
 import corporationModel from "./database/models/corporation.model";
 import tileModel from "./database/models/tile.model";
 import buildingModel from "./database/models/building.model";
@@ -61,13 +61,41 @@ const updateCorporationStats = async () => {
       newBuildingsNextRound
     );
 
-    //update tiles
+    //update tiles and resources next round
     for (const buildingId of newBuildingsNextRound) {
-      const building = await buildingModel.findById(buildingId);
+      //get building
+      const building = (await buildingModel
+        .findById(buildingId)
+        .populate("resources")) as Building;
+      if (!building) continue;
+
+      //update tile
       const tile = await tileModel.findById(building.tile);
       if (!tile.buildings) tile.buildings = [];
       tile.buildings.push(building);
       await tile.save();
+
+      //update resources next round from buildings daily cost
+      for (const resource of building.dailyCost) {
+        for (const corporationResource of corporation.resourcesNextRound) {
+          if (resource.name === corporationResource.name) {
+            corporationResource.quantity =
+              Number(corporationResource.quantity) - Number(resource.quantity);
+            continue;
+          }
+        }
+      }
+
+      //update resources next round from building daily production
+      for (const resource of building.dailyProduction) {
+        for (const corporationResource of corporation.resourcesNextRound) {
+          if (resource.name === corporationResource.name) {
+            corporationResource.quantity =
+              Number(corporationResource.quantity) + Number(resource.quantity);
+            continue;
+          }
+        }
+      }
     }
 
     //reset next round building updates
