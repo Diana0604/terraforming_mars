@@ -1,6 +1,6 @@
 "use client"
 //types
-import { Tile } from "@/types";
+import { BuildingConstant, Tile } from "@/types";
 
 //database routes
 import { BUILD_DATABASE_ROUTE, PRESET_BUILDINGS_LIST } from "@/constants";
@@ -29,15 +29,15 @@ const Build = (props: BuildProps) => {
   const [errorDisplayMessage, setErrorDisplayMessage] = useState<String>()
 
   //save buildingType and tile desired to build
-  const [buildingType, setBuildingType] = useState<String>()
+  const [buildingIndex, setBuildingIndex] = useState<number>()
   const [tile, setTile] = useState<String>()
 
 
 
   //create list for building type choosing select
-  const buildingSelectOptions = PRESET_BUILDINGS_LIST.map((value) => {
+  const buildingSelectOptions = PRESET_BUILDINGS_LIST.map((value, index) => {
     return {
-      value: value.buildingType,
+      value: index,
       label: value.buildingType
     }
   })
@@ -66,7 +66,9 @@ const Build = (props: BuildProps) => {
   //onclickbuild event handler
   const onClickBuild = async () => {
     try {
-      const res = await fetch(BUILD_DATABASE_ROUTE, { method: "post", body: JSON.stringify({ buildingType: buildingType, corporation: props.corporationName, tile: tile }) })
+      if(buildingIndex === undefined) return;
+      console.log('sending building : ', PRESET_BUILDINGS_LIST[buildingIndex])
+      const res = await fetch(BUILD_DATABASE_ROUTE, { method: "post", body: JSON.stringify({ ...PRESET_BUILDINGS_LIST[buildingIndex], corporation: props.corporationName, tile: tile }) })
       const data = await res.json()
       if (data.error) {
         setErrorDisplayMessage(data.error)
@@ -87,12 +89,12 @@ const Build = (props: BuildProps) => {
           <Card>
             <h3>Add Building to Tile</h3>
             <div>
-              <span style={{ width: "200px" }}>building: </span> <Select showSearch onChange={setBuildingType} style={{ width: "200px" }} options={buildingSelectOptions}></Select>
+              <span style={{ width: "200px" }}>building: </span> <Select showSearch onChange={setBuildingIndex} style={{ width: "200px" }} options={buildingSelectOptions}></Select>
             </div>
             <div>
               <span style={{ width: "200px" }}>tile: </span> <Select showSearch onChange={setTile} style={{ width: "200px" }} options={tilesSelectOptions}></Select>
             </div>
-            <Button onClick={onClickBuild} disabled={!buildingType && !tile}>Build</Button>
+            <Button onClick={onClickBuild} disabled={(buildingIndex === undefined) && !tile}>Build</Button>
             <div>{errorDisplayMessage}</div>
           </Card>
       )

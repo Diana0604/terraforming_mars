@@ -3,7 +3,7 @@
 import { BuildingConstant, Resource, Tile } from "@/types";
 
 //database routes
-import { ACTORS_CORPORATION_NAME, BUILD_DATABASE_ROUTE, CUSTOM_BUILD_DATABASE_ROUTE, PLAYER_CORPORATION_NAME, PRESET_BUILDINGS_LIST, RESOURCES_LIST } from "@/constants";
+import { ACTORS_CORPORATION_NAME, BUILD_DATABASE_ROUTE, PLAYER_CORPORATION_NAME, PRESET_BUILDINGS_LIST, RESOURCES_LIST } from "@/constants";
 
 //react
 import { ChangeEvent, useContext, useRef, useState } from "react"
@@ -25,7 +25,7 @@ const CustomBuilding = () => {
   const [productionResourceList, setProductionResourceList] = useState<Resource[]>([])
   const [dailyCostResourceList, setDailyCostResourceList] = useState<Resource[]>([])
   const [corporation, setCorporation] = useState<string>();
-  const [tile, setTile] = useState<Tile>();
+  const [tile, setTile] = useState<String>()
 
   const { tiles } = useContext(TilesContext)
 
@@ -173,14 +173,14 @@ const CustomBuilding = () => {
     //create building constant and send to database
     const newBuilding = {
       buildingType: buildingType,
-      owner: corporation,
+      corporation: corporation,
       tile: tile,
       dailyProduction: productionResourceList,
       dailyCost: dailyCostResourceList,
       buildingCost: resourceRequirementList
     }
     try {
-      const res = await fetch(CUSTOM_BUILD_DATABASE_ROUTE, { method: 'post', body: JSON.stringify(newBuilding) })
+      const res = await fetch(BUILD_DATABASE_ROUTE, { method: 'post', body: JSON.stringify(newBuilding) })
       const body = await res.json()
     } catch(error){
       console.log(error)

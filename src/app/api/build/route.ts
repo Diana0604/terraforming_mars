@@ -8,7 +8,6 @@ import tileModel from "@/functions/database/models/tile.model";
 
 //constants
 import {
-  PRESET_BUILDINGS_LIST,
   elementNotFoundInDatabase,
   elementMissingFromBody,
   CANNOT_BUILD_ERROR_MESSAGE,
@@ -28,18 +27,18 @@ export async function POST(request: NextRequest) {
     await dbConnect();
 
     //check request contains appropriate body
-    const body = await request.json();
-    if (!body.corporation)
+    const building = await request.json();
+    if (!building.corporation)
       return NextResponse.json(
         { error: elementMissingFromBody("corporation") },
         { status: 400 }
       );
-    if (!body.buildingType)
+    if (!building.buildingType)
       return NextResponse.json(
         { error: elementMissingFromBody("buildingType") },
         { status: 400 }
       );
-    if (!body.tile)
+    if (!building.tile)
       return NextResponse.json(
         { error: elementMissingFromBody("tile") },
         { status: 400 }
@@ -47,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     //find corporation in database
     const corporation = await corporationModel.findOne({
-      name: body.corporation,
+      name: building.corporation,
     });
     if (!corporation)
       return NextResponse.json(
@@ -57,8 +56,8 @@ export async function POST(request: NextRequest) {
 
     //find tile in database
     const tileParams = {
-      column: body.tile[0],
-      row: Number(body.tile[1]),
+      column: building.tile[0],
+      row: Number(building.tile[1]),
     };
     const tile = await tileModel.findOne(tileParams).populate("buildings");
     if (!tile)
@@ -69,16 +68,11 @@ export async function POST(request: NextRequest) {
 
     const buildingsOnTile = tile.buildings;
     //check colony hub in tile
-    if (buildingsOnTile.length === 0 && body.buildingType != COLONY_HUB_NAME)
+    if (buildingsOnTile.length === 0 && building.buildingType != COLONY_HUB_NAME)
       return NextResponse.json(
         { error: "First building of a tile must be Colony Hub" },
         { status: 400 }
       );
-
-    //obtain building
-    const building = PRESET_BUILDINGS_LIST.filter((value) => {
-      return value.buildingType === body.buildingType;
-    })[0];
 
     //check building of this type does not yet exist
     const otherBuilding = await buildingModel.count({
