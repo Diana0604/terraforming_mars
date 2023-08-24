@@ -102,6 +102,20 @@
   padding: 5px;
 }
 
+
+.alertMessage {
+  position: absolute;
+  left: 35%; 
+  right: 35%; 
+  margin: 0 auto;
+  padding: 13px;
+  margin:5px;
+  border: 1px brown solid;
+  border-radius: 5px;
+  background-color: black;
+  text-align: center;
+}
+
 /* html, body, * { 
   margin: 0; 
   padding: 0; 

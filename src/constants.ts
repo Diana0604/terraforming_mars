@@ -9,6 +9,7 @@ export const CUSTOM_BUILD_DATABASE_ROUTE = `${BUILD_DATABASE_ROUTE}/custom`;
 export const CORPORATION_ROUTE = `${BASE_API_URL}/corporation`;
 export const TILE_ROUTE = `${BASE_API_URL}/tile`;
 export const ROUND_MANAGER_ROUTE = `${BASE_API_URL}/round`;
+export const ALERT_MANAGER_ROUTE = `${BASE_API_URL}/alert`;
 
 //success messages
 export const DATABASE_SUCCESSFULLY_UPDATED =
