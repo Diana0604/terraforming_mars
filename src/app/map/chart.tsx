@@ -2,13 +2,11 @@
 import { MutableRefObject, useEffect, useRef, useState,useCallback, useContext, useMemo } from "react";
 //@ts-ignore
 import * as d3 from "d3";
-import { Coordinate, Round } from "@/types";
 import styles from '../page.module.css'
 import Stars from "./stars"
 import { Tile } from "../../types"
 import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/constants";
 import { TilesContext } from "@/contexts/TileContext";
-import { error } from "console";
 import { RoundContext } from "@/contexts/RoundContext";
 
 const Chart: React.FunctionComponent = () => {

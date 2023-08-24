@@ -7,7 +7,6 @@ import { SECONDS_PER_ROUND } from '@/constants';
 
 const Timer = () => {
 
-    const [clock, setClock] = useState<NodeJS.Timer>();
     const [hydrated, setHydrated] = useState(false);
     //time in milliseconds
     const gameClockInterval = 1000 * SECONDS_PER_ROUND/ (1440/5) ;
@@ -35,24 +34,6 @@ const Timer = () => {
 
       
     }
-    // const startClock = () => {
-    //   const gameClock = setInterval(() => {
-    //     //advance clock 5 minutes
-    //     setDisplayTime((time) => {
-    //       let newTime = new Date();
-    //       newTime.setTime(time.getTime() + 5 * 60 * 1000);
-    //       return newTime;
-    //     })
- 
-
-    //     if(displayTime.getHours() == 23 && displayTime.getMinutes() == 55) {
-    //       console.log("end of turn")
-    //       clearInterval(gameClock);
-    //     }
-    //   }, gameClockInterval)
-    //   // setClock(gameClock);
-    //   return () => clearInterval(gameClock)
-    // }
     useEffect(() => {
       setHydrated(true);
       //initial display of time
@@ -67,11 +48,6 @@ const Timer = () => {
       // Returns null on first render, so the client and server match
       return null;
     }
-
-
-
-
-
 
     return (
       <div>
