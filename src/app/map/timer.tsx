@@ -38,7 +38,7 @@ const Timer = () => {
       setHydrated(true);
       //initial display of time
       resetClock()
-    }, [roundContext.round])
+    }, [roundContext.round, resetClock])
 
     useEffect(() => {
       setRound(roundContext.round)
