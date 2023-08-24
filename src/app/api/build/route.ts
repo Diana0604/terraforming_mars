@@ -75,19 +75,23 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
 
-    //check buliding of this type not present in tile
-    for (const building of buildingsOnTile) {
-      if (building.buildingType === body.buildingType)
-        return NextResponse.json(
-          { error: "Tile already has this building" },
-          { status: 400 }
-        );
-    }
-
     //obtain building
     const building = PRESET_BUILDINGS_LIST.filter((value) => {
       return value.buildingType === body.buildingType;
     })[0];
+
+    //check building of this type does not yet exist
+    const otherBuilding = await buildingModel.count({
+      tile: tile._id,
+      buildingType: building.buildingType,
+    });
+
+    if (otherBuilding) {
+      return NextResponse.json(
+        { error: "Tile already has this building" },
+        { status: 400 }
+      );
+    }
 
     //check enough resources
     if (!canBuild(corporation.resourcesNextRound, building))
@@ -105,15 +109,6 @@ export async function POST(request: NextRequest) {
         { message: TILE_ALREADY_COLONIZED },
         { status: 400 }
       );
-    }
-
-    //check building of this type does not yet exist
-    for (const building of tile.buildings) {
-      if (building.buildingType === body.buildingType)
-        return NextResponse.json(
-          { message: "Building of this type already exists in tile" },
-          { status: 400 }
-        );
     }
 
     //create building
