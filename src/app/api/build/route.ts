@@ -122,6 +122,15 @@ export async function POST(request: NextRequest) {
           continue;
         }
       }
+
+      for (const index in corporation.resourcesOwned) {
+        const corpResource = corporation.resourcesOwned[index];
+        if (resourceNeeded.name === corpResource.name) {
+          corpResource.quantity =
+            Number(corpResource.quantity) - resourceNeeded.quantity;
+          continue;
+        }
+      }
     }
 
     //add building to corporation list
