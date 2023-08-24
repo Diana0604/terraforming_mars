@@ -7,7 +7,7 @@ import {
   WATER_NAME,
 } from "@/constants";
 
-export default {
+const corporationResourcesInformation =  {
   playerCorporationResources: [
     { name: WATER_NAME, quantity: 100 },
     { name: RARE_METAL_NAME, quantity: 100 },
@@ -25,3 +25,5 @@ export default {
     { name: SYNTHETICS_NAME, quantity: 100 },
   ],
 };
+
+export default corporationResourcesInformation
