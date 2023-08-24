@@ -103,13 +103,9 @@ export async function POST(request: NextRequest) {
     if (!corporation.newBuildingsNextRound)
       corporation.newBuildingsNextRound = [];
     corporation.newBuildingsNextRound.push(buildingObject._id);
-    console.log('building has been pushed')
-    console.log(buildingObject._id.toString())
-    console.log(corporation.newBuildingsNextRound)
 
     //save corporation object
     const databseCorp = await corporation.save();
-    console.log('and in the database whats saved is: ', databseCorp.newBuildingsNextRound)
 
     //update colonization status for tile if necessary
     if (!tile.colonizedBy) {

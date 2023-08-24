@@ -46,8 +46,6 @@ export const RoundContextProvider = ({ children }: { children: React.ReactNode }
 
     updateRound()
 
-    // const gameInterval = Math.floor(1000*SECONDS_PER_ROUND*5/1440)
-    // console.log(gameInterval)
     const interval = setInterval(updateRound, 1000)
 
     //destroy interval at dismount
