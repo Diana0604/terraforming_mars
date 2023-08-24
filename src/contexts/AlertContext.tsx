@@ -30,7 +30,7 @@ export const AlertContextProvider = ({ children }: { children: React.ReactNode }
         fetch(ALERT_MANAGER_ROUTE, { method: 'get' }).then(async response => {
           const data = await response.json();
           console.log(data)
-          if(data != null )
+          if(data)
             setMessage(data.message)
         }, (error) => { console.log('error on fetch', error) })
       } catch (error) {

@@ -7,12 +7,12 @@ const Alert = () => {
 
     const message = useContext(AlertContext)
 
-    return (<>
+    return <>
         {
-            message.message ? <div className={styles.alertMessage}>{message.message}</div> : null
+            message.message && <div className={styles.alertMessage}>{message.message}</div>
         }
         </>
-    )
+    
 }
 
 export default Alert;

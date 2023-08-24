@@ -1,14 +1,13 @@
 "use client"
 import { ALERT_MANAGER_ROUTE } from "@/constants";
 import { Button, Card, Col } from "antd";
-import TextArea, { TextAreaRef } from "antd/es/input/TextArea";
-import { ChangeEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
+import TextArea from "antd/es/input/TextArea";
+import { ChangeEvent,  useState } from "react";
 
 
 const AlertManager = () => {
 
     const [message, setMessage] = useState("");
-    const textRef = useRef<TextAreaRef>(null);
 
     const handleTextAreaChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
        setMessage(e.target.value)
@@ -35,7 +34,7 @@ const AlertManager = () => {
     return (
         <Card style={{display: "flex", flexDirection: "column", rowGap: "10px", padding: "10px"}}>
             <h3>Trigger Alert to Map</h3>
-            <TextArea ref={textRef} value={message} style={{maxWidth: "500px"}} onChange={(e) => handleTextAreaChange(e)}></TextArea>
+            <TextArea value={message} style={{maxWidth: "500px"}} onChange={(e) => handleTextAreaChange(e)}></TextArea>
             <Col>
                 <Button onClick={sendAlert}>Send Instant Alert to Map</Button>
                 <Button onClick={removeAlert}>Remove Alert from Map</Button>
