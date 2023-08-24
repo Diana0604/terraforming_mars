@@ -1,6 +1,12 @@
-import { CANNOT_BUILD_ERROR_MESSAGE, COLONY_HUB_NAME, TILE_ALREADY_COLONIZED, elementMissingFromBody, elementNotFoundInDatabase } from "@/constants";
+import {
+  CANNOT_BUILD_ERROR_MESSAGE,
+  COLONY_HUB_NAME,
+  TILE_ALREADY_COLONIZED,
+  elementMissingFromBody,
+  elementNotFoundInDatabase,
+} from "@/constants";
+import buildingModel from "@/functions/database/models/building.model";
 import corporationModel from "@/functions/database/models/corporation.model";
-import customBuildingModel from "@/functions/database/models/customBuilding.model";
 import tileModel from "@/functions/database/models/tile.model";
 import { canBuild } from "@/functions/roundManager";
 import { Tile } from "@/types";
@@ -17,14 +23,14 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    
+
     if (!body.owner) {
       return NextResponse.json(
         { error: elementMissingFromBody("corporation owner") },
         { status: 400 }
       );
     }
-    
+
     if (!body.tile) {
       return NextResponse.json(
         { error: elementMissingFromBody("tile") },
@@ -81,7 +87,7 @@ export async function POST(request: NextRequest) {
     }
 
     //create building
-    const buildingObject = await customBuildingModel.create({
+    const buildingObject = await buildingModel.create({
       ...body,
       owner: corporation._id,
       tile: tile._id,
@@ -105,7 +111,7 @@ export async function POST(request: NextRequest) {
     corporation.newBuildingsNextRound.push(buildingObject._id);
 
     //save corporation object
-    const databseCorp = await corporation.save();
+    await corporation.save();
 
     //update colonization status for tile if necessary
     if (!tile.colonizedBy) {

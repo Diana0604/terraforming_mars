@@ -8,14 +8,14 @@ const CorporationSchema = new mongoose.Schema({
       quantity: { type: String },
     },
   ],
-  buildingsOwned: [{ type: Schema.Types.ObjectId, ref: "Building" } || { type: Schema.Types.ObjectId, ref: "CustomBuilding" }] ,
+  buildingsOwned: [{ type: Schema.Types.ObjectId, ref: "Building" }],
   resourcesNextRound: [
     {
       name: { type: String },
       quantity: { type: String },
     },
   ],
-  newBuildingsNextRound: [{ type: Schema.Types.ObjectId, ref: "Building" } || { type: Schema.Types.ObjectId, ref: "CustomBuilding" }],
+  newBuildingsNextRound: [{ type: Schema.Types.ObjectId, ref: "Building" }],
   tilesCanBuild: [{ type: Schema.Types.ObjectId, ref: "Tile" }],
 });
 

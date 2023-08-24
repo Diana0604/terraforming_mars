@@ -27,6 +27,7 @@ export async function GET(request: Request) {
       for (const building of corporation.buildingsOwned) {
         await building.populate("tile");
       }
+
       for (const building of corporation.newBuildingsNextRound) {
         await building.populate("tile");
       }
@@ -38,9 +39,13 @@ export async function GET(request: Request) {
   let corporation;
 
   if (id) {
-    corporation = await corporationModel.findById(id).populate("buildingsOwned");
+    corporation = await corporationModel
+      .findById(id)
+      .populate("buildingsOwned");
   } else {
-    corporation = await corporationModel.findOne({ name: name }).populate("buildingsOwned");
+    corporation = await corporationModel
+      .findOne({ name: name })
+      .populate("buildingsOwned");
   }
   if (!corporation)
     return NextResponse.json(
