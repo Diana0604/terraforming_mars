@@ -52,6 +52,7 @@ export const CorporationsContextProvider = ({ children }: { children: React.Reac
             if (corporation.name === PLAYER_CORPORATION_NAME) setPlayerCorporation(corporation)
             else setActorsCorporation(corporation)
           })
+
         }, (error) => { console.log('error on fetch', error) })
       } catch (error) {
         console.log('error on fetch', error)

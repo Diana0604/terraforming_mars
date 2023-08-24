@@ -5,7 +5,7 @@ const TileSchema = new mongoose.Schema({
   column: { type: String },
   resources: [String],
   colonizedBy: { type: Schema.Types.ObjectId, ref: "Corporation" },
-  buildings: [{ type: Schema.Types.ObjectId, ref: "Building" }],
+  buildings: [{ type: Schema.Types.ObjectId, ref: "Building"  || { type: Schema.Types.ObjectId, ref: "CustomBuilding" }}],
   destroyed: Boolean
 });
 
