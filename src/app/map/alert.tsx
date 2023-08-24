@@ -7,11 +7,15 @@ const Alert = () => {
 
     const message = useContext(AlertContext)
 
-    return <>
+    useEffect(() => {
+        console.log(message.message)
+    }, [message])
+
+    return <div>
         {
-            message.message && <div className={styles.alertMessage}>{message.message}</div>
+            message.message.length >0 && <div className={styles.alertMessage}>{message.message}</div>     
         }
-        </>
+        </div>
     
 }
 

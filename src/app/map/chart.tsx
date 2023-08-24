@@ -141,7 +141,7 @@ const Chart: React.FunctionComponent = () => {
           if(tileData?.colonizedBy === undefined)
             return "transparent"
           if(tileData.colonizedBy.name == PLAYER_CORPORATION_NAME) {
-            return "rgba(255, 0, 0, 0.4)"
+            return "rgba(0, 255, 0, 0.4)"
           } else if (tileData.colonizedBy.name ==ACTORS_CORPORATION_NAME) {
             return "rgba(0, 0, 255, 0.4)"
           }
@@ -192,8 +192,6 @@ const Chart: React.FunctionComponent = () => {
             .style("left", event.clientX + "px")
             .style("visibility", "visible")
         })
-
-        console.log("usecallback")
     }, [])
 
   useEffect(() => {
@@ -204,7 +202,7 @@ const Chart: React.FunctionComponent = () => {
 
     if(round != null)
       setDarkHour(round.round.darkHour)
-  }, [tiles]);
+  }, [tiles, darkHour, drawChart, round]);
 
   const closeTooltip = () => {
     d3.select(tooltip.current)

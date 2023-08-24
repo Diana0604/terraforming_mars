@@ -16,7 +16,7 @@ const InfoBar = () => {
             setResources(corp.resourcesOwned)
         })
 
-    }, [])
+    }, [myCorporation])
 
     const switchIcons = (name:string) => {
         switch(name) {
