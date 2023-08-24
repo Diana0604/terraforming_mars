@@ -6,6 +6,7 @@ import corporationFixtures from "@/fixtures/corporation";
 import roundModel from "./models/round.model";
 import { RESOURCES_LIST } from "@/constants";
 import buildingModel from "./models/building.model";
+import alertModel from "./models/alert.model";
 
 export const seedDB = async () => {
   //round reset
@@ -49,6 +50,9 @@ export const seedDB = async () => {
   //add to db
   await corporationModel.deleteMany();
   await corporationModel.create(corporationFixtures);
+
+  await alertModel.deleteMany();
+  await alertModel.create({message: ''})
 
   //delete buildings
   await buildingModel.deleteMany();

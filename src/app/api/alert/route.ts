@@ -5,50 +5,46 @@ import alertModel from "@/functions/database/models/alert.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-    try {
-        //connect to db
-        await dbConnect();
+  try {
+    //connect to db
+    await dbConnect();
 
-        //check request contains appropriate body
-        const body = await request.json();
+    //check request contains appropriate body
+    const body = await request.json();
 
+    if (!body.message)
+      return NextResponse.json(
+        { error: elementMissingFromBody("message") },
+        { status: 400 }
+      );
 
-        if (!body.message)
-        return NextResponse.json(
-          { error: elementMissingFromBody("message") },
-          { status: 400 }
-        );
+    //create building
+    await alertModel.findOneAndUpdate(
+      {},
+      { message: body.message }
+    );
 
-                //create building
-        const alertObject = await alertModel.create({
-            message: body.message
-        });
-
-        await alertObject.save();
-
-            //respond with success
+    //respond with success
     return NextResponse.json({
-        message: "Alert has been updated",
-      });
-
-    } catch (error) {
-        return NextResponse.json({ message: error });
-    }
+      message: "Alert has been updated",
+    });
+  } catch (error) {
+    return NextResponse.json({ message: error });
+  }
 }
 
 export async function GET(request: Request) {
-    await dbConnect();
-  
-    const message = await alertModel.findOne()
+  await dbConnect();
 
-    return NextResponse.json(message);
+  const message = await alertModel.findOne();
+
+  return NextResponse.json(message);
 }
 
 export async function DELETE(request: Request) {
-    await dbConnect();
+  await dbConnect();
 
-    const res = await alertModel.deleteMany();
+  const res = await alertModel.findOneAndUpdate({}, {message: ''});
 
-    return NextResponse.json({ message: res })
-
+  return NextResponse.json({ message: res });
 }
