@@ -1,8 +1,9 @@
 import { BuildingConstant, Resource } from "@/types";
 import { dbConnect } from "./database/database.server";
 import roundModel from "./database/models/round.model";
-import { PRESET_BUILDINGS_LIST, SECONDS_PER_ROUND } from "@/constants";
+import { SECONDS_PER_ROUND } from "@/constants";
 import corporationModel from "./database/models/corporation.model";
+import tileModel from "./database/models/tile.model";
 
 /**
  * Given a list of resources and a building to be built, check if there's enough resources to build it
@@ -53,6 +54,18 @@ const updateCorporationStats = async () => {
 
   //update each corporation
   corporations.forEach(async (corporation) => {
+    //update tiles and resources next round
+    for (const building of corporation.newBuildingsNextRound) {
+      //get building
+      building.tile = await tileModel.findById(building.tile);
+
+      //update tile
+      const tile = building.tile;
+      if (!tile.buildings) tile.buildings = [];
+      tile.buildings.push(building);
+      await tile.save();
+    }
+
     //copy round by round updates as independent object
     const resourcesNextRound = [...corporation.resourcesNextRound];
     const newBuildingsNextRound = [...corporation.newBuildingsNextRound];
@@ -63,33 +76,9 @@ const updateCorporationStats = async () => {
       newBuildingsNextRound
     );
 
-    //update tiles and resources next round
-    for (const building of newBuildingsNextRound) {
-      //get building
-      building.populate("tile");
-
-      //update tile
-      const tile = building.tile;
-      if (!tile.buildings) tile.buildings = [];
-      tile.buildings.push(building);
-      await tile.save();
-    }
-
     for (const building of corporation.buildingsOwned) {
-      //update resources next round from buildings daily cost
-      const buildingConstantArray = PRESET_BUILDINGS_LIST.filter(
-        (buildingConstant) =>
-          buildingConstant.buildingType === building.buildingType
-      );
-
-      //it's a custom building
-      if (buildingConstantArray.length === 0) {
-        continue; //TO DO
-      }
-
       //it's a non custom building
-      const buildingConstant = buildingConstantArray[0];
-      for (const resource of buildingConstant.dailyCost) {
+      for (const resource of building.dailyCost) {
         for (const corporationResource of corporation.resourcesNextRound) {
           if (resource.name === corporationResource.name) {
             corporationResource.quantity =
@@ -100,7 +89,7 @@ const updateCorporationStats = async () => {
       }
 
       //update resources next round from building daily production
-      for (const resource of buildingConstant.dailyProduction) {
+      for (const resource of building.dailyProduction) {
         for (const corporationResource of corporation.resourcesNextRound) {
           if (resource.name === corporationResource.name) {
             corporationResource.quantity =
