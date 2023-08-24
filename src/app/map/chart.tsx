@@ -199,10 +199,12 @@ const Chart: React.FunctionComponent = () => {
     if(tiles.tiles.length > 0) {
       drawChart(svg, tooltip, darkHour, tiles.tiles);
     }
+  }, [tiles, darkHour]);
 
+  useEffect(() => {
     if(round != null)
       setDarkHour(round.round.darkHour)
-  }, [tiles]);
+  }, [round])
 
   const closeTooltip = () => {
     d3.select(tooltip.current)
