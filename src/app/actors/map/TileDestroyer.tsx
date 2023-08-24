@@ -2,7 +2,6 @@
 
 import { TILE_ROUTE } from "@/constants"
 import { TilesContext } from "@/contexts/TileContext"
-import { Tile } from "@/types"
 import { Button, Select } from "antd"
 import { useContext, useEffect, useState } from "react"
 

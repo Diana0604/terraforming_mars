@@ -1,6 +1,6 @@
 "use client"
 //types
-import { BuildingConstant, Tile } from "@/types";
+import { Tile } from "@/types";
 
 //database routes
 import { BUILD_DATABASE_ROUTE, PRESET_BUILDINGS_LIST } from "@/constants";

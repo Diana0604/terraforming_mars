@@ -2,7 +2,7 @@
 import { PAUSE_GAME, PLAY_GAME, ROUND_MANAGER_ROUTE } from "@/constants"
 import { RoundContext } from "@/contexts/RoundContext"
 import { Button, Card } from "antd"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 
 const TurnManager = () => {
 

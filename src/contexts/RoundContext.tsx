@@ -2,7 +2,6 @@
 import { ROUND_MANAGER_ROUTE } from "@/constants";
 import { Round } from "@/types";
 import React, { useState, useEffect } from "react";
-import { SECONDS_PER_ROUND } from "@/constants";
 
 //tiles can be accessed from context
 type contextProps = {

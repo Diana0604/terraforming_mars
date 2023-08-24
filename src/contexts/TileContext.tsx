@@ -1,6 +1,6 @@
 
-import { CORPORATION_ROUTE, PLAYER_CORPORATION_NAME, TILE_ROUTE } from "@/constants";
-import { Building, Corporation, Resource, Tile } from "@/types";
+import { TILE_ROUTE } from "@/constants";
+import {  Tile } from "@/types";
 import React, { useState, useEffect } from "react";
 
 //tiles can be accessed from context

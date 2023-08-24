@@ -1,6 +1,5 @@
 "use client"
 
-import { TilesContextProvider } from "@/contexts/TileContext"
 import TileDestroyer from "./TileDestroyer"
 import { Card } from "antd"
 

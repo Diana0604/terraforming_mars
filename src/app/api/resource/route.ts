@@ -1,7 +1,7 @@
 import corporationModel from "@/functions/database/models/corporation.model";
 import { dbConnect } from "@/functions/database/database.server";
 import { NextRequest, NextResponse } from "next/server";
-import { Corporation, Resource } from "@/types";
+import { Resource } from "@/types";
 import {
   RESOURCES_LIST,
   elementMissingFromBody,
