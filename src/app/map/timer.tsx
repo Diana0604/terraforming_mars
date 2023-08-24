@@ -36,7 +36,7 @@ const Timer = () => {
     useEffect(() => {
       setHydrated(true);
       //initial display of time
-      resetClock()
+      if(roundContext.round.playing && !roundContext.round.darkHour) resetClock()
     }, [roundContext.round])
 
     useEffect(() => {
