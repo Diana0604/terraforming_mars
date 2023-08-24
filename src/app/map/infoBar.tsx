@@ -1,22 +1,17 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "../page.module.css"
-import { Resource, Corporation } from "@/types";
-import { PLAYER_CORPORATION_NAME } from "@/constants";
+import { Resource } from "@/types";
+import { CorporationsContext } from "@/contexts/CorporationsContexts";
 
 const InfoBar = () => {
 
-    const myCorporation = PLAYER_CORPORATION_NAME
     const [resources, setResources] = useState<Resource[]>();
+    const {playerCorporation} = useContext(CorporationsContext)
 
     useEffect(() => {
-
-        const data:Promise<Corporation> = fetch(`/api/corporation?name=${myCorporation}`).then(res => res.json())
-        data.then(corp => {
-            setResources(corp.resourcesOwned)
-        })
-
-    }, [])
+        setResources(playerCorporation.resourcesOwned)
+    }, [playerCorporation])
 
     const switchIcons = (name:string) => {
         switch(name) {
@@ -40,7 +35,7 @@ const InfoBar = () => {
 
     return (
         <div className={styles.infoBar}>
-            <p>{myCorporation}</p>
+            <p>{playerCorporation.name}</p>
             { resources && resources.map((resource, index) => {
                 return <div key={index} style={{padding: "5px"}}>
                    <div style={{width: "30px"}}>
