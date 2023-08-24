@@ -77,10 +77,18 @@ const updateCorporationStats = async () => {
 
     for (const building of corporation.buildingsOwned) {
       //update resources next round from buildings daily cost
-      const buildingConstant = PRESET_BUILDINGS_LIST.filter(
+      const buildingConstantArray = PRESET_BUILDINGS_LIST.filter(
         (buildingConstant) =>
           buildingConstant.buildingType === building.buildingType
-      )[0];
+      );
+
+      //it's a custom building
+      if (buildingConstantArray.length === 0) {
+        continue; //TO DO
+      }
+
+      //it's a non custom building
+      const buildingConstant = buildingConstantArray[0];
       for (const resource of buildingConstant.dailyCost) {
         for (const corporationResource of corporation.resourcesNextRound) {
           if (resource.name === corporationResource.name) {

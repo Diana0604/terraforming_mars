@@ -8,7 +8,7 @@ const CorporationSchema = new mongoose.Schema({
       quantity: { type: String },
     },
   ],
-  buildingsOwned: [{ type: Schema.Types.ObjectId, ref: "Building" }],
+  buildingsOwned: [{ type: Schema.Types.ObjectId, ref: "Building" } || { type: Schema.Types.ObjectId, ref: "CustomBuilding" }] ,
   resourcesNextRound: [
     {
       name: { type: String },
