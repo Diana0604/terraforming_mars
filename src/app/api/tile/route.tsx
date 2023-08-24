@@ -1,5 +1,6 @@
 import buildingModel from '@/functions/database/models/building.model'
 import corporationModel from '@/functions/database/models/corporation.model'
+import customBuildingModel from '@/functions/database/models/customBuilding.model'
 import tileModel from '@/functions/database/models/tile.model'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -66,6 +67,7 @@ export async function DELETE(request: NextRequest) {
 
       //delete all buildings at this tile form database
       await buildingModel.deleteMany({ tile: tile._id })
+      await customBuildingModel.deleteMany({ tile: tile._id })
     }
 
     //case tile has not been colonized

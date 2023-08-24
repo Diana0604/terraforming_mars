@@ -38,9 +38,9 @@ export async function GET(request: Request) {
   let corporation;
 
   if (id) {
-    corporation = await corporationModel.findById(id);
+    corporation = await corporationModel.findById(id).populate("buildingsOwned");
   } else {
-    corporation = await corporationModel.findOne({ name: name });
+    corporation = await corporationModel.findOne({ name: name }).populate("buildingsOwned");
   }
   if (!corporation)
     return NextResponse.json(

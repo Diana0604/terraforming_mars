@@ -15,7 +15,7 @@ const CorporationSchema = new mongoose.Schema({
       quantity: { type: String },
     },
   ],
-  newBuildingsNextRound: [{ type: Schema.Types.ObjectId, ref: "Building" }],
+  newBuildingsNextRound: [{ type: Schema.Types.ObjectId, ref: "Building" } || { type: Schema.Types.ObjectId, ref: "CustomBuilding" }],
   tilesCanBuild: [{ type: Schema.Types.ObjectId, ref: "Tile" }],
 });
 
