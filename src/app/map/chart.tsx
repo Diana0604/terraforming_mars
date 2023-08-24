@@ -81,7 +81,7 @@ const Chart: React.FunctionComponent = () => {
     return returnData;
   }
 
-  const drawChart = useCallback((svgRef: React.RefObject<SVGSVGElement>, tooltip: MutableRefObject<null>, darkHour:boolean, updatedTiles:Tile[]) => {
+  const drawChart = useCallback((svgRef: React.RefObject<SVGSVGElement>, tooltip: MutableRefObject<null>, darkHour: boolean, updatedTiles:Tile[]) => {
 
     const h = "100%";
     const w = "100%";
@@ -202,7 +202,7 @@ const Chart: React.FunctionComponent = () => {
   }, [tiles, darkHour]);
 
   useEffect(() => {
-    if(round != null)
+    if(round != null && round.round.darkHour != darkHour)
       setDarkHour(round.round.darkHour)
   }, [round])
 
