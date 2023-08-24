@@ -3,7 +3,7 @@ import styles from './page.module.css'
 import Chart from './map/chart';
 import Timer from './map/timer';
 import InfoBar from './map/infoBar';
-import Alert from './map/alert'
+import Alert from './map/Alert';
 
 
 export default function Home() {

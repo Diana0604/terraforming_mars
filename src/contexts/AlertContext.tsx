@@ -1,8 +1,6 @@
 
-import { ALERT_MANAGER_ROUTE, ROUND_MANAGER_ROUTE } from "@/constants";
-import { Round } from "@/types";
+import { ALERT_MANAGER_ROUTE } from "@/constants";
 import React, { useState, useEffect } from "react";
-import { SECONDS_PER_ROUND } from "@/constants";
 
 //tiles can be accessed from context
 type contextProps = {
@@ -32,7 +30,7 @@ export const AlertContextProvider = ({ children }: { children: React.ReactNode }
         fetch(ALERT_MANAGER_ROUTE, { method: 'get' }).then(async response => {
           const data = await response.json();
           console.log(data)
-          if(data.message)
+          if(data != null )
             setMessage(data.message)
         }, (error) => { console.log('error on fetch', error) })
       } catch (error) {

@@ -7,8 +7,11 @@ const Alert = () => {
 
     const message = useContext(AlertContext)
 
-    return (
-        <div>{message.message}</div>
+    return (<>
+        {
+            message.message ? <div className={styles.alertMessage}>{message.message}</div> : null
+        }
+        </>
     )
 }
 

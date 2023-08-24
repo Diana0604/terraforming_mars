@@ -39,7 +39,16 @@ export async function POST(request: NextRequest) {
 export async function GET(request: Request) {
     await dbConnect();
   
-    const message = await alertModel.find()
+    const message = await alertModel.findOne()
 
-    return NextResponse.json({ message: message });
+    return NextResponse.json(message);
+}
+
+export async function DELETE(request: Request) {
+    await dbConnect();
+
+    const res = await alertModel.deleteMany();
+
+    return NextResponse.json({ message: res })
+
 }
