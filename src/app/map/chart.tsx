@@ -222,7 +222,7 @@ const Chart: React.FunctionComponent = () => {
       <svg ref={svg} >
         <Stars />
         <ellipse  cx="500" cy="480" rx="680" ry="365" fill="rgb(60, 20, 20)"></ellipse>
-        <image className={styles.image} xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="bareMap.png" mask="url(#clip)" width="1470" height="930" x="-235" y="0"
+        <image className={styles.image} xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="bareMap.png" mask="url(#clip)" width="1460" height="920" x="-230" y="4"
         preserveAspectRatio="none"
         > </image>
       </svg>
