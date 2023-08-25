@@ -136,10 +136,15 @@ const Chart: React.FunctionComponent = () => {
 
         const colonizations = hexes.map((d) => {
           const tileData:any = getTile(d[0], updatedTiles);
-          if(tileData?.colonizedBy === undefined)
+
+          if(!tileData?.colonizedBy) {
+            if (tileData.destroyed) {
+              return "rgba(255,0,0,0.4)"
+            }
             return "transparent"
-          if(tileData.colonizedBy.name == PLAYER_CORPORATION_NAME) {
-            return "rgba(255, 0, 0, 0.4)"
+          }
+          else if(tileData.colonizedBy.name == PLAYER_CORPORATION_NAME) {
+            return "rgba(0, 255, 0, 0.4)"
           } else if (tileData.colonizedBy.name ==ACTORS_CORPORATION_NAME) {
             return "rgba(0, 0, 255, 0.4)"
           }
@@ -217,7 +222,7 @@ const Chart: React.FunctionComponent = () => {
       <svg ref={svg} >
         <Stars />
         <ellipse  cx="500" cy="480" rx="680" ry="365" fill="rgb(60, 20, 20)"></ellipse>
-        <image xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="bareMap.png" mask="url(#clip)" width="100vw" height="100%" x="-400" y="0"
+        <image className={styles.image} xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="bareMap.png" mask="url(#clip)" width="1470" height="930" x="-235" y="0"
         preserveAspectRatio="none"
         > </image>
       </svg>
@@ -229,10 +234,22 @@ const Chart: React.FunctionComponent = () => {
           return <p key={index}>Resource: {resource}</p>
         })}
         <hr style={{marginTop: "5px", marginBottom: "5px", border: "black 1px solid"}}/>
-        <p>Colonized By: {tileState?.colonizedBy?.name}</p>
-        <p>Buildings: { tileState && tileState.buildings?.map((building, index) => {
-          return <span key={index}>{building.buildingType},&nbsp;</span>
-        })} </p>
+        {
+          tileState?.destroyed ?
+            <p>Tile Destroyed</p>
+           :
+            <>
+                <p>Colonized By: {tileState?.colonizedBy?.name}</p>
+                <p>Buildings: { tileState && tileState.buildings?.map((building, index, buildings) => {
+                  return (
+                    <span key={index}>
+                      {building.buildingType}
+                      {index == buildings.length-1 ? "" : ","}&nbsp;
+                    </span>
+                    )
+                })} </p>
+            </>
+        }
         <svg style={{ position: "absolute", top: "5px", right: "5px"}} width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
         onClick={closeTooltip}>
           <path d="M33.4055 34.5783L0.980469 2.15326L2.39447 0.739258L34.8195 33.1643L33.4055 34.5783Z" fill="black"/>

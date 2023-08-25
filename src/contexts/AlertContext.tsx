@@ -31,6 +31,7 @@ export const AlertContextProvider = ({ children }: { children: React.ReactNode }
           const data = await response.json();
           if(data)
             setMessage(data.message)
+          else setMessage("");
         }, (error) => { console.log('error on fetch', error) })
       } catch (error) {
         console.log('error on fetch', error)

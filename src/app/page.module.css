@@ -75,7 +75,7 @@
   font-size: 23px;
   align-items: center;
   font-family: 'ShareTechMono-Regular';
-
+  z-index: 10;
 
 }
 
@@ -115,6 +115,10 @@
   background-color: black;
   color: white;
   text-align: center;
+}
+
+.image {
+  max-height: 100%;
 }
 
 /* html, body, * { 
