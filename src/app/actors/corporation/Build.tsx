@@ -3,7 +3,8 @@
 import { Tile } from "@/types";
 
 //database routes
-import { BUILD_DATABASE_ROUTE, PRESET_BUILDINGS_LIST } from "@/constants";
+import { BUILD_DATABASE_ROUTE } from "@/constants";
+import { PRESET_BUILDINGS_LIST } from "@/showVariables";
 
 //react
 import { useState } from "react"

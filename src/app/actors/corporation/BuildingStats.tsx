@@ -1,6 +1,6 @@
 "use client"
 //constants
-import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/constants"
+import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/showVariables"
 
 //types
 import { Corporation, Tile } from "@/types"

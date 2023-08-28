@@ -3,7 +3,8 @@
 import { Resource, Tile } from "@/types";
 
 //database routes
-import { ACTORS_CORPORATION_NAME, BUILD_DATABASE_ROUTE, PLAYER_CORPORATION_NAME, RESOURCES_LIST } from "@/constants";
+import { BUILD_DATABASE_ROUTE, RESOURCES_LIST } from "@/constants";
+import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/showVariables";
 
 //react
 import { ChangeEvent, useContext, useRef, useState } from "react"

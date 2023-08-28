@@ -2,7 +2,7 @@
 import { Corporation } from "@/types"
 
 //constants
-import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/constants"
+import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/showVariables"
 
 //react
 import { useContext } from "react"

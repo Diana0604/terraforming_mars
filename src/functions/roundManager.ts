@@ -1,7 +1,7 @@
 import { BuildingConstant, Resource } from "@/types";
 import { dbConnect } from "./database/database.server";
 import roundModel from "./database/models/round.model";
-import { SECONDS_PER_ROUND } from "@/constants";
+import { SECONDS_PER_ROUND } from "@/showVariables";
 import corporationModel from "./database/models/corporation.model";
 import tileModel from "./database/models/tile.model";
 
