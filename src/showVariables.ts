@@ -42,14 +42,14 @@ export const COLONY_HUB: BuildingConstant = {
   buildingCost: [
     { name: WATER_NAME, quantity: 5 },
     { name: OXYGEN_NAME, quantity: 5 },
-    { name: FOOD_NAME, quantity: 3 },
+    { name: FOOD_NAME, quantity: 5 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
     { name: SYNTHETICS_NAME, quantity: 5 },
   ],
   dailyProduction: [
     { name: WATER_NAME, quantity: 0 },
-    { name: OXYGEN_NAME, quantity: 5 },
+    { name: OXYGEN_NAME, quantity: 10 },
     { name: FOOD_NAME, quantity: 0 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
@@ -58,7 +58,7 @@ export const COLONY_HUB: BuildingConstant = {
   dailyCost: [
     { name: WATER_NAME, quantity: 5 },
     { name: OXYGEN_NAME, quantity: 5 },
-    { name: FOOD_NAME, quantity: 3 },
+    { name: FOOD_NAME, quantity: 5 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
     { name: SYNTHETICS_NAME, quantity: 0 },
