@@ -16,7 +16,7 @@ export type MAP_ROWS = 1 | 2 | 3 | 4 | 5;
 export type BuildingType = "Colony Hub" | "Rock Mine" | "Ice Mine" | "Factory" | "Biome/Farm" | 
     "Temple" | "Barracks" | "Theatre" | "School" | "University" | "Hospital" | "Science Lab" | 
     "Launch Pad" | "Superconductor" | string;
-export type ResourceName = "Rare Metal" | "Water" | "Oxygen" | "Food" | "Synthetics" | "Minerals";
+export type ResourceName = "Rare Metal" | "Water" | "Oxygen" | "Food" | "Synthetics" | "Minerals" | "Ice";
 
 export type Coordinate = {
   x: number;

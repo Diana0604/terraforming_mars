@@ -239,6 +239,16 @@ const Chart: React.FunctionComponent = () => {
             <p>Tile Destroyed</p>
            :
             <>
+                <p>
+                  
+                  Resources available: {tileState && tileState.resourcesAvailable?.map((resourceName, index, resources) => 
+                  (
+                  <span key={index}>
+                    {resourceName} {index === resources.length - 1 ? "" : ","}&nbsp;
+                  </span>)
+                )}
+                </p>
+                
                 <p>Colonized By: {tileState?.colonizedBy?.name}</p>
                 <p>Buildings: { tileState && tileState.buildings?.map((building, index, buildings) => {
                   return (

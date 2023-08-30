@@ -1,3 +1,4 @@
+import { MINERALS_NAME, RARE_METAL_NAME, WATER_NAME } from "@/constants";
 import { Tile } from "@/types";
 
 const tiles: Tile[] = [
@@ -10,7 +11,7 @@ const tiles: Tile[] = [
   {
     column: "B",
     row: 1,
-    resourcesAvailable: [],
+    resourcesAvailable: [RARE_METAL_NAME, MINERALS_NAME],
     destroyed: false,
   },
   {
@@ -28,13 +29,13 @@ const tiles: Tile[] = [
   {
     column: "C",
     row: 2,
-    resourcesAvailable: [],
+    resourcesAvailable: [MINERALS_NAME],
     destroyed: false,
   },
   {
     column: "C",
     row: 3,
-    resourcesAvailable: [],
+    resourcesAvailable: [MINERALS_NAME],
     destroyed: false,
   },
   {
@@ -52,49 +53,49 @@ const tiles: Tile[] = [
   {
     column: "D",
     row: 3,
-    resourcesAvailable: [],
+    resourcesAvailable: [WATER_NAME],
     destroyed: false,
   },
   {
     column: "D",
     row: 4,
-    resourcesAvailable: [],
+    resourcesAvailable: ["Ice", MINERALS_NAME],
     destroyed: false,
   },
   {
     column: "E",
     row: 1,
-    resourcesAvailable: [],
+    resourcesAvailable: ["Ice", RARE_METAL_NAME],
     destroyed: false,
   },
   {
     column: "E",
     row: 2,
-    resourcesAvailable: [],
+    resourcesAvailable: [MINERALS_NAME],
     destroyed: false,
   },
   {
     column: "E",
     row: 3,
-    resourcesAvailable: [],
+    resourcesAvailable: [RARE_METAL_NAME],
     destroyed: false,
   },
   {
     column: "E",
     row: 4,
-    resourcesAvailable: [],
+    resourcesAvailable: [MINERALS_NAME, WATER_NAME],
     destroyed: false,
   },
   {
     column: "E",
     row: 5,
-    resourcesAvailable: [],
+    resourcesAvailable: ["Ice", RARE_METAL_NAME],
     destroyed: false,
   },
   {
     column: "F",
     row: 1,
-    resourcesAvailable: [],
+    resourcesAvailable: [WATER_NAME],
     destroyed: false,
   },
   {
@@ -106,19 +107,19 @@ const tiles: Tile[] = [
   {
     column: "F",
     row: 3,
-    resourcesAvailable: [],
+    resourcesAvailable: [MINERALS_NAME],
     destroyed: false,
   },
   {
     column: "F",
     row: 4,
-    resourcesAvailable: [],
+    resourcesAvailable: ["Ice", MINERALS_NAME],
     destroyed: false,
   },
   {
     column: "G",
     row: 1,
-    resourcesAvailable: [],
+    resourcesAvailable: ["Ice", RARE_METAL_NAME],
     destroyed: false,
   },
   {
@@ -142,13 +143,13 @@ const tiles: Tile[] = [
   {
     column: "G",
     row: 5,
-    resourcesAvailable: [],
+    resourcesAvailable: ["Ice", RARE_METAL_NAME],
     destroyed: false,
   },
   {
     column: "H",
     row: 1,
-    resourcesAvailable: [],
+    resourcesAvailable: [MINERALS_NAME],
     destroyed: false,
   },
   {
@@ -166,7 +167,7 @@ const tiles: Tile[] = [
   {
     column: "H",
     row: 4,
-    resourcesAvailable: [],
+    resourcesAvailable: ["Ice", MINERALS_NAME, RARE_METAL_NAME, WATER_NAME],
     destroyed: false,
   },
   {
@@ -178,7 +179,7 @@ const tiles: Tile[] = [
   {
     column: "I",
     row: 2,
-    resourcesAvailable: [],
+    resourcesAvailable: [WATER_NAME],
     destroyed: false,
   },
   {
@@ -190,7 +191,7 @@ const tiles: Tile[] = [
   {
     column: "J",
     row: 1,
-    resourcesAvailable: [],
+    resourcesAvailable: [MINERALS_NAME],
     destroyed: false,
   },
   {
