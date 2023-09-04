@@ -19,6 +19,7 @@ const CustomBuilding = () => {
   //refs
   const resourceRequirementListElement = useRef<HTMLUListElement>(null);
   const productionResourceListElement = useRef<HTMLUListElement>(null);
+  const dailyCostResourceListElement = useRef<HTMLUListElement>(null);
 
   const [buildingType, setBuildingType] = useState<string>("");
   const [resourceRequirementList, setResourceRequirementList] = useState<Resource[]>([])
@@ -214,6 +215,7 @@ const CustomBuilding = () => {
             </li>)
           })}
         </ul>
+
         <Button onClick={addProductionResource}>Add Daily Production</Button>
         <ul ref={productionResourceListElement} style={{ listStyleType: "none" }}>
           {productionResourceList.length > 0 && productionResourceList.map((resource, i) => {
@@ -228,8 +230,9 @@ const CustomBuilding = () => {
             </li>)
           })}
         </ul>
-        <Button onChange={addDailyCost}>Add Daily Cost</Button>
-        <ul style={{ listStyleType: "none" }}>
+
+        <Button onClick={addDailyCost}>Add Daily Cost</Button>
+        <ul ref={dailyCostResourceListElement} style={{ listStyleType: "none" }}>
           {dailyCostResourceList.length > 0 && dailyCostResourceList.map((resource, i) => {
             return (<li key={i} >
               <Select style={{ width: "200px", padding: "5px" }}
