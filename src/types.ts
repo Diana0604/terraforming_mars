@@ -53,6 +53,8 @@ export type Tile = {
   destroyed: boolean;
   colonizedBy?: Corporation;
   buildings?: BuildingConstant[];
+  hazards: string[];
+  landmark?: string
 };
 
 export type Building = {

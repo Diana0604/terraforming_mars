@@ -81,16 +81,16 @@
 
 .tooltip {
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   background-color: #E2BCA2;
   color: black;
   visibility: hidden;
   padding: 5px;
   border: 2px #6C5337 solid;
   border-radius: 5px;
-  font-size: 25px;
-  line-height: 30px;
+  font-size: 20px;
+  line-height: 35px;
   /* font-family: "Vangba-Regular" */
   font-family: 'ShareTechMono-Regular';
 }
