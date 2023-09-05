@@ -58,6 +58,7 @@ export type Tile = {
 };
 
 export type Building = {
+  _id?: mongoose.Types.ObjectId;;
   buildingType: BuildingType;
   dailyProduction: Resource[];
   dailyCost: Resource[];

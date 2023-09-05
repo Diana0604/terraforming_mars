@@ -99,3 +99,35 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: error }, { status: 500 })
   }
 }
+
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    //we either need tile id or tile row and column
+    if (!body.id && (!body.row || !body.column)) {
+      return NextResponse.json({ error: "Missing necessary params in body" }, { status: 400 })
+    }
+
+    //find tile either by id or row / column pair
+    let tile;
+    if (body.id) tile = await tileModel.findById(body.id)
+    else {
+      tile = await tileModel.findOne({ row: body.row, column: body.column })
+    }
+
+    //set tile as destroyed
+    tile.destroyed = false;
+    tile.colonizedBy = null;
+    tile.buildings = [];
+
+    //save tile
+    await tile.save();
+
+    return NextResponse.json({ message: 'tile recovered', tile: tile })
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json({ error: error }, { status: 500 })
+  }
+}

@@ -68,7 +68,10 @@ export async function POST(request: NextRequest) {
 
     const buildingsOnTile = tile.buildings;
     //check colony hub in tile
-    if (buildingsOnTile.length === 0 && building.buildingType != COLONY_HUB_NAME)
+    if (
+      buildingsOnTile.length === 0 &&
+      building.buildingType != COLONY_HUB_NAME
+    )
       return NextResponse.json(
         { error: "First building of a tile must be Colony Hub" },
         { status: 400 }
@@ -168,5 +171,39 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     return NextResponse.json({ message: error });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    if (!body.id)
+      return NextResponse.json(
+        { error: "Missing necessary params in body" },
+        { status: 400 }
+      );
+
+    //remove building from corporation
+    const corporation = await corporationModel.findOne({
+      buildingsOwned: body.id,
+    });
+    const corporationIndex = corporation.buildingsOwned.indexOf(body.id);
+
+    corporation.buildingsOwned.splice(corporationIndex, 1);
+    corporation.save();
+
+    //remove building from tile
+    const tile = await tileModel.findOne({ buildings: body.id });
+    const tileIndex = tile.buildings.indexOf(body.id);
+    tile.buildings.splice(tileIndex, 1);
+    tile.save();
+
+    //destroy building object
+    await buildingModel.findByIdAndDelete(body.id);
+
+    NextResponse.json({ message: "building destroyed" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }

@@ -11,6 +11,8 @@ import { CorporationsContext } from "@/contexts/CorporationsContexts"
 
 //components
 import Build from "./Build"
+import { Button } from "antd"
+import { BUILD_DATABASE_ROUTE } from "@/constants"
 
 interface IBuildingStatsProps {
 
@@ -33,8 +35,11 @@ const BuildingStats = (props: IBuildingStatsProps) => {
           corporation.buildingsOwned.map((building, index) => {
             return (
               <div key={index}>
-                <div style={{ fontWeight: "bold" }}>Type: {building.buildingType}</div>
-                <div>Tile: {`${building.tile.column}`}{building.tile.row}</div>
+                <div style={{ fontWeight: "bold" }}>Tile: {`${building.tile.column}`}{building.tile.row}</div>
+                <span>Type: {building.buildingType}</span>
+                <Button onClick={async () =>{
+                  const res = await fetch(BUILD_DATABASE_ROUTE, {method: 'delete', body: JSON.stringify({id: building._id})})
+                }}>Destroy building</Button>
               </div>
             )
           })
