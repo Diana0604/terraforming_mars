@@ -4,10 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST() {
   try {
-    console.log('in post request')
     await dbConnect();
 
-    console.log('calling skip method')
     skipToDarkHour();
 
     //return successfully

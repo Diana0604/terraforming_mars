@@ -153,16 +153,13 @@ export const playGame = async () => {
   }
 
   //get time ellapsed since paused
-  console.log('getting: ', now, '-', currentRound.pausedAt)
   const timeEllapsed = Number(now.getTime()) - Number(currentRound.pausedAt.getTime());
-  console.log('time ellapsed is', timeEllapsed)
 
   //create a new starting time according to when it needs to be
   currentRound.startTime = new Date(Number(new Date().getTime()) - timeEllapsed);
   currentRound.playing = true;
 
   //set timeout to change round at end of turn
-  console.log('timeout for', (SECONDS_PER_ROUND * 1000 - timeEllapsed))
   setTimeout(endOfRound, (SECONDS_PER_ROUND * 1000 - timeEllapsed));
 
   //update database object
@@ -193,12 +190,10 @@ export const pauseGame = async () => {
 };
 
 export const skipToDarkHour = async () => {
-  console.log("skipping to dark hour");
   const currentRound = await pauseGame();
   currentRound.darkHour = true;
   currentRound.startTime = new Date(
     Number(new Date().getTime()) - (SECONDS_PER_ROUND - 1) * 1000
   );
-  console.log(currentRound.startTime);
   currentRound.save();
 };

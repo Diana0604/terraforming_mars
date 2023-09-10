@@ -71,7 +71,6 @@ const Chart: React.FunctionComponent = () => {
     })
 
     if (fetchedTiles.length > 1) {
-      console.log(fetchedTiles.length + "is the length")
       console.error("Got wrong number of tiles")
     }
 
@@ -199,8 +198,6 @@ const Chart: React.FunctionComponent = () => {
           .style("left", clientX + "px")
           .style("visibility", "visible")
       })
-
-    console.log("usecallback")
   }, [])
 
   useEffect(() => {

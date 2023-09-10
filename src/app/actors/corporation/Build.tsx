@@ -68,7 +68,6 @@ const Build = (props: BuildProps) => {
   const onClickBuild = async () => {
     try {
       if(buildingIndex === undefined) return;
-      console.log('sending building : ', PRESET_BUILDINGS_LIST[buildingIndex])
       const res = await fetch(BUILD_DATABASE_ROUTE, { method: "post", body: JSON.stringify({ ...PRESET_BUILDINGS_LIST[buildingIndex], corporation: props.corporationName, tile: tile }) })
       const data = await res.json()
       if (data.error) {
