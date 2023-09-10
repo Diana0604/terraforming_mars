@@ -1,5 +1,5 @@
 "use client"
-import { PAUSE_GAME, PLAY_GAME, ROUND_MANAGER_ROUTE } from "@/constants"
+import { PAUSE_GAME, PLAY_GAME, ROUND_MANAGER_ROUTE, SKIP_TO_DARK } from "@/constants"
 import { RoundContext } from "@/contexts/RoundContext"
 import { Button, Card } from "antd"
 import { useContext, useState } from "react"
@@ -29,6 +29,12 @@ const TurnManager = () => {
     setButtonsDisabled(false)
   }
 
+  const onClickSkip = async () => {
+    setButtonsDisabled(true)
+    await fetch(SKIP_TO_DARK, { method: "post" })
+    setButtonsDisabled(false)
+  }
+
   return (
     <Card>
       <div>Turn Manager</div>
@@ -46,6 +52,7 @@ const TurnManager = () => {
       )}
       <Button disabled={buttonsDisabled || !round || (round.playing)} onClick={onClickPlay}>Play</Button>
       <Button disabled={buttonsDisabled || !round || !(round.playing)} onClick={onClickPause}>Pause</Button>
+      <Button disabled={buttonsDisabled || !round || (round.darkHour)} onClick={onClickSkip}>Skip to Dark Hour</Button>
     </Card>
   )
 

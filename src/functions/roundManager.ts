@@ -148,19 +148,22 @@ export const playGame = async () => {
   const now = new Date();
 
   //if it's start of round -> just start timer
-  if (currentRound.pausedAt === undefined) {
+  if (currentRound.darkHour) {
     return await startNewRound(currentRound);
   }
 
   //get time ellapsed since paused
-  const timeEllapsed = now.getSeconds() - currentRound.pausedAt.getSeconds();
+  console.log('getting: ', now, '-', currentRound.pausedAt)
+  const timeEllapsed = Number(now.getTime()) - Number(currentRound.pausedAt.getTime());
+  console.log('time ellapsed is', timeEllapsed)
 
   //create a new starting time according to when it needs to be
-  currentRound.startTime = new Date(new Date().getTime() - timeEllapsed * 1000);
+  currentRound.startTime = new Date(Number(new Date().getTime()) - timeEllapsed);
   currentRound.playing = true;
 
   //set timeout to change round at end of turn
-  setTimeout(endOfRound, (SECONDS_PER_ROUND - timeEllapsed) * 1000);
+  console.log('timeout for', (SECONDS_PER_ROUND * 1000 - timeEllapsed))
+  setTimeout(endOfRound, (SECONDS_PER_ROUND * 1000 - timeEllapsed));
 
   //update database object
   await currentRound.save();
@@ -187,4 +190,15 @@ export const pauseGame = async () => {
   //save current round
   await currentRound.save();
   return currentRound;
+};
+
+export const skipToDarkHour = async () => {
+  console.log("skipping to dark hour");
+  const currentRound = await pauseGame();
+  currentRound.darkHour = true;
+  currentRound.startTime = new Date(
+    Number(new Date().getTime()) - (SECONDS_PER_ROUND - 1) * 1000
+  );
+  console.log(currentRound.startTime);
+  currentRound.save();
 };

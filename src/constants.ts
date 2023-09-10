@@ -8,6 +8,7 @@ export const CORPORATION_ROUTE = `${BASE_API_URL}/corporation`;
 export const TILE_ROUTE = `${BASE_API_URL}/tile`;
 export const ROUND_MANAGER_ROUTE = `${BASE_API_URL}/round`;
 export const ALERT_MANAGER_ROUTE = `${BASE_API_URL}/alert`;
+export const SKIP_TO_DARK =  `${ROUND_MANAGER_ROUTE}/skip`;
 
 //success messages
 export const DATABASE_SUCCESSFULLY_UPDATED =
