@@ -34,7 +34,7 @@ export const PLAYER_CORPORATION_NAME = "Player";
 export const ACTORS_CORPORATION_NAME = "Actors";
 
 //round management
-export const SECONDS_PER_ROUND = 5 * 60;
+export const SECONDS_PER_ROUND = 3 * 60;
 
 //cost of buildings
 export const COLONY_HUB: BuildingConstant = {
