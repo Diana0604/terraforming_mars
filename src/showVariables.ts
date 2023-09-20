@@ -30,7 +30,7 @@ import {
 import { BuildingConstant } from "./types";
 
 //names of corporations
-export const PLAYER_CORPORATION_NAME = "Persephone Ventures";
+export const PLAYER_CORPORATION_NAME = "Persephone";
 export const ACTORS_CORPORATION_NAME = "Ben Sucks Butt Juice Ltd.";
 
 //round management
