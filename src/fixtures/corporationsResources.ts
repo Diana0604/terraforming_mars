@@ -9,12 +9,12 @@ import {
 
 const corporationResourcesInformation =  {
   playerCorporationResources: [
-    { name: WATER_NAME, quantity: 20 },
+    { name: WATER_NAME, quantity: 40 },
     { name: RARE_METAL_NAME, quantity: 0 },
-    { name: OXYGEN_NAME, quantity: 20 },
-    { name: FOOD_NAME, quantity: 20 },
-    { name: MINERALS_NAME, quantity: 10 },
-    { name: SYNTHETICS_NAME, quantity: 20 },
+    { name: OXYGEN_NAME, quantity: 40 },
+    { name: FOOD_NAME, quantity: 40 },
+    { name: MINERALS_NAME, quantity: 25 },
+    { name: SYNTHETICS_NAME, quantity: 40 },
   ],
   actorsCorporationResources: [
     { name: WATER_NAME, quantity: 100 },
