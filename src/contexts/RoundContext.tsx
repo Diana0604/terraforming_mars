@@ -34,7 +34,7 @@ export const RoundContextProvider = ({ children }: { children: React.ReactNode }
       try {
         fetch(ROUND_MANAGER_ROUTE, { method: 'get' }).then(async response => {
           const data = await response.json();
-          if(data.startTime)
+          if(data && data.startTime)
             data.startTime = new Date(data.startTime)
           setRound(data)
         }, (error) => { console.log('error on fetch', error) })
