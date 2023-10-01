@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
         Number(corporation.resourcesOwned[resourceIndex].quantity) + quantity;
 
       corporation.resourcesNextRound[resourceIndex].quantity =
-        Number(corporation.resourcesOwned[resourceIndex].quantity) + quantity;
+        Number(corporation.resourcesOwned[resourceIndex].quantity);
     }
 
     //save object in database
