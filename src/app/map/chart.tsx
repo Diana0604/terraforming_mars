@@ -8,6 +8,7 @@ import { Tile } from "../../types"
 import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/showVariables";
 import { TilesContext } from "@/contexts/TileContext";
 import { RoundContext } from "@/contexts/RoundContext";
+import { Card } from 'antd';
 
 const Chart: React.FunctionComponent = () => {
   const svg = useRef<SVGSVGElement>(null);
@@ -228,7 +229,9 @@ const Chart: React.FunctionComponent = () => {
         > </image>
       </svg>
       {/* xMinYMin meet */}
-      <div id="tooltip" ref={tooltip} className={styles.tooltip}>
+
+
+      <Card id="tooltip" ref={tooltip} className={styles.tooltip}>
         <span>Row: {tileState?.row} Column: {tileState?.column}</span>
         <p>
 
@@ -275,7 +278,9 @@ const Chart: React.FunctionComponent = () => {
           <path d="M33.4055 34.5783L0.980469 2.15326L2.39447 0.739258L34.8195 33.1643L33.4055 34.5783Z" fill="black" />
           <path d="M1.93744 35.0072L0.523438 33.5932L32.9484 1.16821L34.3624 2.58221L1.93744 35.0072Z" fill="black" />
         </svg>
-      </div>
+      </Card>
+
+
     </div>
   );
 };

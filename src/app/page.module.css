@@ -81,8 +81,7 @@
 
 .tooltip {
   position: absolute;
-  width: 350px;
-  height: 350px;
+  max-width: 500px;
   background-color: #E2BCA2;
   color: black;
   visibility: hidden;
@@ -91,6 +90,7 @@
   border-radius: 5px;
   font-size: 20px;
   line-height: 35px;
+  word-wrap: break-word;
   /* font-family: "Vangba-Regular" */
   font-family: 'ShareTechMono-Regular';
 }
