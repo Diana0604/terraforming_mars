@@ -57,17 +57,12 @@
   font-family: 'ShareTechMono-Regular';
 }
 
-.infoBar {
+.infoBar{
   position: absolute;
   top: 50px;
   left: 30px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  column-gap: 15px;
-  row-gap: 15px;
-  padding: 13px;
   margin:5px;
+  padding: 13px;
   border: 1px brown solid;
   border-radius: 5px;
   background-color: black;
@@ -76,7 +71,6 @@
   align-items: center;
   font-family: 'ShareTechMono-Regular';
   z-index: 10;
-
 }
 
 .tooltip {
