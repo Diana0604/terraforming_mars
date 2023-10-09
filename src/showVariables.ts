@@ -31,7 +31,7 @@ import { BuildingConstant } from "./types";
 
 //names of corporations
 export const PLAYER_CORPORATION_NAME = "Persephone";
-export const ACTORS_CORPORATION_NAME = "Ben Sucks Butt Juice Ltd.";
+export const ACTORS_CORPORATION_NAME = "Atlas Corp.";
 
 //round management
 export const SECONDS_PER_ROUND = 5 * 60;
