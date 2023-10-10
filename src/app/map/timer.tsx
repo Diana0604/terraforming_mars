@@ -4,8 +4,6 @@ import styles from '../page.module.css'
 import { Round } from '@/types';
 import { RoundContext } from '@/contexts/RoundContext';
 import { SECONDS_PER_ROUND } from '@/showVariables';
-import useSound from 'use-sound';
-const soundFile = '/resources/EndOfDay.mp3'
 
 const Timer = () => {
 
@@ -14,22 +12,6 @@ const Timer = () => {
     const [displayTime, setDisplayTime] = useState<Date>(new Date(Date.now()))
     const [round, setRound] = useState<Round>();
     const roundContext = useContext(RoundContext);
-    const [playing, setPlaying] = useState(false)
-
-    const [play, {duration }] = useSound(soundFile);
-
-    const triggerOneMinuteWarning =() => {
-
-      if(!playing) {
-        play()
-        setPlaying(true)
-        if(duration)
-          setTimeout(() => {
-            setPlaying(false)
-          }, duration
-          )
-      }  
-    }
 
     useEffect(() => {
 
@@ -41,12 +23,6 @@ const Timer = () => {
             newTime.setHours(0,0,0,0)
             let startTime:Date = roundContext.round.startTime
             let elapsedTime = (Date.now() - startTime.getTime())
-
-            const timeRemaining = SECONDS_PER_ROUND*1000 - elapsedTime
-
-            if(timeRemaining < 1000*60) {
-              triggerOneMinuteWarning()
-            }
 
             let elapsedGameTime = elapsedTime*(86400/SECONDS_PER_ROUND)
             time.setTime(newTime.getTime() + elapsedGameTime);
