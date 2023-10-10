@@ -31,7 +31,7 @@ import { BuildingConstant } from "./types";
 
 //names of corporations
 export const PLAYER_CORPORATION_NAME = "Persephone";
-export const ACTORS_CORPORATION_NAME = "Ben Sucks Butt Juice Ltd.";
+export const ACTORS_CORPORATION_NAME = "Atlas Corp.";
 
 //round management
 export const SECONDS_PER_ROUND = 5 * 60;
@@ -104,7 +104,7 @@ export const ICE_MINE: BuildingConstant = {
     { name: SYNTHETICS_NAME, quantity: 10 },
   ],
   dailyProduction: [
-    { name: WATER_NAME, quantity: 20 },
+    { name: WATER_NAME, quantity: 30 },
     { name: OXYGEN_NAME, quantity: 0 },
     { name: FOOD_NAME, quantity: 0 },
     { name: MINERALS_NAME, quantity: 0 },
@@ -161,15 +161,15 @@ export const BIOME_FARM: BuildingConstant = {
   ],
   dailyProduction: [
     { name: WATER_NAME, quantity: 0 },
-    { name: OXYGEN_NAME, quantity: 15 },
-    { name: FOOD_NAME, quantity: 10 },
+    { name: OXYGEN_NAME, quantity: 25 },
+    { name: FOOD_NAME, quantity: 20 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
     { name: SYNTHETICS_NAME, quantity: 0 },
   ],
   dailyCost: [
-    { name: WATER_NAME, quantity: 0 },
-    { name: OXYGEN_NAME, quantity: 15 },
+    { name: WATER_NAME, quantity: 5 },
+    { name: OXYGEN_NAME, quantity: 5 },
     { name: FOOD_NAME, quantity: 0 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
@@ -226,7 +226,7 @@ export const BARRACKS: BuildingConstant = {
   dailyCost: [
     { name: WATER_NAME, quantity: 5 },
     { name: OXYGEN_NAME, quantity: 0 },
-    { name: FOOD_NAME, quantity: 10 },
+    { name: FOOD_NAME, quantity: 5 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
     { name: SYNTHETICS_NAME, quantity: 0 },
@@ -280,8 +280,8 @@ export const SCHOOL: BuildingConstant = {
     { name: SYNTHETICS_NAME, quantity: 0 },
   ],
   dailyCost: [
-    { name: WATER_NAME, quantity: 0 },
-    { name: OXYGEN_NAME, quantity: 0 },
+    { name: WATER_NAME, quantity: 5 },
+    { name: OXYGEN_NAME, quantity: 5 },
     { name: FOOD_NAME, quantity: 5 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
@@ -308,9 +308,9 @@ export const UNIVERSITY: BuildingConstant = {
     { name: SYNTHETICS_NAME, quantity: 0 },
   ],
   dailyCost: [
-    { name: WATER_NAME, quantity: 10 },
-    { name: OXYGEN_NAME, quantity: 0 },
-    { name: FOOD_NAME, quantity: 0 },
+    { name: WATER_NAME, quantity: 5 },
+    { name: OXYGEN_NAME, quantity: 5 },
+    { name: FOOD_NAME, quantity: 5 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
     { name: SYNTHETICS_NAME, quantity: 0 },
@@ -336,9 +336,9 @@ export const HOSPITAL: BuildingConstant = {
     { name: SYNTHETICS_NAME, quantity: 0 },
   ],
   dailyCost: [
-    { name: WATER_NAME, quantity: 20 },
-    { name: OXYGEN_NAME, quantity: 20 },
-    { name: FOOD_NAME, quantity: 20 },
+    { name: WATER_NAME, quantity: 10 },
+    { name: OXYGEN_NAME, quantity: 10 },
+    { name: FOOD_NAME, quantity: 10 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
     { name: SYNTHETICS_NAME, quantity: 0 },
@@ -364,8 +364,8 @@ export const SCIENCE_LAB: BuildingConstant = {
     { name: SYNTHETICS_NAME, quantity: 0 },
   ],
   dailyCost: [
-    { name: WATER_NAME, quantity: 0 },
-    { name: OXYGEN_NAME, quantity: 10 },
+    { name: WATER_NAME, quantity: 5 },
+    { name: OXYGEN_NAME, quantity: 5 },
     { name: FOOD_NAME, quantity: 0 },
     { name: MINERALS_NAME, quantity: 0 },
     { name: RARE_METAL_NAME, quantity: 0 },
