@@ -58,7 +58,7 @@ const BuildingStats = (props: IBuildingStatsProps) => {
           })
         }
       </div>
-      < Build tilesCanBuild={corporation.tilesCanBuild as Tile[]} corporationName={corporation.name}></Build>
+      < Build corporationName={corporation.name} corporationId={corporation._id}></Build>
     </div >
   }
 

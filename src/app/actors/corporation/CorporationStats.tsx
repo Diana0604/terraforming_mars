@@ -22,7 +22,7 @@ const CorporationStats = () => {
         <ResourceStats corporationName={corporationName} />
       </Col>
       <Col span={12}>
-        <BuildingStats corporationName={corporationName} />
+        <BuildingStats corporationName={corporationName}/>
       </Col>
     </Row>
   </>)

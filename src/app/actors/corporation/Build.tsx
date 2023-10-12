@@ -7,14 +7,17 @@ import { BUILD_DATABASE_ROUTE } from "@/constants";
 import { PRESET_BUILDINGS_LIST } from "@/showVariables";
 
 //react
-import { useState } from "react"
+import { useContext, useState } from "react"
 
 //ant design
 import { Card, Select, Button } from "antd"
+import { TilesContext } from "@/contexts/TileContext";
+import mongoose from "mongoose";
 
 interface BuildProps {
-  tilesCanBuild: Tile[],
-  corporationName: String
+  //tilesCanBuild: Tile[],
+  corporationName: String,
+  corporationId?: mongoose.Types.ObjectId,
 }
 
 /**
@@ -25,6 +28,8 @@ const Build = (props: BuildProps) => {
   //keep state of when building is in progress
   const [building, setBuilding] = useState<Boolean>(false)
   const [buildingButtonMessage, setBuildingButtonMessage] = useState<String>("Show Build Menu")
+
+  const {tiles} = useContext(TilesContext)
 
   //error display message
   const [errorDisplayMessage, setErrorDisplayMessage] = useState<String>()
@@ -44,7 +49,10 @@ const Build = (props: BuildProps) => {
   })
 
   //create list for tile choosing select
-  const tilesSelectOptions = props.tilesCanBuild.map((tile) => {
+  const filteredTiles = tiles.filter(tile => {
+    return !tile.destroyed && (!tile.colonizedBy || tile.colonizedBy._id === props.corporationId)
+  })
+  const tilesSelectOptions = filteredTiles.map((tile) => {
     return {
       value: `${tile.column}${tile.row}`,
       label: `${tile.column}${tile.row}`

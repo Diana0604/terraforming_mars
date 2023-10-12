@@ -52,6 +52,7 @@ export const CorporationsContextProvider = ({ children }: { children: React.Reac
           data.corporations.forEach((corporation: Corporation) => {
             if (corporation.name === PLAYER_CORPORATION_NAME) setPlayerCorporation(corporation)
             else setActorsCorporation(corporation)
+
           })
 
         }, (error) => { console.log('error on fetch', error) })
