@@ -18,6 +18,8 @@ export const dbConnect = async () => {
   try {
     await mongoose.connect(process.env.mongoUri);
 
+    await mongoose.connection.db.dropDatabase();
+
     console.log("================== MONGOOSE CONNECTED ==================");
     await buildingModel.find();
     await tileModel.find();

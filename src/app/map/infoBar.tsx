@@ -9,7 +9,7 @@ const InfoBar = () => {
 
     const [resources, setResources] = useState<Resource[]>();
     const [resourcesNextRound, setResourcesNextRound] = useState<Resource[]>();
-    const { playerCorporation } = useContext(CorporationsContext)
+    const { playerCorporation } = useContext(CorporationsContext);
 
     useEffect(() => {
         setResources(playerCorporation.resourcesOwned)

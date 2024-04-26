@@ -1,4 +1,5 @@
 import { PAUSE_GAME, PLAY_GAME, elementMissingFromBody } from "@/constants";
+import firstRound from "@/fixtures/round";
 import { dbConnect } from "@/functions/database/database.server";
 import roundModel from "@/functions/database/models/round.model";
 import { pauseGame, playGame } from "@/functions/roundManager";
@@ -10,7 +11,12 @@ export async function GET() {
     await dbConnect();
 
     //get round object
-    const res = await roundModel.findOne();
+    let res = await roundModel.findOne();
+
+    // no round means it needs to be created
+    if (!res) {
+      res = await roundModel.create(firstRound);
+    }
 
     //respond
     return NextResponse.json(res);

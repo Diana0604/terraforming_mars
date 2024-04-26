@@ -8,17 +8,7 @@ import { RESOURCES_LIST } from "@/constants";
 import buildingModel from "./models/building.model";
 import alertModel from "./models/alert.model";
 
-export const seedDB = async () => {
-  //round reset
-  await roundModel.deleteMany();
-  await roundModel.create(firstRound);
-
-  //tiles
-  await tileModel.deleteMany();
-  const newTiles = await tileModel.create(tileFixtures);
-
-  //corporations
-
+export async function createAllCorporations() {
   for (const corporation of corporationFixtures) {
     //fill init resources
     for (const resourceName of RESOURCES_LIST) {
@@ -43,16 +33,36 @@ export const seedDB = async () => {
     //add tilesCanBuild as all tiles
     corporation.tilesCanBuild = [];
 
-    for (const tile of newTiles) {
+    //get tiles
+    let allTiles = await tileModel.find();
+    if (allTiles.length === 0) allTiles = await createAllTiles();
+
+    for (const tile of allTiles) {
       corporation.tilesCanBuild.push(tile._id);
     }
   }
   //add to db
   await corporationModel.deleteMany();
   await corporationModel.create(corporationFixtures);
+}
+
+const createAllTiles = async () => {
+  //tiles
+  await tileModel.deleteMany();
+  const newTiles = await tileModel.create(tileFixtures);
+  return newTiles;
+}
+
+export const seedDB = async () => {
+  //round reset
+  await roundModel.deleteMany();
+  await roundModel.create(firstRound);
+
+  //corporations
+  createAllCorporations();
 
   await alertModel.deleteMany();
-  await alertModel.create({message: ''})
+  await alertModel.create({ message: '' })
 
   //delete buildings
   await buildingModel.deleteMany();
