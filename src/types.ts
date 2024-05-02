@@ -24,10 +24,12 @@ export type Coordinate = {
 };
 
 export type Round = {
+  pausedAt?: Date;
   number: number;
   startTime?: Date;
   playing: boolean;
   darkHour: boolean;
+  save?: Function;
 };
 
 export type Corporation = {

@@ -1,4 +1,4 @@
-import { BuildingConstant, Resource } from "@/types";
+import { BuildingConstant, Resource, Round } from "@/types";
 import { dbConnect } from "./database/database.server";
 import roundModel from "./database/models/round.model";
 import { SECONDS_PER_ROUND } from "@/showVariables";
@@ -35,13 +35,16 @@ let roundTimeout: NodeJS.Timeout;
 
 const endOfRound = async () => {
   //set round manager to next round
-  const round = await roundModel.findOne();
+  const round: Round = await roundModel.findOne() as Round;
 
   round.playing = false;
   round.darkHour = true;
   round.pausedAt = undefined;
 
-  await round.save();
+  if (round.save)
+    await round.save();
+
+  return round;
 };
 
 const updateCorporationStats = async () => {
@@ -107,13 +110,7 @@ const updateCorporationStats = async () => {
   });
 };
 
-const startNewRound = async (currentRound: {
-  startTime: Date;
-  playing: boolean;
-  darkHour: boolean;
-  number: number;
-  save: () => any;
-}) => {
+const startNewRound = async (currentRound: Round) => {
   //update corporations
   await updateCorporationStats();
 
@@ -127,7 +124,8 @@ const startNewRound = async (currentRound: {
   roundTimeout = setTimeout(endOfRound, SECONDS_PER_ROUND * 1000);
 
   //save round
-  await currentRound.save();
+  if (currentRound.save)
+    await currentRound.save();
 
   //return round
   return currentRound;
@@ -138,7 +136,7 @@ export const playGame = async () => {
   await dbConnect();
 
   //get round
-  const currentRound = await roundModel.findOne();
+  const currentRound: Round = await roundModel.findOne() as Round;
   if (!currentRound)
     throw Error("No Round found. Please reset database before continuing.");
 
@@ -151,6 +149,11 @@ export const playGame = async () => {
     return await startNewRound(currentRound);
   }
 
+  if (!currentRound.pausedAt)
+    throw Error("Current round is not playing, is not at dark hour, and was never paused");
+  if (!currentRound.startTime)
+    throw Error("Current round is paused but didn't have start time");
+
   //get time ellapsed since paused
   const timePlayed = Number(currentRound.pausedAt.getTime()) - Number(currentRound.startTime.getTime());
 
@@ -162,7 +165,8 @@ export const playGame = async () => {
   roundTimeout = setTimeout(endOfRound, (SECONDS_PER_ROUND * 1000 - timePlayed));
 
   //update database object
-  await currentRound.save();
+  if (currentRound.save)
+    await currentRound.save();
 
   return currentRound;
 };
@@ -175,7 +179,7 @@ export const pauseGame = async () => {
   clearTimeout(roundTimeout);
 
   //get current round
-  const currentRound = await roundModel.findOne();
+  const currentRound: Round = await roundModel.findOne() as Round;
 
   //set playing to false
   currentRound.playing = false;
@@ -184,15 +188,19 @@ export const pauseGame = async () => {
   currentRound.pausedAt = new Date();
 
   //save current round
-  await currentRound.save();
+  if (currentRound.save)
+    await currentRound.save();
   return currentRound;
 };
 
 export const skipToDarkHour = async () => {
-  const currentRound = await pauseGame();
+  const currentRound: Round = await pauseGame();
   currentRound.darkHour = true;
   currentRound.startTime = new Date(
     Number(new Date().getTime()) - (SECONDS_PER_ROUND - 1) * 1000
   );
-  currentRound.save();
+  if (currentRound.save)
+    currentRound.save();
+
+  return currentRound;
 };
