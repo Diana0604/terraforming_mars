@@ -31,8 +31,7 @@ export const canBuild = (resources: Resource[], building: BuildingConstant) => {
   }
   return true;
 };
-
-let roundTimeout: NodeJS.Timer;
+let roundTimeout: NodeJS.Timeout;
 
 const endOfRound = async () => {
   //set round manager to next round
@@ -153,14 +152,14 @@ export const playGame = async () => {
   }
 
   //get time ellapsed since paused
-  const timeEllapsed = Number(now.getTime()) - Number(currentRound.pausedAt.getTime());
+  const timePlayed = Number(currentRound.pausedAt.getTime()) - Number(currentRound.startTime.getTime());
 
   //create a new starting time according to when it needs to be
-  currentRound.startTime = new Date(Number(new Date().getTime()) - timeEllapsed);
   currentRound.playing = true;
+  currentRound.startTime = new Date(Number(new Date().getTime()) - timePlayed);
 
   //set timeout to change round at end of turn
-  setTimeout(endOfRound, (SECONDS_PER_ROUND * 1000 - timeEllapsed));
+  roundTimeout = setTimeout(endOfRound, (SECONDS_PER_ROUND * 1000 - timePlayed));
 
   //update database object
   await currentRound.save();
