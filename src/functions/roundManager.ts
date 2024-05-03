@@ -55,7 +55,8 @@ const updateCorporationStats = async () => {
     .populate("newBuildingsNextRound");
 
   //update each corporation
-  corporations.forEach(async (corporation) => {
+  for(let corporation of corporations) {
+  // corporations.forEach(async (corporation) => {
     //update tiles and resources next round
     for (const building of corporation.newBuildingsNextRound) {
       //get building
@@ -107,7 +108,7 @@ const updateCorporationStats = async () => {
 
     //save corporation
     corporation.save();
-  });
+  };
 };
 
 const startNewRound = async (currentRound: Round) => {
