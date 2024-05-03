@@ -8,7 +8,7 @@ export const CORPORATION_ROUTE = `${BASE_API_URL}/corporation`;
 export const TILE_ROUTE = `${BASE_API_URL}/tile`;
 export const ROUND_MANAGER_ROUTE = `${BASE_API_URL}/round`;
 export const ALERT_MANAGER_ROUTE = `${BASE_API_URL}/alert`;
-export const SKIP_TO_DARK =  `${ROUND_MANAGER_ROUTE}/skip`;
+export const SKIP_TO_DARK = `${ROUND_MANAGER_ROUTE}/skip`;
 
 //success messages
 export const DATABASE_SUCCESSFULLY_UPDATED =
@@ -59,12 +59,12 @@ export const SYNTHETICS_NAME = "Synthetics";
 export const MINERALS_NAME = "Minerals";
 
 export const RESOURCES_LIST = [
-  RARE_METAL_NAME,
-  WATER_NAME,
-  OXYGEN_NAME,
-  FOOD_NAME,
-  SYNTHETICS_NAME,
-  MINERALS_NAME,
+  { name: WATER_NAME, id: 0 },
+  { name: RARE_METAL_NAME, id: 1 },
+  { name: OXYGEN_NAME, id: 2 },
+  { name: FOOD_NAME, id: 3 },
+  { name: SYNTHETICS_NAME, id: 4 },
+  { name: MINERALS_NAME, id: 5 },
 ];
 
 //buildings
