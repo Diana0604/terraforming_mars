@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
       );
 
     //check building of this type does not yet exist
-    const otherBuilding = await buildingModel.count({
+    const otherBuilding = await buildingModel.countDocuments({
       tile: tile._id,
       buildingType: building.buildingType,
     });
