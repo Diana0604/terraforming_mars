@@ -3,27 +3,18 @@ import {
   MINERALS_NAME,
   OXYGEN_NAME,
   RARE_METAL_NAME,
+  RESOURCES_LIST,
   SYNTHETICS_NAME,
   WATER_NAME,
 } from "@/constants";
 
-const corporationResourcesInformation =  {
-  playerCorporationResources: [
-    { name: WATER_NAME, quantity: 40 },
-    { name: RARE_METAL_NAME, quantity: 0 },
-    { name: OXYGEN_NAME, quantity: 40 },
-    { name: FOOD_NAME, quantity: 40 },
-    { name: MINERALS_NAME, quantity: 25 },
-    { name: SYNTHETICS_NAME, quantity: 40 },
-  ],
-  actorsCorporationResources: [
-    { name: WATER_NAME, quantity: 100 },
-    { name: RARE_METAL_NAME, quantity: 100 },
-    { name: OXYGEN_NAME, quantity: 100 },
-    { name: FOOD_NAME, quantity: 100 },
-    { name: MINERALS_NAME, quantity: 100 },
-    { name: SYNTHETICS_NAME, quantity: 100 },
-  ],
+const corporationResourcesInformation = {
+  playerCorporationResources: RESOURCES_LIST.map((resource) => {
+    return { ...resource, quantity: 100 }
+  }),
+  actorsCorporationResources: RESOURCES_LIST.map((resource) => {
+    return { ...resource, quantity: 100 }
+  }),
 };
 
 export default corporationResourcesInformation

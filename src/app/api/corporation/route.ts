@@ -12,7 +12,6 @@ import { createAllCorporations } from "@/functions/database/database.seeder";
 
 export async function GET(request: Request) {
   await dbConnect();
-
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
   const name = searchParams.get("name");

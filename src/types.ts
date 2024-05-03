@@ -33,6 +33,7 @@ export type Round = {
 };
 
 export type Corporation = {
+  save?: Function;
   _id?: mongoose.Types.ObjectId; //id in database
   name: string;
   resourcesOwned: Resource[];

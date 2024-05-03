@@ -10,19 +10,6 @@ import alertModel from "./models/alert.model";
 
 export async function createAllCorporations() {
   for (const corporation of corporationFixtures) {
-    //fill init resources
-    for (const resourceName of RESOURCES_LIST) {
-      //check if resource already exists in fixtures
-      const initResourceValue = corporation.resourcesOwned.filter(
-        (resource) => {
-          return resource.name === resourceName;
-        }
-      );
-      if (initResourceValue && initResourceValue[0]) continue;
-
-      //add resource set to 0 quantity if it doesn't exist
-      corporation.resourcesOwned.push({ name: resourceName, quantity: 0 });
-    }
 
     //set up resources next round
     corporation.resourcesNextRound = corporation.resourcesOwned;

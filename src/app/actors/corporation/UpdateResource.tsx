@@ -1,6 +1,6 @@
 "use client";
 //database routes
-import { RESOURCE_DATABASE_ROUTE } from "@/constants";
+import { RESOURCES_LIST, RESOURCE_DATABASE_ROUTE } from "@/constants";
 
 //react hooks
 import { useState } from "react";
@@ -18,6 +18,10 @@ const UpdateResource = (props: UpdateStatProp) => {
   const [displayMessage, setDisplayMessage] = useState<string>();
   const [quantity, setQuantity] = useState<string>();
 
+  const id = RESOURCES_LIST.findIndex((resource) => {
+    return resource.name.includes(props.resource);
+  });
+
   const onClick = async () => {
     setDisplayMessage("Adding resource to database");
 
@@ -27,9 +31,10 @@ const UpdateResource = (props: UpdateStatProp) => {
     const res = await fetch(RESOURCE_DATABASE_ROUTE, {
       method: "post",
       body: JSON.stringify({
-        quantity: quantity,
+        quantity: quantity || '0',
         corporation: props.corporation,
         resource: props.resource,
+        id: String(id)
       }),
     });
     const data = await res.json();
