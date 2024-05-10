@@ -1,4 +1,4 @@
-import { BuildingConstant, Resource, Round } from "@/types";
+import { BuildingConstant, Corporation, Resource, Round, Tile } from "@/types";
 import { dbConnect } from "./database/database.server";
 import roundModel from "./database/models/round.model";
 import { SECONDS_PER_ROUND } from "@/showVariables";
@@ -49,66 +49,47 @@ const endOfRound = async () => {
 
 const updateCorporationStats = async () => {
   //get all corps with buildings populated
-  const corporations = await corporationModel
+  const corporations: Corporation[] = await corporationModel
     .find()
     .populate("buildingsOwned")
-    .populate("newBuildingsNextRound");
+    .populate("newBuildingsNextRound") as Corporation[];
 
-  //update each corporation
-  for(let corporation of corporations) {
-  // corporations.forEach(async (corporation) => {
-    //update tiles and resources next round
+  // //update each corporation - buildings
+  corporations.forEach(async (corporation) => {
+    //   //update tiles and resources next round
+    if (!corporation.newBuildingsNextRound) return;
+
+
     for (const building of corporation.newBuildingsNextRound) {
       //get building
-      building.tile = await tileModel.findById(building.tile);
+
+      building.tile = await tileModel.findById(building.tile) as Tile;
 
       //update tile
       const tile = building.tile;
       if (!tile.buildings) tile.buildings = [];
-      tile.buildings.push(building);
-      await tile.save();
+      tile.buildings.push(building as unknown as BuildingConstant);
+      if (tile.save)
+        await tile.save();
     }
-
-    //copy round by round updates as independent object
-    const resourcesNextRound = [...corporation.resourcesNextRound];
-    const newBuildingsNextRound = [...corporation.newBuildingsNextRound];
-
-    //update new round updates
-    corporation.resourcesOwned = resourcesNextRound;
-    corporation.buildingsOwned = corporation.buildingsOwned.concat(
-      newBuildingsNextRound
-    );
-
-    for (const building of corporation.buildingsOwned) {
-      //it's a non custom building
-      for (const resource of building.dailyCost) {
-        for (const corporationResource of corporation.resourcesNextRound) {
-          if (resource.name === corporationResource.name) {
-            corporationResource.quantity =
-              Number(corporationResource.quantity) - Number(resource.quantity);
-            continue;
-          }
-        }
-      }
-
-      //update resources next round from building daily production
-      for (const resource of building.dailyProduction) {
-        for (const corporationResource of corporation.resourcesNextRound) {
-          if (resource.name === corporationResource.name) {
-            corporationResource.quantity =
-              Number(corporationResource.quantity) + Number(resource.quantity);
-            continue;
-          }
-        }
-      }
-    }
-
-    //reset next round building updates
+    corporation.buildingsOwned = corporation.buildingsOwned.concat(corporation.newBuildingsNextRound);
     corporation.newBuildingsNextRound = [];
 
-    //save corporation
-    corporation.save();
-  };
+    //update resources cost and production from buildings own
+    for (const building of corporation.buildingsOwned) {
+      //get building
+      for (const resource of building.dailyProduction) {
+        corporation.resourcesOwned[resource.resourceId].quantity += resource.quantity;
+      }
+
+      for (const resource of building.dailyCost) {
+        corporation.resourcesOwned[resource.resourceId].quantity -= resource.quantity;
+      }
+    }
+
+    if (corporation.save)
+      corporation.save();
+  })
 };
 
 const startNewRound = async (currentRound: Round) => {

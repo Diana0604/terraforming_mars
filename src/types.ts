@@ -46,6 +46,7 @@ export type Corporation = {
 export type Resource = {
   name: string;
   quantity: number;
+  resourceId: number;
 };
 
 export type Tile = {
@@ -57,7 +58,8 @@ export type Tile = {
   colonizedBy?: Corporation;
   buildings?: BuildingConstant[];
   hazards: string[];
-  landmark?: string
+  landmark?: string;
+  save?: Function;
 };
 
 export type Building = {
