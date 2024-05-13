@@ -20,9 +20,9 @@ export async function createAllCorporations() {
     //add tilesCanBuild as all tiles
     corporation.tilesCanBuild = [];
 
-    //get tiles
-    let allTiles = await tileModel.find();
-    if (allTiles.length === 0) allTiles = await createAllTiles();
+    //reset tiles
+    await tileModel.deleteMany();
+    const allTiles = await createAllTiles();
 
     for (const tile of allTiles) {
       corporation.tilesCanBuild.push(tile._id);
