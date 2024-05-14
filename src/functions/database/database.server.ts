@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import buildingModel from "@/functions/database/models/building.model";
-import tileModel from "@/functions/database/models/tile.model";
-import corporationModel from "@/functions/database/models/corporation.model";
+import buildingModel from "./models/building.model";
+import tileModel from "./models/tile.model";
+import corporationModel from "./models/corporation.model";
 
 //================== TO BE CALLED FROM SERVER SIDE ==================
 export const dbConnect = async () => {
@@ -32,3 +32,7 @@ export const dbConnect = async () => {
     throw error;
   }
 };
+
+export const closeDatabase = async () => {
+  mongoose.connection.close();
+}
