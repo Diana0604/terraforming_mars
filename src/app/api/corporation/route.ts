@@ -4,11 +4,12 @@
 import corporationModel from "@/functions/database/models/corporation.model";
 
 //database server
-import { dbConnect } from "@/functions/database/database.server";
+import { dbConnect, getAllTiles } from "@/functions/database/database.server";
 
 //next
 import { NextResponse } from "next/server";
 import { createAllCorporations } from "@/functions/database/database.seeder";
+import tileModel from "@/functions/database/models/tile.model";
 
 export async function GET(request: Request) {
   await dbConnect();
@@ -23,7 +24,10 @@ export async function GET(request: Request) {
       .populate("buildingsOwned")
       .populate("tilesCanBuild")
       .populate("newBuildingsNextRound");
-    if(corporations.length === 0) await createAllCorporations();
+    if(corporations.length === 0) {
+      const allTiles = await getAllTiles();
+      await createAllCorporations(allTiles);
+    }
     for (const corporation of corporations) {
       for (const building of corporation.buildingsOwned) {
         await building.populate("tile");

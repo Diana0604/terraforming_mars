@@ -1,14 +1,22 @@
 import tileFixtures from "../../fixtures/tiles";
 import tileModel from "./models/tile.model";
-import firstRound from "@/fixtures/round";
+import firstRound from "../../fixtures/round";
 import corporationModel from "./models/corporation.model";
-import corporationFixtures from "@/fixtures/corporation";
+import corporationFixtures from "../../fixtures/corporation";
 import roundModel from "./models/round.model";
-import { RESOURCES_LIST } from "@/constants";
 import buildingModel from "./models/building.model";
 import alertModel from "./models/alert.model";
 
-export async function createAllCorporations() {
+//delete all models
+const deleteAllModels = async () => {
+  await roundModel.deleteMany();
+  await tileModel.deleteMany();
+  await alertModel.deleteMany();
+  await buildingModel.deleteMany();
+  await corporationModel.deleteMany();
+}
+
+export async function createAllCorporations(allTiles: any[]) {
   for (const corporation of corporationFixtures) {
 
     //set up resources next round
@@ -21,9 +29,6 @@ export async function createAllCorporations() {
     corporation.tilesCanBuild = [];
 
     //reset tiles
-    await tileModel.deleteMany();
-    const allTiles = await createAllTiles();
-
     for (const tile of allTiles) {
       corporation.tilesCanBuild.push(tile._id);
     }
@@ -33,7 +38,7 @@ export async function createAllCorporations() {
   await corporationModel.create(corporationFixtures);
 }
 
-const createAllTiles = async () => {
+export const createAllTiles = async () => {
   //tiles
   await tileModel.deleteMany();
   const newTiles = await tileModel.create(tileFixtures);
@@ -41,18 +46,20 @@ const createAllTiles = async () => {
 }
 
 export const seedDB = async () => {
+
+  await deleteAllModels();
+
   //round reset
-  await roundModel.deleteMany();
   await roundModel.create(firstRound);
 
+  //tiles
+  const tiles = await createAllTiles();
+
   //corporations
-  createAllCorporations();
+  await createAllCorporations(tiles);
 
-  await alertModel.deleteMany();
+  //create empty alert
   await alertModel.create({ message: '' })
-
-  //delete buildings
-  await buildingModel.deleteMany();
 
   console.log("================== DATABASE SEEDED ==================");
 };

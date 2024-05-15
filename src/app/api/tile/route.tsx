@@ -1,3 +1,4 @@
+import { getAllTiles } from '@/functions/database/database.server'
 import buildingModel from '@/functions/database/models/building.model'
 import corporationModel from '@/functions/database/models/corporation.model'
 import tileModel from '@/functions/database/models/tile.model'
@@ -10,7 +11,7 @@ export async function GET(request: Request) {
   const column = searchParams.get('column')
 
   if (!row || !column) {
-    const allTiles = await tileModel.find().populate("buildings").populate("colonizedBy");
+    const allTiles = await getAllTiles(true);
     return NextResponse.json({ tiles: allTiles })
   }
 

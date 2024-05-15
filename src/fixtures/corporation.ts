@@ -1,8 +1,8 @@
 import {
   ACTORS_CORPORATION_NAME,
   PLAYER_CORPORATION_NAME,
-} from "@/showVariables";
-import { Corporation } from "@/types";
+} from "../showVariables";
+import { Corporation } from "../types";
 import mongoose from "mongoose";
 import initResources from "./corporationsResources";
 

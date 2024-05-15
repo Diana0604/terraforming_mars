@@ -1,5 +1,5 @@
-import { MINERALS_NAME, RARE_METAL_NAME, WATER_NAME } from "@/constants";
-import { Tile } from "@/types";
+import { MINERALS_NAME, RARE_METAL_NAME, WATER_NAME } from "../constants";
+import { Tile } from "../types";
 
 const tiles: Tile[] = [
   {

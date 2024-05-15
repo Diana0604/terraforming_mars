@@ -6,7 +6,7 @@ import {
   RESOURCES_LIST,
   SYNTHETICS_NAME,
   WATER_NAME,
-} from "@/constants";
+} from "../constants";
 
 const corporationResourcesInformation = {
   playerCorporationResources: RESOURCES_LIST.map((resource) => {
