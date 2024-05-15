@@ -1,11 +1,5 @@
 import {
-  FOOD_NAME,
-  MINERALS_NAME,
-  OXYGEN_NAME,
-  RARE_METAL_NAME,
   RESOURCES_LIST,
-  SYNTHETICS_NAME,
-  WATER_NAME,
 } from "../constants";
 
 const corporationResourcesInformation = {
