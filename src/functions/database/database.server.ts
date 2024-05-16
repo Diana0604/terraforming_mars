@@ -3,6 +3,7 @@ import buildingModel from "./models/building.model";
 import tileModel from "./models/tile.model";
 import corporationModel from "./models/corporation.model";
 import { createAllTiles } from "./database.seeder";
+import { BuildingConstant, Resource } from "@/types";
 
 //================== TO BE CALLED FROM SERVER SIDE ==================
 export const dbConnect = async () => {
@@ -56,3 +57,22 @@ export const getAllTiles = async (populated?: boolean) => {
   //return
   return allTiles;
 }
+
+/**
+ * Given a list of resources and a building to be built, check if there's enough resources to build it
+ * @param resources - array of resources
+ * @param building - building that team wants to beald
+ * @returns boolean
+ */
+export const canBuild = (corporationResources: Resource[], building: BuildingConstant) => {
+  // get building cost
+  const buildingCost = building.buildingCost;
+
+  //loop through resources
+  for (const resource of buildingCost) {
+    //check if resources are available
+    const corporationResource = corporationResources[resource.resourceId];
+    if (corporationResource.quantity < resource.quantity) return false;
+  }
+  return true;
+};
