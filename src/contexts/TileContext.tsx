@@ -1,5 +1,6 @@
 
 import { TILE_ROUTE } from "@/constants";
+import { compareTiles } from "@/functions/comparers";
 import {  Tile } from "@/types";
 import React, { useState, useEffect } from "react";
 
@@ -33,8 +34,11 @@ export const TilesContextProvider = ({ children }: { children: React.ReactNode }
       try {
         fetch(TILE_ROUTE, { method: 'get' }).then(async response => {
           const data = await response.json();
+
+          const newTiles = data.tiles;
+          newTiles.sort(compareTiles);
                 
-          setTiles(data.tiles)
+          setTiles(newTiles);
         }, (error) => { console.log('error on fetch', error) })
       } catch (error) {
         console.log('error on fetch', error)
