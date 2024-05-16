@@ -1,5 +1,5 @@
 import { createAllCorporations, createAllTiles, deleteAllModels, seedDB } from "../src/functions/database/database.seeder";
-import { closeDatabase, dbConnect, getAllTiles } from "../src/functions/database/database.server";
+import { canBuild, closeDatabase, dbConnect, getAllTiles } from "../src/functions/database/database.server";
 import tileFixtures from "../src/fixtures/tiles";
 import corporationFixtures from "../src/fixtures/corporation";
 import firstRound from "../src/fixtures/round";
@@ -128,6 +128,33 @@ describe('database tests', () => {
 
       })
     });
+
+    //TO DO -> finish test
+    describe('can build', () => {
+      let corporation : Corporation | null;
+
+      beforeAll(async () => {
+        await createAllCorporations();
+
+        corporation = await corporationModel.findOne();
+      })
+
+      test('can build', async () => {
+
+        if(!corporation) throw Error("corporation was not properly created");
+
+        expect(canBuild(corporation.resourcesOwned, COLONY_HUB)).toBeTruthy();
+      })
+
+      test('cannot build', async () => {
+
+        if(!corporation) throw Error("corporation was not properly created");
+
+        corporation.resourcesOwned[0].quantity = 0;
+
+        expect(canBuild(corporation.resourcesOwned, COLONY_HUB)).toBeFalsy();
+      })
+    })
   })
 
   afterAll(async () => {
