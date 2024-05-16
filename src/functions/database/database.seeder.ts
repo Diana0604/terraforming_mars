@@ -37,7 +37,7 @@ export async function createAllCorporations() {
   }
   //add to db
   await corporationModel.deleteMany();
-  await corporationModel.create(corporationFixtures);
+  return await corporationModel.create(corporationFixtures);
 }
 
 export const createAllTiles = async () => {
