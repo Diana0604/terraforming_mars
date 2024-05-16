@@ -10,12 +10,14 @@ import { compareTiles, compareCorporations } from "../src/functions/comparers";
 import { COLONY_HUB } from "../src/showVariables";
 import buildingModel from "../src/functions/database/models/building.model";
 import { Building, Corporation } from "@/types";
-
-process.env.mongoUri = "mongodb://127.0.0.1:27017/terraforming-mars";
+import { prepareEnv } from "./loadTests";
 
 describe('database tests', () => {
 
   beforeAll(async () => {
+    //prepare env
+    prepareEnv();
+
     //sort fixtures
     tileFixtures.sort(compareTiles);
     corporationFixtures.sort(compareCorporations);
