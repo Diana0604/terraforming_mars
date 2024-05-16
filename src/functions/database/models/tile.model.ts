@@ -9,7 +9,7 @@ const TileSchema = new mongoose.Schema({
   resourcesAvailable: [{type: String}],
   hazards: [{type: String}],
   landmark: {type: String},
-  destroyed: Boolean
+  destroyed: {type: Boolean}
 });
 
 export default mongoose.models.Tile || mongoose.model("Tile", TileSchema);

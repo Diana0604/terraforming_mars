@@ -9,7 +9,6 @@ import { dbConnect, getAllTiles } from "@/functions/database/database.server";
 //next
 import { NextResponse } from "next/server";
 import { createAllCorporations } from "@/functions/database/database.seeder";
-import tileModel from "@/functions/database/models/tile.model";
 
 export async function GET(request: Request) {
   await dbConnect();
@@ -24,9 +23,8 @@ export async function GET(request: Request) {
       .populate("buildingsOwned")
       .populate("tilesCanBuild")
       .populate("newBuildingsNextRound");
-    if(corporations.length === 0) {
-      const allTiles = await getAllTiles();
-      await createAllCorporations(allTiles);
+    if (corporations.length === 0) {
+      await createAllCorporations();
     }
     for (const corporation of corporations) {
       for (const building of corporation.buildingsOwned) {

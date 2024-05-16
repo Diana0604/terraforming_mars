@@ -6,9 +6,10 @@ import corporationFixtures from "../../fixtures/corporation";
 import roundModel from "./models/round.model";
 import buildingModel from "./models/building.model";
 import alertModel from "./models/alert.model";
+import { getAllTiles } from "./database.server";
 
 //delete all models
-const deleteAllModels = async () => {
+export const deleteAllModels = async () => {
   await roundModel.deleteMany();
   await tileModel.deleteMany();
   await alertModel.deleteMany();
@@ -16,7 +17,7 @@ const deleteAllModels = async () => {
   await corporationModel.deleteMany();
 }
 
-export async function createAllCorporations(allTiles: any[]) {
+export async function createAllCorporations() {
   for (const corporation of corporationFixtures) {
 
     //set up resources next round
@@ -29,6 +30,7 @@ export async function createAllCorporations(allTiles: any[]) {
     corporation.tilesCanBuild = [];
 
     //reset tiles
+    const allTiles = await getAllTiles();
     for (const tile of allTiles) {
       corporation.tilesCanBuild.push(tile._id);
     }
@@ -56,7 +58,7 @@ export const seedDB = async () => {
   const tiles = await createAllTiles();
 
   //corporations
-  await createAllCorporations(tiles);
+  await createAllCorporations();
 
   //create empty alert
   await alertModel.create({ message: '' })
