@@ -58,24 +58,6 @@ export const FOOD_NAME = "Food";
 export const SYNTHETICS_NAME = "Synthetics";
 export const MINERALS_NAME = "Minerals";
 
-export const RESOURCE_IDS = {
-  "Water" : 0,
-  "Rare Metal": 1,
-  "Oxygen": 2,
-  "Food": 3,
-  "Synthetics": 4,
-  "Minerals": 5
-}
-
-// export const RESOURCES_LIST = [
-//   { name: WATER_NAME, resourceId: RESOURCE_IDS[WATER_NAME] },
-//   { name: RARE_METAL_NAME, resourceId: RESOURCE_IDS[RARE_METAL_NAME] },
-//   { name: OXYGEN_NAME, resourceId: RESOURCE_IDS[OXYGEN_NAME] },
-//   { name: FOOD_NAME, resourceId: RESOURCE_IDS[FOOD_NAME] },
-//   { name: SYNTHETICS_NAME, resourceId: RESOURCE_IDS[SYNTHETICS_NAME] },
-//   { name: MINERALS_NAME, resourceId: RESOURCE_IDS[MINERALS_NAME] },
-// ];
-
 //buildings
 export const COLONY_HUB_NAME = "Colony Hub";
 export const ROCK_MINE_NAME = "Rock Mine";

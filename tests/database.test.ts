@@ -11,7 +11,9 @@ import { COLONY_HUB } from "../src/showVariables";
 import buildingModel from "../src/functions/database/models/building.model";
 import { Building, Corporation, Tile } from "@/types";
 import { prepareEnv } from "./loadTests";
-import { RESOURCE_IDS, WATER_NAME } from "../src/constants";
+import RESOURCES from "../src/fixtures/resources.fixtures";
+
+const indexOfWater = RESOURCES.findIndex((value) => { return value == "Water" });
 
 describe('database tests', () => {
 
@@ -166,7 +168,7 @@ describe('database tests', () => {
 
         if (!corporation) throw Error("corporation was not properly created");
 
-        corporation.resourcesOwned[RESOURCE_IDS[WATER_NAME]].quantity = 0;
+        corporation.resourcesOwned[indexOfWater].quantity = 0;
 
         expect(canBuild(corporation.resourcesOwned, COLONY_HUB)).toBeFalsy();
       })

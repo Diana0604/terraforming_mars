@@ -4,7 +4,6 @@ import {
   MINERALS_NAME,
   OXYGEN_NAME,
   RARE_METAL_NAME,
-  RESOURCE_IDS,
   SYNTHETICS_NAME,
   WATER_NAME,
 } from "./constants";
