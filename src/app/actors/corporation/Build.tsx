@@ -1,10 +1,7 @@
 "use client";
-//types
-import { Tile } from "@/types";
-
 //database routes
 import { BUILD_DATABASE_ROUTE } from "@/constants";
-import { PRESET_BUILDINGS_LIST } from "@/showVariables";
+import getBuildingList from "../../../fixtures/buildings.fixtures";
 
 //react
 import { useContext, useState } from "react";
@@ -30,6 +27,8 @@ const Build = (props: BuildProps) => {
     useState<String>("Show Build Menu");
 
   const { tiles } = useContext(TilesContext);
+
+  const PRESET_BUILDINGS_LIST = getBuildingList();
 
   //error display message
   const [errorDisplayMessage, setErrorDisplayMessage] = useState<String>();

@@ -21,12 +21,14 @@ const initialCorporationProps: contextProps = {
     resourcesOwned: emptyResources,
     buildingsOwned: emptyBuildings,
     tilesCanBuild: emptyTiles,
+    player: true
   },
   actorsCorporation: {
     name: "loading",
     resourcesOwned: emptyResources,
     buildingsOwned: emptyBuildings,
     tilesCanBuild: emptyTiles,
+    player: false
   },
 };
 

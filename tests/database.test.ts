@@ -7,7 +7,7 @@ import tileModel from "../src/functions/database/models/tile.model";
 import roundModel from "../src/functions/database/models/round.model";
 import corporationModel from "../src/functions/database/models/corporation.model";
 import { compareTiles, compareCorporations } from "../src/functions/comparers";
-import { COLONY_HUB } from "../src/showVariables";
+import { COLONY_HUB } from "../src/fixtures/buildings.fixtures";
 import buildingModel from "../src/functions/database/models/building.model";
 import { Building, Corporation, Tile } from "@/types";
 import { prepareEnv } from "./loadTests";

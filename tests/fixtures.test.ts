@@ -1,6 +1,7 @@
 import { prepareEnv } from "./loadTests";
 import getCorporationFixtures from "../src/fixtures/corporations.fixtures";
 import getTileFixtures from "../src/fixtures/tiles.fixtures";
+import getBuildingList from "../src/fixtures/buildings.fixtures";
 
 describe('fixtures test', () => {
   beforeAll(() => {
@@ -17,5 +18,7 @@ describe('fixtures test', () => {
   });
 
 
-
+  test('buildings', () => {
+    expect(getBuildingList).not.toThrow();
+  })
 })
