@@ -69,9 +69,10 @@ export const canBuild = (corporationResources: Resource[], building: BuildingCon
   const buildingCost = building.buildingCost;
 
   //loop through resources
-  for (const resource of buildingCost) {
+  for (const index in buildingCost) {
+    const resource = buildingCost[index];
     //check if resources are available
-    const corporationResource = corporationResources[resource.resourceId];
+    const corporationResource = corporationResources[index];
     if (corporationResource.quantity < resource.quantity) return false;
   }
   return true;

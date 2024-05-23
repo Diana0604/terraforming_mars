@@ -1,7 +1,7 @@
 import { createAllCorporations, createAllTiles, deleteAllModels, seedDB } from "../src/functions/database/database.seeder";
 import { canBuild, closeDatabase, dbConnect, getAllTiles } from "../src/functions/database/database.server";
 import tileFixtures from "../src/fixtures/tiles";
-import corporationFixtures from "../src/fixtures/corporation";
+import getCorporationFixtures from "../src/fixtures/corporations.fixtures";
 import firstRound from "../src/fixtures/round";
 import tileModel from "../src/functions/database/models/tile.model";
 import roundModel from "../src/functions/database/models/round.model";
@@ -15,13 +15,21 @@ import { RESOURCE_IDS, WATER_NAME } from "../src/constants";
 
 describe('database tests', () => {
 
+  let corporationFixtures: Corporation[];
+
   beforeAll(async () => {
     //prepare env
     prepareEnv();
+    try {
+      corporationFixtures = getCorporationFixtures();
+      corporationFixtures.sort(compareCorporations);
+    } catch (error) {
+      console.log('corporation fixtures threw error', error);
+    }
 
     //sort fixtures
     tileFixtures.sort(compareTiles);
-    corporationFixtures.sort(compareCorporations);
+    tileFixtures.sort(compareTiles);
 
     await dbConnect();
   })
@@ -38,7 +46,7 @@ describe('database tests', () => {
     });
 
     test('corporations', async () => {
-      const corporations = await createAllCorporations();
+      const corporations: Corporation[] = await createAllCorporations();
       expect(corporations).toMatchObject(corporationFixtures);
     })
 
@@ -57,7 +65,6 @@ describe('database tests', () => {
 
       //check corps
       const corporations = await corporationModel.find();
-      corporations.sort(compareCorporations);
       expect(corporations).toMatchObject(corporationFixtures);
     })
   })

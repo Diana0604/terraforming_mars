@@ -41,12 +41,12 @@ export type Corporation = {
   resourcesNextRound?: Resource[];
   newBuildingsNextRound?: Building[];
   tilesCanBuild: Tile[];
+  player: boolean;
 };
 
 export type Resource = {
   name: string;
   quantity: number;
-  resourceId: number;
 };
 
 export type Tile = {

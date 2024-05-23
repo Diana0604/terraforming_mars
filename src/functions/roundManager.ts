@@ -52,12 +52,14 @@ const updateCorporationStats = async () => {
     //update resources cost and production from buildings own
     for (const building of corporation.buildingsOwned) {
       //get building
-      for (const resource of building.dailyProduction) {
-        corporation.resourcesOwned[resource.resourceId].quantity += resource.quantity;
+      for (const index in building.dailyProduction) {
+        const resource = building.dailyProduction[index];
+        corporation.resourcesOwned[index].quantity += resource.quantity;
       }
 
-      for (const resource of building.dailyCost) {
-        corporation.resourcesOwned[resource.resourceId].quantity -= resource.quantity;
+      for (const index in building.dailyCost) {
+        const resource = building.dailyCost[index];
+        corporation.resourcesOwned[index].quantity -= resource.quantity;
       }
     }
 

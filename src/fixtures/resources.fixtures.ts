@@ -1,0 +1,1 @@
+export default ["Water", "Rare Metal", "Oxygen", "Food", "Synthetics", "Minerals"];
