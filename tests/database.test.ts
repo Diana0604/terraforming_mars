@@ -11,6 +11,7 @@ import { COLONY_HUB } from "../src/showVariables";
 import buildingModel from "../src/functions/database/models/building.model";
 import { Building, Corporation } from "@/types";
 import { prepareEnv } from "./loadTests";
+import { RESOURCE_IDS, WATER_NAME } from "../src/constants";
 
 describe('database tests', () => {
 
@@ -131,7 +132,7 @@ describe('database tests', () => {
 
     //TO DO -> finish test
     describe('can build', () => {
-      let corporation : Corporation | null;
+      let corporation: Corporation | null;
 
       beforeAll(async () => {
         await createAllCorporations();
@@ -141,16 +142,16 @@ describe('database tests', () => {
 
       test('can build', async () => {
 
-        if(!corporation) throw Error("corporation was not properly created");
+        if (!corporation) throw Error("corporation was not properly created");
 
         expect(canBuild(corporation.resourcesOwned, COLONY_HUB)).toBeTruthy();
       })
 
       test('cannot build', async () => {
 
-        if(!corporation) throw Error("corporation was not properly created");
+        if (!corporation) throw Error("corporation was not properly created");
 
-        corporation.resourcesOwned[0].quantity = 0;
+        corporation.resourcesOwned[RESOURCE_IDS[WATER_NAME]].quantity = 0;
 
         expect(canBuild(corporation.resourcesOwned, COLONY_HUB)).toBeFalsy();
       })
