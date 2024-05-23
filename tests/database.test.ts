@@ -75,6 +75,7 @@ describe('database tests', () => {
 
       //check corps
       const corporations = await corporationModel.find();
+      corporations.sort(compareCorporations);
       expect(corporations).toMatchObject(corporationFixtures);
     })
   })
