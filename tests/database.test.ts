@@ -1,21 +1,22 @@
 import { createAllCorporations, createAllTiles, deleteAllModels, seedDB } from "../src/functions/database/database.seeder";
 import { canBuild, closeDatabase, dbConnect, getAllTiles } from "../src/functions/database/database.server";
-import tileFixtures from "../src/fixtures/tiles";
+import getTileFixtures from "../src/fixtures/tiles.fixtures";
 import getCorporationFixtures from "../src/fixtures/corporations.fixtures";
-import firstRound from "../src/fixtures/round";
+import firstRound from "../src/fixtures/round.fixtures";
 import tileModel from "../src/functions/database/models/tile.model";
 import roundModel from "../src/functions/database/models/round.model";
 import corporationModel from "../src/functions/database/models/corporation.model";
 import { compareTiles, compareCorporations } from "../src/functions/comparers";
 import { COLONY_HUB } from "../src/showVariables";
 import buildingModel from "../src/functions/database/models/building.model";
-import { Building, Corporation } from "@/types";
+import { Building, Corporation, Tile } from "@/types";
 import { prepareEnv } from "./loadTests";
 import { RESOURCE_IDS, WATER_NAME } from "../src/constants";
 
 describe('database tests', () => {
 
   let corporationFixtures: Corporation[];
+  let tileFixtures: Tile[];
 
   beforeAll(async () => {
     //prepare env
@@ -28,8 +29,15 @@ describe('database tests', () => {
     }
 
     //sort fixtures
-    tileFixtures.sort(compareTiles);
-    tileFixtures.sort(compareTiles);
+
+    try {
+      tileFixtures = getTileFixtures();
+      tileFixtures.sort(compareTiles);
+    } catch (error) {
+      console.log('corporation fixtures threw error', error);
+    }
+
+
 
     await dbConnect();
   })

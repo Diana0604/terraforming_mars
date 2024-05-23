@@ -3,9 +3,10 @@ import { dbConnect } from "@/functions/database/database.server";
 import { NextRequest, NextResponse } from "next/server";
 import { Corporation } from "@/types";
 import {
-  RESOURCES_LIST,
   elementMissingFromBody,
 } from "@/constants";
+import RESOURCES_LIST from "../../../fixtures/resources.fixtures";
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -46,7 +47,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "id out of bounds" }, { status: 400 });
     }
 
-    if (!RESOURCES_LIST[id].name.includes(body.resource)) {
+    if (!RESOURCES_LIST[id].includes(body.resource)) {
       console.log('name didnt match')
       return NextResponse.json({ error: "Wrong name" }, { status: 400 });
     }

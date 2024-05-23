@@ -1,5 +1,6 @@
-import { MINERALS_NAME, RARE_METAL_NAME, WATER_NAME } from "../constants";
 import { Tile } from "../types";
+
+import RESOURCES from "./resources.fixtures";
 
 const tiles: Tile[] = [
   {
@@ -13,7 +14,7 @@ const tiles: Tile[] = [
   {
     column: "B",
     row: 1,
-    resourcesAvailable: [RARE_METAL_NAME, MINERALS_NAME],
+    resourcesAvailable: ["Rare Metal", "Minerals"],
     destroyed: false,
     hazards: ["Dormant volcano"],
   },
@@ -34,14 +35,14 @@ const tiles: Tile[] = [
   {
     column: "C",
     row: 2,
-    resourcesAvailable: [MINERALS_NAME],
+    resourcesAvailable: ["Minerals"],
     hazards: ["Dormant volcanos, canyon network"],
     destroyed: false,
   },
   {
     column: "C",
     row: 3,
-    resourcesAvailable: [MINERALS_NAME],
+    resourcesAvailable: ["Minerals"],
     hazards: ["Potential flood basin, no wind guard"],
     destroyed: false,
   },
@@ -62,56 +63,56 @@ const tiles: Tile[] = [
   {
     column: "D",
     row: 3,
-    resourcesAvailable: [WATER_NAME],
+    resourcesAvailable: ["Water"],
     hazards: ["potential flood basin, canyon network"],
     destroyed: false,
   },
   {
     column: "D",
     row: 4,
-    resourcesAvailable: ["Ice", MINERALS_NAME],
+    resourcesAvailable: ["Ice", "Minerals"],
     hazards: ["Potential flood basin, no wind guard"],
     destroyed: false,
   },
   {
     column: "E",
     row: 1,
-    resourcesAvailable: ["Ice", RARE_METAL_NAME],
+    resourcesAvailable: ["Ice", "Rare Metal"],
     hazards: ["Frozen carbon"],
     destroyed: false,
   },
   {
     column: "E",
     row: 2,
-    resourcesAvailable: [MINERALS_NAME],
+    resourcesAvailable: ["Minerals"],
     hazards: ["Strong winds"],
     destroyed: false,
   },
   {
     column: "E",
     row: 3,
-    resourcesAvailable: [RARE_METAL_NAME],
+    resourcesAvailable: ["Rare Metal"],
     hazards: ["Canyon network, potential flood basin"],
     destroyed: false,
   },
   {
     column: "E",
     row: 4,
-    resourcesAvailable: [MINERALS_NAME, WATER_NAME],
+    resourcesAvailable: ["Minerals", "Water"],
     hazards: ["Potential flood basin, no wind guard"],
     destroyed: false,
   },
   {
     column: "E",
     row: 5,
-    resourcesAvailable: ["Ice", RARE_METAL_NAME],
+    resourcesAvailable: ["Ice", "Rare Metal"],
     hazards: ["potential flood basin"],
     destroyed: false,
   },
   {
     column: "F",
     row: 1,
-    resourcesAvailable: [WATER_NAME],
+    resourcesAvailable: ["Water"],
     hazards: ["Underground tunnels"],
     destroyed: false,
   },
@@ -125,21 +126,21 @@ const tiles: Tile[] = [
   {
     column: "F",
     row: 3,
-    resourcesAvailable: [MINERALS_NAME],
+    resourcesAvailable: ["Minerals"],
     hazards: ["potential flood basin, underground tunnels"],
     destroyed: false,
   },
   {
     column: "F",
     row: 4,
-    resourcesAvailable: ["Ice", MINERALS_NAME],
+    resourcesAvailable: ["Ice", "Minerals"],
     hazards: ["Potential flood basin, no wind guard"],
     destroyed: false,
   },
   {
     column: "G",
     row: 1,
-    resourcesAvailable: ["Ice", RARE_METAL_NAME],
+    resourcesAvailable: ["Ice", "Rare Metal"],
     hazards: ["Frozen carbon"],
     destroyed: false,
   },
@@ -167,14 +168,14 @@ const tiles: Tile[] = [
   {
     column: "G",
     row: 5,
-    resourcesAvailable: ["Ice", RARE_METAL_NAME],
+    resourcesAvailable: ["Ice", "Rare Metal"],
     hazards: ["potential flood basin"],
     destroyed: false,
   },
   {
     column: "H",
     row: 1,
-    resourcesAvailable: [MINERALS_NAME],
+    resourcesAvailable: ["Minerals"],
     hazards: ["soft ground, underground tunnels"],
     destroyed: false,
   },
@@ -195,7 +196,7 @@ const tiles: Tile[] = [
   {
     column: "H",
     row: 4,
-    resourcesAvailable: ["Ice", MINERALS_NAME, RARE_METAL_NAME, WATER_NAME],
+    resourcesAvailable: ["Ice", "Minerals", "Rare Metal", "Water"],
     hazards: ["Potential flood basin"],
     destroyed: false,
   },
@@ -209,7 +210,7 @@ const tiles: Tile[] = [
   {
     column: "I",
     row: 2,
-    resourcesAvailable: [WATER_NAME],
+    resourcesAvailable: ["Water"],
     hazards: ["Cliffs, strong winds, potential flood basin"],
     destroyed: false,
   },
@@ -223,7 +224,7 @@ const tiles: Tile[] = [
   {
     column: "J",
     row: 1,
-    resourcesAvailable: [MINERALS_NAME],
+    resourcesAvailable: ["Minerals"],
     hazards: ["Dormant volcano, strong winds"],
     destroyed: false,
   },
@@ -244,4 +245,21 @@ const tiles: Tile[] = [
   },
 ];
 
-export default tiles;
+const checkResourcesImplementation = () => {
+  for (const tile of tiles) {
+    for (const resource of tile.resourcesAvailable) {
+      if(resource == "Ice") continue; //Ice is special as it means water
+      if (!(RESOURCES.includes(resource))) {
+        console.log(`The resource ${resource} is not a valid resource in tile ${tile.column}, ${tile.row}`)
+        throw Error(`The resource ${resource} is not a valid resource`);
+      }
+    }
+  }
+}
+
+const getFixtureTiles = () => {
+  checkResourcesImplementation();
+  return tiles;
+}
+
+export default getFixtureTiles;

@@ -1,6 +1,7 @@
 "use client";
 //database routes
-import { RESOURCES_LIST, RESOURCE_DATABASE_ROUTE } from "@/constants";
+import { RESOURCE_DATABASE_ROUTE } from "@/constants";
+import RESOURCES_LIST from "../../../fixtures/resources.fixtures";
 
 //react hooks
 import { useState } from "react";
@@ -19,7 +20,7 @@ const UpdateResource = (props: UpdateStatProp) => {
   const [quantity, setQuantity] = useState<string>();
 
   const id = RESOURCES_LIST.findIndex((resource) => {
-    return resource.name.includes(props.resource);
+    return resource.includes(props.resource);
   });
 
   const onClick = async () => {

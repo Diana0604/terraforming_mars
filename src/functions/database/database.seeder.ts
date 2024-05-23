@@ -1,13 +1,13 @@
-import tileFixtures from "../../fixtures/tiles";
+import getFixtureTiles from "../../fixtures/tiles.fixtures";
 import tileModel from "./models/tile.model";
-import firstRound from "../../fixtures/round";
+import firstRound from "../../fixtures/round.fixtures";
 import corporationModel from "./models/corporation.model";
 import getCorporationFixtures from "../../fixtures/corporations.fixtures";
 import roundModel from "./models/round.model";
 import buildingModel from "./models/building.model";
 import alertModel from "./models/alert.model";
 import { getAllTiles } from "./database.server";
-import { Corporation } from "@/types";
+import { Corporation, Tile } from "@/types";
 
 //delete all models
 export const deleteAllModels = async () => {
@@ -45,6 +45,7 @@ export async function createAllCorporations() {
 }
 
 export const createAllTiles = async () => {
+  const tileFixtures : Tile[] = getFixtureTiles();
   //tiles
   await tileModel.deleteMany();
   const newTiles = await tileModel.create(tileFixtures);

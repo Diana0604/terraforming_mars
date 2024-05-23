@@ -24,7 +24,7 @@ const corporations: Corporation[] = [
       { name: "Oxygen", quantity: 100 },
       { name: "Food", quantity: 100 },
       { name: "Synthetics", quantity: 100 },
-      { name: "Minerals", quantity: 100 }
+      { name: "Minerals", quantity: 100 },
     ],
     buildingsOwned: [],
     tilesCanBuild: [],
