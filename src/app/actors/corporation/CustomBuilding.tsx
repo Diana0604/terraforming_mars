@@ -3,8 +3,10 @@
 import { Resource, Tile } from "@/types";
 
 //database routes
-import { BUILD_DATABASE_ROUTE, RESOURCES_LIST } from "@/constants";
+import { BUILD_DATABASE_ROUTE } from "@/constants";
 import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/showVariables";
+
+import RESOURCES from "@/fixtures/resources.fixtures";
 
 //react
 import { ChangeEvent, useContext, useRef, useState } from "react"
@@ -51,7 +53,7 @@ const CustomBuilding = () => {
     }
   })
 
-  const resourceListOptions = RESOURCES_LIST.map(resource => {
+  const resourceListOptions = RESOURCES.map(resource => {
     return {
       value: resource,
       label: resource

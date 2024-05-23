@@ -116,9 +116,10 @@ export async function POST(request: NextRequest) {
     });
 
     //update corporation resources
-    for (const resourceNeeded of building.buildingCost) {
-      corporation.resourcesNextRound[resourceNeeded.resourceId].quantity -= resourceNeeded.quantity;
-      corporation.resourcesOwned[resourceNeeded.resourceId].quantity -= resourceNeeded.quantity;
+    for (const index in building.buildingCost) {
+      const resourceNeeded = building.buildingCost[index];
+      corporation.resourcesNextRound[index].quantity -= resourceNeeded.quantity;
+      corporation.resourcesOwned[index].quantity -= resourceNeeded.quantity;
     }
 
     //add building to corporation list

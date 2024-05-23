@@ -1,5 +1,5 @@
 import { PAUSE_GAME, PLAY_GAME, elementMissingFromBody } from "@/constants";
-import firstRound from "@/fixtures/round";
+import firstRound from "@/fixtures/round.fixtures";
 import { dbConnect } from "@/functions/database/database.server";
 import roundModel from "@/functions/database/models/round.model";
 import { pauseGame, playGame } from "@/functions/roundManager";
