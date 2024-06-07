@@ -17,7 +17,7 @@ import {
 } from "@/constants";
 
 //function helpers
-import { canBuild } from "./build.functions";
+import { canBuild, isValidBuilding } from "./build.functions";
 import buildingModel from "@/functions/database/models/building.model";
 import { Tile } from "@/types";
 import getBuildingList from "@/fixtures/buildings.fixtures";
@@ -67,7 +67,6 @@ export async function POST(request: NextRequest) {
         { error: "building is not valid" },
         { status: 400 })
 
-    const buildingType = building.buildingType;
 
     //find tile in database
     const tileParams = {
@@ -81,29 +80,18 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
 
-    const buildingsOnTile = tile.buildings;
-    //check colony hub in tile
-    if (
-      buildingsOnTile.length === 0 &&
-      buildingType != COLONY_HUB_NAME
-    )
+
+    
+    const buildingType = building.buildingType;
+
+    //check building validiity
+    const validBuilding = await isValidBuilding(tile, buildingType, corporation);
+    //check building is valid
+    if (!validBuilding)
       return NextResponse.json(
-        { error: "First building of a tile must be Colony Hub" },
+        { error: "Building is not valid. Check Colony Hub Exists / Not repeated / not already colonized" },
         { status: 400 }
       );
-
-    //check building of this type does not yet exist
-    const otherBuilding = await buildingModel.countDocuments({
-      tile: tile._id,
-      buildingType: buildingType,
-    });
-
-    if (otherBuilding) {
-      return NextResponse.json(
-        { error: "Tile already has this building" },
-        { status: 400 }
-      );
-    }
 
     //check enough resources
     if (!canBuild(corporation.resourcesNextRound, building))
@@ -111,17 +99,6 @@ export async function POST(request: NextRequest) {
         { error: CANNOT_BUILD_ERROR_MESSAGE },
         { status: 400 }
       );
-
-    //check tile available
-    if (
-      tile.colonizedBy &&
-      tile.colonizedBy.toString() != corporation._id.toString()
-    ) {
-      return NextResponse.json(
-        { message: TILE_ALREADY_COLONIZED },
-        { status: 400 }
-      );
-    }
 
     //create building
     const buildingObject = await buildingModel.create({
