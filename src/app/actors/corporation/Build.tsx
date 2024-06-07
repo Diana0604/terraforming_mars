@@ -76,7 +76,7 @@ const Build = (props: BuildProps) => {
       const res = await fetch(BUILD_DATABASE_ROUTE, {
         method: "post",
         body: JSON.stringify({
-          ...PRESET_BUILDINGS_LIST[buildingIndex],
+          buildingIndex: buildingIndex,
           corporation: props.corporationName,
           tile: tile,
         }),

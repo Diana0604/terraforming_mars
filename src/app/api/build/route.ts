@@ -20,6 +20,7 @@ import {
 import { canBuild } from "./build.functions";
 import buildingModel from "@/functions/database/models/building.model";
 import { Tile } from "@/types";
+import getBuildingList from "@/fixtures/buildings.fixtures";
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,18 +28,23 @@ export async function POST(request: NextRequest) {
     await dbConnect();
 
     //check request contains appropriate body
-    const building = await request.json();
-    if (!building.corporation)
+    const requestBody = await request.json();
+
+    const corporationName = requestBody.corporation;
+    const buildingIndex = requestBody.buildingIndex;
+    const tileRowCol = requestBody.tile;
+
+    if (!corporationName)
       return NextResponse.json(
         { error: elementMissingFromBody("corporation") },
         { status: 400 }
       );
-    if (!building.buildingType)
+    if (Number.isNaN(buildingIndex))
       return NextResponse.json(
-        { error: elementMissingFromBody("buildingType") },
+        { error: elementMissingFromBody("buildingIndex") },
         { status: 400 }
       );
-    if (!building.tile)
+    if (!tileRowCol)
       return NextResponse.json(
         { error: elementMissingFromBody("tile") },
         { status: 400 }
@@ -46,7 +52,7 @@ export async function POST(request: NextRequest) {
 
     //find corporation in database
     const corporation = await corporationModel.findOne({
-      name: building.corporation,
+      name: corporationName
     });
     if (!corporation)
       return NextResponse.json(
@@ -54,10 +60,19 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
 
+    const PRESET_BUILDINGS_LIST = getBuildingList();
+    const building = PRESET_BUILDINGS_LIST[buildingIndex];
+    if (!building)
+      return NextResponse.json(
+        { error: "building is not valid" },
+        { status: 400 })
+
+    const buildingType = building.buildingType;
+
     //find tile in database
     const tileParams = {
-      column: building.tile[0],
-      row: Number(building.tile[1]),
+      column: tileRowCol[0],
+      row: Number(tileRowCol[1]),
     };
     const tile = await tileModel.findOne(tileParams).populate("buildings");
     if (!tile)
@@ -70,7 +85,7 @@ export async function POST(request: NextRequest) {
     //check colony hub in tile
     if (
       buildingsOnTile.length === 0 &&
-      building.buildingType != COLONY_HUB_NAME
+      buildingType != COLONY_HUB_NAME
     )
       return NextResponse.json(
         { error: "First building of a tile must be Colony Hub" },
@@ -80,7 +95,7 @@ export async function POST(request: NextRequest) {
     //check building of this type does not yet exist
     const otherBuilding = await buildingModel.countDocuments({
       tile: tile._id,
-      buildingType: building.buildingType,
+      buildingType: buildingType,
     });
 
     if (otherBuilding) {
