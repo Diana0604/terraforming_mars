@@ -1,7 +1,6 @@
 import { COLONY_HUB_NAME } from "@/constants";
 import buildingModel from "@/functions/database/models/building.model";
 import { BuildingConstant, BuildingType, Corporation, Resource, Tile } from "@/types";
-import mongoose from "mongoose";
 
 /**
  * Given a list of resources and a building to be built, check if there's enough resources to build it
