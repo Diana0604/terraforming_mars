@@ -17,7 +17,7 @@ import {
 } from "@/constants";
 
 //function helpers
-import { canBuild } from "@/functions/database/database.server";
+import { canBuild } from "./build.functions";
 import buildingModel from "@/functions/database/models/building.model";
 import { Tile } from "@/types";
 

@@ -1,5 +1,6 @@
 import { createAllCorporations, createAllTiles, deleteAllModels, seedDB } from "../src/functions/database/database.seeder";
-import { canBuild, closeDatabase, dbConnect, getAllTiles } from "../src/functions/database/database.server";
+import { canBuild } from "../src/app/api/build/build.functions";
+import { closeDatabase, dbConnect, getAllTiles } from "../src/functions/database/database.server";
 import getTileFixtures from "../src/fixtures/tiles.fixtures";
 import getCorporationFixtures from "../src/fixtures/corporations.fixtures";
 import firstRound from "../src/fixtures/round.fixtures";
