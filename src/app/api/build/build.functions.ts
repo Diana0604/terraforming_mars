@@ -1,5 +1,5 @@
-import { COLONY_HUB_NAME } from "@/constants";
-import buildingModel from "@/functions/database/models/building.model";
+import { COLONY_HUB_NAME } from "../../../constants";
+import buildingModel from "../../../functions/database/models/building.model"
 import { BuildingConstant, BuildingType, Corporation, Resource, Tile } from "@/types";
 
 /**
