@@ -1,9 +1,9 @@
 import { BuildingConstant, Corporation, Resource, Round, Tile } from "@/types";
-import { dbConnect } from "./database/database.server";
-import roundModel from "./database/models/round.model";
+import { dbConnect } from "../../../functions/database/database.server";
+import roundModel from "../../../functions/database/models/round.model";
 import { SECONDS_PER_ROUND } from "@/showVariables";
-import corporationModel from "./database/models/corporation.model";
-import tileModel from "./database/models/tile.model";
+import corporationModel from "../../../functions/database/models/corporation.model";
+import tileModel from "../../../functions/database/models/tile.model";
 
 let roundTimeout: NodeJS.Timeout;
 
