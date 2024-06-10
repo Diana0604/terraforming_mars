@@ -1,3 +1,4 @@
+import corporationModel from "@/functions/database/models/corporation.model";
 import { COLONY_HUB_NAME } from "../../../constants";
 import buildingModel from "../../../functions/database/models/building.model"
 import { BuildingConstant, BuildingType, Corporation, Resource, Tile } from "@/types";
@@ -78,4 +79,57 @@ export const isValidBuilding = async (tile: Tile, buildingType: BuildingType, co
   if (colonizedByEnemy) return false;
 
   return true;
+}
+
+export const build = async (building: BuildingConstant, corporation: Corporation, tile: Tile) => {
+  if (!corporation.resourcesNextRound) throw Error("corporation is badly formatted");
+  if (!corporation.save) throw Error("corporation is badly formatted");
+  if (!tile.save) throw Error("tile is badly formatted");
+
+  //create building
+  const buildingObject = await buildingModel.create({
+    ...building,
+    owner: corporation._id,
+    tile: tile._id,
+  });
+
+  //update corporation resources
+  for (const index in building.buildingCost) {
+    const resourceNeeded = building.buildingCost[index];
+    corporation.resourcesNextRound[index].quantity -= resourceNeeded.quantity;
+    corporation.resourcesOwned[index].quantity -= resourceNeeded.quantity;
+  }
+
+  //add building to corporation list
+  if (!corporation.newBuildingsNextRound)
+    corporation.newBuildingsNextRound = [];
+  corporation.newBuildingsNextRound.push(buildingObject._id);
+
+  //save corporation object
+  await corporation.save();
+
+  //update colonization status for tile if necessary
+  if (!tile.colonizedBy) {
+    tile.colonizedBy = corporation._id;
+  }
+
+  await tile.save();
+}
+
+export const setTileAsColonized = async (corporation: Corporation, tile: Tile) => {
+
+  //remove tile from other corporations
+  const otherCorps = await corporationModel.find();
+  for (const otherCorp of otherCorps) {
+    if (otherCorp.name === corporation.name) continue;
+    const tileIndex = otherCorp.tilesCanBuild.filter((otherTile: Tile) => {
+      if (!tile._id) throw Error("Tile is badly formatted");
+      return (
+        otherTile._id && otherTile._id.toString() === tile._id.toString()
+      );
+    });
+    if (tileIndex.length === 0) break;
+    otherCorp.tilesCanBuild.splice(tileIndex, 1);
+    await otherCorp.save();
+  }
 }

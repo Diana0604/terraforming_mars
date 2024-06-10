@@ -55,7 +55,7 @@ export type Tile = {
   row: MAP_ROWS;
   resourcesAvailable: ResourceName[];
   destroyed: boolean;
-  colonizedBy?: Corporation;
+  colonizedBy?: Corporation | mongoose.Types.ObjectId;
   buildings?: BuildingConstant[];
   hazards: string[];
   landmark?: string;

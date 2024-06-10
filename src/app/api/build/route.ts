@@ -17,7 +17,7 @@ import {
 } from "@/constants";
 
 //function helpers
-import { canBuild, isValidBuilding } from "./build.functions";
+import { build, canBuild, isValidBuilding, setTileAsColonized } from "./build.functions";
 import buildingModel from "@/functions/database/models/building.model";
 import { Tile } from "@/types";
 import getBuildingList from "@/fixtures/buildings.fixtures";
@@ -60,6 +60,7 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
 
+    //find building in list
     const PRESET_BUILDINGS_LIST = getBuildingList();
     const building = PRESET_BUILDINGS_LIST[buildingIndex];
     if (!building)
@@ -79,8 +80,6 @@ export async function POST(request: NextRequest) {
         { message: elementNotFoundInDatabase("tile") },
         { status: 500 }
       );
-
-
     
     const buildingType = building.buildingType;
 
@@ -100,48 +99,11 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
 
-    //create building
-    const buildingObject = await buildingModel.create({
-      ...building,
-      owner: corporation._id,
-      tile: tile._id,
-    });
+    //build
+    await build(building, corporation, tile);
 
-    //update corporation resources
-    for (const index in building.buildingCost) {
-      const resourceNeeded = building.buildingCost[index];
-      corporation.resourcesNextRound[index].quantity -= resourceNeeded.quantity;
-      corporation.resourcesOwned[index].quantity -= resourceNeeded.quantity;
-    }
-
-    //add building to corporation list
-    if (!corporation.newBuildingsNextRound)
-      corporation.newBuildingsNextRound = [];
-    corporation.newBuildingsNextRound.push(buildingObject._id);
-
-    //save corporation object
-    await corporation.save();
-
-    //update colonization status for tile if necessary
-    if (!tile.colonizedBy) {
-      tile.colonizedBy = corporation._id;
-    }
-
-    await tile.save();
-
-    //remove tile from other corporations
-    const otherCorps = await corporationModel.find();
-    for (const otherCorp of otherCorps) {
-      if (otherCorp.name === corporation.name) continue;
-      const tileIndex = otherCorp.tilesCanBuild.filter((otherTile: Tile) => {
-        return (
-          otherTile._id && otherTile._id.toString() === tile._id.toString()
-        );
-      });
-      if (tileIndex.length === 0) break;
-      otherCorp.tilesCanBuild.splice(tileIndex, 1);
-      await otherCorp.save();
-    }
+    //remove from other corporations
+    await setTileAsColonized(corporation, tile);
 
     //respond with success
     return NextResponse.json({
