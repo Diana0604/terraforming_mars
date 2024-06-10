@@ -60,7 +60,7 @@ export const seedDB = async () => {
   await roundModel.create(firstRound);
 
   //tiles
-  const tiles = await createAllTiles();
+  await createAllTiles();
 
   //corporations
   await createAllCorporations();

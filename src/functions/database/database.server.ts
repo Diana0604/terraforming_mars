@@ -49,11 +49,6 @@ export const getAllTiles = async (populated?: boolean) => {
     allTiles = await tileModel.find();
   }
 
-  //check tiles exist and create them otherwise
-  if (allTiles.length === 0) {
-    allTiles = await createAllTiles();
-  }
-
   //return
   return allTiles;
 }
