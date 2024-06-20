@@ -1,7 +1,7 @@
-import corporationModel from "@/functions/database/models/corporation.model";
+import corporationModel from "../../../functions/database/models/corporation.model";
 import { COLONY_HUB_NAME } from "../../../constants";
 import buildingModel from "../../../functions/database/models/building.model"
-import { BuildingConstant, BuildingType, Corporation, Resource, Tile } from "@/types";
+import { BuildingConstant, BuildingType, Corporation, Resource, Tile } from "../../../types";
 
 /**
  * Given a list of resources and a building to be built, check if there's enough resources to build it
@@ -54,7 +54,7 @@ const buildingIsRepeated = async (tile: Tile, buildingType: BuildingType) => {
   return false;
 }
 
-export const isEnemyColony = async (tile: Tile, corporation: Corporation) => {
+const isEnemyColony = async (tile: Tile, corporation: Corporation) => {
   if (!corporation._id) throw Error("invalid corporation object received");
 
   //check tile available

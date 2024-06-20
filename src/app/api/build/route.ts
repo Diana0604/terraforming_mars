@@ -11,15 +11,12 @@ import {
   elementNotFoundInDatabase,
   elementMissingFromBody,
   CANNOT_BUILD_ERROR_MESSAGE,
-  TILE_ALREADY_COLONIZED,
   DATABASE_SUCCESSFULLY_UPDATED,
-  COLONY_HUB_NAME,
 } from "@/constants";
 
 //function helpers
 import { build, canBuild, isValidBuilding, setTileAsColonized } from "./build.functions";
 import buildingModel from "@/functions/database/models/building.model";
-import { Tile } from "@/types";
 import getBuildingList from "@/fixtures/buildings.fixtures";
 
 export async function POST(request: NextRequest) {
