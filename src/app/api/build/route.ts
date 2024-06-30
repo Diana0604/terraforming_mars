@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/functions/database/database.server";
 import corporationModel from "@/functions/database/models/corporation.model";
 import tileModel from "@/functions/database/models/tile.model";
+import buildingModel from "@/functions/database/models/building.model";
 
 //constants
 import {
@@ -16,7 +17,6 @@ import {
 
 //function helpers
 import { build, canBuild, isValidBuilding, setTileAsColonized } from "./build.functions";
-import buildingModel from "@/functions/database/models/building.model";
 import getBuildingList from "@/fixtures/buildings.fixtures";
 
 export async function POST(request: NextRequest) {
