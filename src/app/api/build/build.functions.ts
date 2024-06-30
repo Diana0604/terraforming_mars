@@ -96,7 +96,11 @@ export const build = async (building: BuildingConstant, corporation: Corporation
   //update corporation resources
   for (const index in building.buildingCost) {
     const resourceNeeded = building.buildingCost[index];
+    const dailyCost = building.dailyCost[index];
+    const dailyProduction = building.dailyProduction[index];
     corporation.resourcesNextRound[index].quantity -= resourceNeeded.quantity;
+    corporation.resourcesNextRound[index].quantity -= dailyCost.quantity;
+    corporation.resourcesNextRound[index].quantity += dailyProduction.quantity;
     corporation.resourcesOwned[index].quantity -= resourceNeeded.quantity;
   }
 

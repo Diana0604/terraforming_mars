@@ -432,11 +432,8 @@ const PRESET_BUILDINGS_LIST = [
 
 const checkResourcesImplementation = () => {
   for (const building of PRESET_BUILDINGS_LIST) {
-    console.log('building cost');
     checkValidResourceList(building.buildingCost);
-    console.log('daily cost');
     checkValidResourceList(building.dailyCost);
-    console.log('daily production');
     checkValidResourceList(building.dailyProduction);
   }
 }

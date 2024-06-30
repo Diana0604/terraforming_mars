@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
         { error: "Building is not valid. Check Colony Hub Exists / Not repeated / not already colonized" },
         { status: 400 }
       );
-
+    
     //check enough resources
     if (!canBuild(corporation.resourcesNextRound, building))
       return NextResponse.json(

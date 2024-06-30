@@ -26,7 +26,9 @@ const updateCorporationStats = async () => {
   const corporations: Corporation[] = await corporationModel
     .find()
     .populate("buildingsOwned")
-    .populate("newBuildingsNextRound") as Corporation[];
+    .populate("newBuildingsNextRound")
+    .populate('resourcesOwned')
+    .populate('resourcesNextRound') as Corporation[];
 
   // //update each corporation - buildings
   corporations.forEach(async (corporation) => {
@@ -55,11 +57,15 @@ const updateCorporationStats = async () => {
       for (const index in building.dailyProduction) {
         const resource = building.dailyProduction[index];
         corporation.resourcesOwned[index].quantity += resource.quantity;
+        if(corporation.resourcesNextRound)
+          corporation.resourcesNextRound[index].quantity += resource.quantity;
       }
 
       for (const index in building.dailyCost) {
         const resource = building.dailyCost[index];
         corporation.resourcesOwned[index].quantity -= resource.quantity;
+        if(corporation.resourcesNextRound)
+          corporation.resourcesNextRound[index].quantity -= resource.quantity;
       }
     }
 

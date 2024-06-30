@@ -21,7 +21,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     if (!body.quantity) {
-      console.log('couldnt find quantity')
       return NextResponse.json(
         { error: elementMissingFromBody("quantity") },
         { status: 400 }
@@ -43,12 +42,10 @@ export async function POST(request: NextRequest) {
     const id = Number(body.id);
 
     if (!RESOURCES_LIST[id]) {
-      console.log('nothing in resources list')
       return NextResponse.json({ error: "id out of bounds" }, { status: 400 });
     }
 
     if (!RESOURCES_LIST[id].includes(body.resource)) {
-      console.log('name didnt match')
       return NextResponse.json({ error: "Wrong name" }, { status: 400 });
     }
 
