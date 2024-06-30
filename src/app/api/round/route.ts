@@ -1,9 +1,16 @@
+//next objects
+import { NextRequest, NextResponse } from "next/server";
+
+//constants
 import { PAUSE_GAME, PLAY_GAME, elementMissingFromBody } from "@/constants";
-import firstRound from "@/fixtures/round.fixtures";
+
+//database
 import { dbConnect } from "@/functions/database/database.server";
 import roundModel from "@/functions/database/models/round.model";
+
+//helpers
+import firstRound from "@/fixtures/round.fixtures";
 import { pauseGame, playGame } from "./round.functions";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   try {
