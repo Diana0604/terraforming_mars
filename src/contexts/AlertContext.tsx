@@ -40,8 +40,6 @@ export const AlertContextProvider = ({ children }: { children: React.ReactNode }
 
     updateMessage()
 
-    // const gameInterval = Math.floor(1000*SECONDS_PER_ROUND*5/1440)
-    // console.log(gameInterval)
     const interval = setInterval(updateMessage, 1000)
 
     //destroy interval at dismount

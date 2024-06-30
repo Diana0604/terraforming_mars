@@ -1,11 +1,16 @@
+//next objects
+import { NextRequest, NextResponse } from 'next/server'
+
+//database
+import { dbConnect } from '@/functions/database/database.server'
 import { getAllTiles } from '@/functions/database/database.server'
 import buildingModel from '@/functions/database/models/building.model'
 import corporationModel from '@/functions/database/models/corporation.model'
 import tileModel from '@/functions/database/models/tile.model'
-import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
-
+  await dbConnect()
+  
   const { searchParams } = new URL(request.url)
   const row = searchParams.get('row')
   const column = searchParams.get('column')
