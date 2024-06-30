@@ -1,5 +1,3 @@
-//necessary models that need efining
-
 //models
 import corporationModel from "@/functions/database/models/corporation.model";
 

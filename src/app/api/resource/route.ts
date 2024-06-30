@@ -1,11 +1,18 @@
-import corporationModel from "@/functions/database/models/corporation.model";
-import { dbConnect } from "@/functions/database/database.server";
+//next objects
 import { NextRequest, NextResponse } from "next/server";
+
+//types
 import { Corporation } from "@/types";
+
+//database
+import { dbConnect } from "@/functions/database/database.server";
+import corporationModel from "@/functions/database/models/corporation.model";
+
+//helpers
 import {
   elementMissingFromBody,
 } from "@/constants";
-import RESOURCES_LIST from "../../../fixtures/resources.fixtures";
+import RESOURCES_LIST from "@/fixtures/resources.fixtures";
 
 
 export async function POST(request: NextRequest) {
