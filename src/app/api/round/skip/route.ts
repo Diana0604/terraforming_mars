@@ -1,6 +1,11 @@
-import { dbConnect } from "@/functions/database/database.server";
-import { skipToDarkHour } from "../round.functions";
+//next objects
 import { NextResponse } from "next/server";
+
+//db
+import { dbConnect } from "@/functions/database/database.server";
+
+//helpers
+import { skipToDarkHour } from "../round.functions";
 
 export async function POST() {
   try {
