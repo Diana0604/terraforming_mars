@@ -2,7 +2,7 @@
 import { Corporation } from "@/types"
 
 //constants
-import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/showVariables"
+import { PLAYER1_CORPORATION_NAME, PLAYER2_CORPORATION_NAME } from "@/showVariables"
 
 //react
 import { useContext } from "react"
@@ -23,7 +23,7 @@ interface ResourceStatsProps {
 const ResourceStats = (props: ResourceStatsProps) => {
 
   //get corporations from context
-  const { playerCorporation, actorsCorporation } = useContext(CorporationsContext)
+  const corporations = useContext(CorporationsContext)
 
   //method to prepare display for each corporation
   const resourcesStatsDisplay = (corporation: Corporation) => {
@@ -46,12 +46,12 @@ const ResourceStats = (props: ResourceStatsProps) => {
   }
 
   //call resourcesStatsDisplay according to corporation name
-  if (props.corporationName === PLAYER_CORPORATION_NAME) {
-    return resourcesStatsDisplay(playerCorporation)
+  if (props.corporationName === PLAYER1_CORPORATION_NAME) {
+    return resourcesStatsDisplay(corporations[0])
   }
 
-  if (props.corporationName === ACTORS_CORPORATION_NAME) {
-    return resourcesStatsDisplay(actorsCorporation)
+  if (props.corporationName === PLAYER2_CORPORATION_NAME) {
+    return resourcesStatsDisplay(corporations[1])
   }
 
   return <>Unknown Corporation</>

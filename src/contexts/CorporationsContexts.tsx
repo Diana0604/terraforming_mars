@@ -1,13 +1,10 @@
 import { CORPORATION_ROUTE } from "@/constants";
-import { PLAYER_CORPORATION_NAME } from "@/showVariables";
+import { PLAYER1_CORPORATION_NAME } from "@/showVariables";
 import { Building, Corporation, Resource, Tile } from "@/types";
 import React, { useState, useEffect } from "react";
 
 //both corporations individually can be accessed from the context
-type contextProps = {
-  playerCorporation: Corporation;
-  actorsCorporation: Corporation;
-};
+type contextProps = Corporation[];
 
 //setup necessary empty objects for typescript compliance
 const emptyResources: Resource[] = [];
@@ -15,22 +12,22 @@ const emptyBuildings: Building[] = [];
 const emptyTiles: Tile[] = [];
 
 //initial corporation values
-const initialCorporationProps: contextProps = {
-  playerCorporation: {
+const initialCorporationProps: contextProps = [
+  {
     name: "loading",
     resourcesOwned: emptyResources,
     buildingsOwned: emptyBuildings,
     tilesCanBuild: emptyTiles,
-    player: true
+    player: true,
   },
-  actorsCorporation: {
+  {
     name: "loading",
     resourcesOwned: emptyResources,
     buildingsOwned: emptyBuildings,
     tilesCanBuild: emptyTiles,
-    player: false
+    player: false,
   },
-};
+];
 
 //build context
 export const CorporationsContext: React.Context<contextProps> =
@@ -43,11 +40,11 @@ export const CorporationsContextProvider = ({
   children: React.ReactNode;
 }) => {
   //corporation objects and setters
-  const [playerCorporation, setPlayerCorporation] = useState<Corporation>(
-    initialCorporationProps.playerCorporation
+  const [player1Corporation, setPlayer1Corporation] = useState<Corporation>(
+    initialCorporationProps[0]
   );
-  const [actorsCorporation, setActorsCorporation] = useState<Corporation>(
-    initialCorporationProps.actorsCorporation
+  const [player2Corporation, setPlayer2Corporation] = useState<Corporation>(
+    initialCorporationProps[1]
   );
 
   useEffect(() => {
@@ -58,9 +55,9 @@ export const CorporationsContextProvider = ({
           async (response) => {
             const data = await response.json();
             data.corporations.forEach((corporation: Corporation) => {
-              if (corporation.name === PLAYER_CORPORATION_NAME)
-                setPlayerCorporation(corporation);
-              else setActorsCorporation(corporation);
+              if (corporation.name === PLAYER1_CORPORATION_NAME)
+                setPlayer1Corporation(corporation);
+              else setPlayer2Corporation(corporation);
             });
           },
           (error) => {
@@ -85,7 +82,7 @@ export const CorporationsContextProvider = ({
   //return provider values
   return (
     <CorporationsContext.Provider
-      value={{ playerCorporation, actorsCorporation }}
+      value={[player1Corporation, player2Corporation]}
     >
       {children}
     </CorporationsContext.Provider>

@@ -1,6 +1,6 @@
 'use client'
 //constants
-import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/showVariables"
+import { PLAYER1_CORPORATION_NAME, PLAYER2_CORPORATION_NAME } from "@/showVariables"
 
 //antd
 import { Col, Collapse, Row } from "antd";
@@ -31,13 +31,13 @@ const CorporationStats = () => {
   const items = [
     {
       key: 0,
-      label: PLAYER_CORPORATION_NAME,
-      children: buildChildren(PLAYER_CORPORATION_NAME)
+      label: PLAYER1_CORPORATION_NAME,
+      children: buildChildren(PLAYER1_CORPORATION_NAME)
     },
     {
       key: 1,
-      label: ACTORS_CORPORATION_NAME,
-      children: buildChildren(ACTORS_CORPORATION_NAME)
+      label: PLAYER2_CORPORATION_NAME,
+      children: buildChildren(PLAYER2_CORPORATION_NAME)
     }
   ]
 

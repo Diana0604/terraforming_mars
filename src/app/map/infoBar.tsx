@@ -5,17 +5,21 @@ import { Resource } from "@/types";
 import { CorporationsContext } from "@/contexts/CorporationsContexts";
 import { Col, Row } from 'antd';
 
-const InfoBar = () => {
+type InfoBarProps = {
+  num: number
+}
+
+const InfoBar = ({num} : InfoBarProps) => {
 
     const [resources, setResources] = useState<Resource[]>();
     const [resourcesNextRound, setResourcesNextRound] = useState<Resource[]>();
-    const { playerCorporation } = useContext(CorporationsContext);
+    const corporations = useContext(CorporationsContext);
 
     useEffect(() => {
-        setResources(playerCorporation.resourcesOwned)
+        setResources(corporations[num].resourcesOwned)
 
-        setResourcesNextRound(playerCorporation.resourcesNextRound)
-    }, [playerCorporation])
+        setResourcesNextRound(corporations[num].resourcesNextRound)
+    }, [corporations[num]])
 
     const switchIcons = (name: string) => {
         switch (name) {
@@ -39,7 +43,7 @@ const InfoBar = () => {
 
     return (
         <div className={styles.infoBar}>
-            <p>{playerCorporation.name}</p>
+            <p>{corporations[num].name}</p>
             {resources && resources.map((resource, index) => {
                 return <Row key={index} style={{ padding: "10px" }}>
                     <Col span={12} style={{ width: "30px" }} >

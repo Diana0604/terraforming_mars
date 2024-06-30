@@ -4,7 +4,7 @@ import { Resource, Tile } from "@/types";
 
 //database routes
 import { BUILD_DATABASE_ROUTE } from "@/constants";
-import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/showVariables";
+import { PLAYER1_CORPORATION_NAME, PLAYER2_CORPORATION_NAME } from "@/showVariables";
 
 import RESOURCES from "@/fixtures/resources.fixtures";
 
@@ -35,12 +35,12 @@ const CustomBuilding = () => {
   //create list for building type choosing select
   const corporationOption = [
     {
-      value: PLAYER_CORPORATION_NAME,
-      label: PLAYER_CORPORATION_NAME
+      value: PLAYER1_CORPORATION_NAME,
+      label: PLAYER1_CORPORATION_NAME
     },
     {
-      value: ACTORS_CORPORATION_NAME,
-      label: ACTORS_CORPORATION_NAME
+      value: PLAYER2_CORPORATION_NAME,
+      label: PLAYER2_CORPORATION_NAME
     }
   ]
 

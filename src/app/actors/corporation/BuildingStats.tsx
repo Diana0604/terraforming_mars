@@ -1,6 +1,6 @@
 "use client"
 //constants
-import { ACTORS_CORPORATION_NAME, PLAYER_CORPORATION_NAME } from "@/showVariables"
+import { PLAYER1_CORPORATION_NAME, PLAYER2_CORPORATION_NAME } from "@/showVariables"
 
 //types
 import { Corporation, Tile } from "@/types"
@@ -24,7 +24,7 @@ interface IBuildingStatsProps {
  */
 const BuildingStats = (props: IBuildingStatsProps) => {
 
-  const { playerCorporation, actorsCorporation } = useContext(CorporationsContext)
+  const corporations = useContext(CorporationsContext)
 
   //setup the display for each corporation
   const setupCorportaion = (corporation: Corporation) => {
@@ -33,6 +33,7 @@ const BuildingStats = (props: IBuildingStatsProps) => {
         Buildings currently owned by this corporation:
         {
           corporation.buildingsOwned.map((building, index) => {
+            building.tile = building.tile as Tile
             return (
               <div key={index}>
                 <div style={{ fontWeight: "bold" }}>Tile: {`${building.tile.column}`}{building.tile.row}</div>
@@ -49,6 +50,7 @@ const BuildingStats = (props: IBuildingStatsProps) => {
         Buildings that will be built in the next round:
         {
           corporation.newBuildingsNextRound?.map((building, index) => {
+            building.tile = building.tile as Tile
             return (
               <div key={index}>
                 <div style={{ fontWeight: "bold" }}>Type: {building.buildingType}</div>
@@ -63,11 +65,11 @@ const BuildingStats = (props: IBuildingStatsProps) => {
   }
 
   //call setupCorporation depending on corporation name
-  if (props.corporationName === PLAYER_CORPORATION_NAME) {
-    return setupCorportaion(playerCorporation)
+  if (props.corporationName === PLAYER1_CORPORATION_NAME) {
+    return setupCorportaion(corporations[0])
   }
-  if (props.corporationName === ACTORS_CORPORATION_NAME) {
-    return setupCorportaion(actorsCorporation)
+  if (props.corporationName === PLAYER2_CORPORATION_NAME) {
+    return setupCorportaion(corporations[1])
   }
 
   return <>Unknown Corporation</>
