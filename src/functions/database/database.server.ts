@@ -7,6 +7,7 @@ import { BuildingConstant, Resource } from "@/types";
 
 //================== TO BE CALLED FROM SERVER SIDE ==================
 export const dbConnect = async () => {
+  console.log(process.env.MONGO_URI)
   if (!process.env.MONGO_URI) {
     throw Error("env variable MONGO_URI is not declared");
   }
