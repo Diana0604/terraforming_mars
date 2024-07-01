@@ -7,7 +7,7 @@ import { BuildingConstant, Resource } from "@/types";
 
 //================== TO BE CALLED FROM SERVER SIDE ==================
 export const dbConnect = async () => {
-  if (!process.env.mongoUri) {
+  if (!process.env.MONGO_URI) {
     throw Error("env variable MONGO_URI is not declared");
   }
 
@@ -18,7 +18,7 @@ export const dbConnect = async () => {
 
   //connect to database and return connection
   try {
-    await mongoose.connect(process.env.mongoUri);
+    await mongoose.connect(process.env.MONGO_URI);
 
     await mongoose.connection.db.dropDatabase();
 
