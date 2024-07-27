@@ -1,11 +1,22 @@
-import BuildingFixtures from "./buildings/BuildingFixtures"
+import { Collapse, CollapseProps } from "antd";
+import BuildingFixtures from "./buildings/BuildingFixtures";
 
 const Admin = () => {
-  return (
-    <div>This is the fixtures page. You can change the initial value of things here.
-      <BuildingFixtures/>
-    </div>
-  )
-}
+  const items: CollapseProps["items"] = [
+    {
+      key: "1",
+      label: "Building Fixtures",
+      children: <BuildingFixtures />,
+    },
+  ];
 
-export default Admin
+  return (
+    <div>
+      This is the fixtures page. You can change the initial value of things
+      here.
+      <Collapse items={items} />
+    </div>
+  );
+};
+
+export default Admin;
