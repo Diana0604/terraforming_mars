@@ -1,8 +1,20 @@
-import { Collapse } from "antd"
-
+import { Collapse, CollapseProps } from "antd"
+import IndividualBuilding from "./IndividualBuilding";
 
 const BuildingFixtures = () => {
-  return (<div>building fixtures</div>)
+  const items: CollapseProps["items"] = [
+    {
+      key: "1",
+      label: "Test One",
+      children: <IndividualBuilding name="Test One" />,
+    },
+    {
+      key: "2",
+      label: "Test Two",
+      children: <IndividualBuilding name="Test Two" />,
+    },
+  ];
+  return (<><Collapse items={items}/></>)
 }
 
 export default BuildingFixtures
