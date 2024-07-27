@@ -1,5 +1,7 @@
 import { Round } from "@/types";
 
+export const SECONDS_PER_ROUND = 20;
+
 const firstRound: Round = {
   number: 1,
   playing: false,
@@ -7,3 +9,4 @@ const firstRound: Round = {
 };
 
 export default firstRound;
+

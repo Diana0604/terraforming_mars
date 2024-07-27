@@ -2,7 +2,7 @@
 import { BuildingConstant, Corporation, Round, Tile } from "@/types";
 
 //constants
-import { SECONDS_PER_ROUND } from "@/showVariables";
+import { SECONDS_PER_ROUND } from '@/fixtures/round.fixtures';
 
 //database
 import { dbConnect } from "../../../functions/database/database.server";

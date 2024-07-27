@@ -3,7 +3,8 @@ import { useContext, useEffect, useState } from 'react'
 import styles from '../page.module.css'
 import { Round } from '@/types';
 import { RoundContext } from '@/contexts/RoundContext';
-import { SECONDS_PER_ROUND } from '@/showVariables';
+import { SECONDS_PER_ROUND } from '@/fixtures/round.fixtures';
+
 
 const Timer = () => {
 
