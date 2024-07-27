@@ -1,5 +1,5 @@
 import { Corporation } from "@/types";
-import { checkValidResourceList } from "../functions/helpers";
+import { checkValidResourceList } from "./fixtures.functions";
 
 const corporations: Corporation[] = [
   {

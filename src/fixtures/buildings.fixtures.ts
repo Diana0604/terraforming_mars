@@ -1,5 +1,5 @@
 //name variables for buildings
-import { checkValidResourceList } from "../functions/helpers";
+import { checkValidResourceList } from "./fixtures.functions";
 import {
   BARRACKS_NAME,
   BIOME_FARM_NAME,

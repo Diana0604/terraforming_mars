@@ -1,5 +1,5 @@
 import { Resource } from "@/types";
-import RESOURCES from "../fixtures/resources.fixtures";
+import RESOURCES from "./resources.fixtures";
 
 
 export const checkValidResourceList = (resourceList: Resource[]) => {
