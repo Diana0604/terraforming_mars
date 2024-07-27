@@ -1,9 +1,13 @@
 import { Corporation } from "@/types";
 import { checkValidResourceList } from "./fixtures.functions";
 
+//names of corporations
+export const PLAYER1_CORPORATION_NAME = "Persephone";
+export const PLAYER2_CORPORATION_NAME = "Atlas Corp.";
+
 const corporations: Corporation[] = [
   {
-    name: "Persephone",
+    name: PLAYER1_CORPORATION_NAME,
     resourcesOwned: [
       { name: "Water", quantity: 100 },
       { name: "Rare Metal", quantity: 100 },
@@ -17,7 +21,7 @@ const corporations: Corporation[] = [
     player: true
   },
   {
-    name: "Atlas Corp.",
+    name: PLAYER2_CORPORATION_NAME,
     resourcesOwned: [
       { name: "Water", quantity: 100 },
       { name: "Rare Metal", quantity: 100 },

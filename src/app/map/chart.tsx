@@ -13,10 +13,6 @@ import * as d3 from "d3";
 import styles from "../page.module.css";
 import Stars from "./stars";
 import { Corporation, Tile } from "../../types";
-import {
-  PLAYER1_CORPORATION_NAME,
-  PLAYER2_CORPORATION_NAME,
-} from "@/showVariables";
 import { TilesContext } from "@/contexts/TileContext";
 import { RoundContext } from "@/contexts/RoundContext";
 import { Card } from "antd";

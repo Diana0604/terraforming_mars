@@ -1,5 +1,5 @@
 import { CORPORATION_ROUTE } from "@/constants";
-import { PLAYER1_CORPORATION_NAME } from "@/showVariables";
+import { PLAYER1_CORPORATION_NAME } from "@/fixtures/corporations.fixtures";
 import { Building, Corporation, Resource, Tile } from "@/types";
 import React, { useState, useEffect } from "react";
 

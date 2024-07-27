@@ -4,7 +4,7 @@ import { Resource, Tile } from "@/types";
 
 //database routes
 import { BUILD_DATABASE_ROUTE } from "@/constants";
-import { PLAYER1_CORPORATION_NAME, PLAYER2_CORPORATION_NAME } from "@/showVariables";
+import { PLAYER1_CORPORATION_NAME, PLAYER2_CORPORATION_NAME } from "@/fixtures/corporations.fixtures";
 
 import RESOURCES from "@/fixtures/resources.fixtures";
 

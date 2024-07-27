@@ -1,6 +1,6 @@
 "use client"
 //constants
-import { PLAYER1_CORPORATION_NAME, PLAYER2_CORPORATION_NAME } from "@/showVariables"
+import { PLAYER1_CORPORATION_NAME, PLAYER2_CORPORATION_NAME } from "@/fixtures/corporations.fixtures"
 
 //types
 import { Corporation, Tile } from "@/types"
