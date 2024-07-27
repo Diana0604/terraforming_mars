@@ -5,6 +5,11 @@ const Admin = () => {
   const items: CollapseProps["items"] = [
     {
       key: "1",
+      label: "Resource Fixtures",
+      children: <div>Resource Fixtures</div>
+    },
+    {
+      key: "2",
       label: "Building Fixtures",
       children: <BuildingFixtures />,
     },
