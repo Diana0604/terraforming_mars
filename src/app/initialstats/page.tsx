@@ -1,30 +1,30 @@
 import { Collapse, CollapseProps } from "antd";
-import BuildingFixtures from "./buildings/BuildingFixtures";
-import ResourceFixtures from "./resources/ResourceFixtures";
-import CorporationFixtures from "./corporations/CorporationFixtures";
-import RoundFixtures from "./round/RoundFixtures";
+import BuildingStats from "./buildings/BuildingStats";
+import ResourceStats from "./resources/ResourceStats";
+import CorporationStats from "./corporations/CorporationStats";
+import RoundStats from "./round/RoundStats";
 
 const Admin = () => {
   const items: CollapseProps["items"] = [
     {
       key: "1",
       label: "Resource Fixtures",
-      children: <ResourceFixtures />,
+      children: <ResourceStats />,
     },
     {
       key: "2",
       label: "Building Fixtures",
-      children: <BuildingFixtures />,
+      children: <BuildingStats />,
     },
     {
       key: "3",
       label: "Corporation Fixtures",
-      children: <CorporationFixtures />,
+      children: <CorporationStats />,
     },
     {
       key: "4",
       label: "Round Fixtures",
-      children: <RoundFixtures />
+      children: <RoundStats />,
     },
   ];
 

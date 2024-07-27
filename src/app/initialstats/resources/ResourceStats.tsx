@@ -1,7 +1,7 @@
 import { Row, Col } from "antd";
 import Input from "antd/es/input/Input";
 
-const ResourceFixtures = () => {
+const ResourceStats = () => {
   return (
     <>
       <h4>List all resources that can be used / found</h4>
@@ -39,4 +39,4 @@ const ResourceFixtures = () => {
   );
 };
 
-export default ResourceFixtures;
+export default ResourceStats;

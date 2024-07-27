@@ -1,6 +1,6 @@
 import { Col, InputNumber, Row } from "antd";
 
-const RoundFixtures = () => {
+const RoundStats = () => {
   return (
     <Row>
       <Col style={{ marginRight: "10px" }}>Hours: </Col>
@@ -19,4 +19,4 @@ const RoundFixtures = () => {
   );
 };
 
-export default RoundFixtures;
+export default RoundStats;

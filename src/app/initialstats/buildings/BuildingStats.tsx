@@ -1,7 +1,7 @@
 import { Collapse, CollapseProps } from "antd"
 import IndividualBuilding from "./IndividualBuilding";
 
-const BuildingFixtures = () => {
+const BuildingStats = () => {
   const items: CollapseProps["items"] = [
     {
       key: "1",
@@ -17,4 +17,4 @@ const BuildingFixtures = () => {
   return (<><Collapse items={items}/></>)
 }
 
-export default BuildingFixtures
+export default BuildingStats
