@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Show Management Notes
 
+To be updated
+
 There are two files relevant to show management:
 
 - [showVariables.ts](./src/showVariables.ts)
