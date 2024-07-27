@@ -1,12 +1,13 @@
 import { Collapse, CollapseProps } from "antd";
 import BuildingFixtures from "./buildings/BuildingFixtures";
+import ResourceFixtures from "./resources/ResourceFixtures";
 
 const Admin = () => {
   const items: CollapseProps["items"] = [
     {
       key: "1",
       label: "Resource Fixtures",
-      children: <div>Resource Fixtures</div>
+      children: <ResourceFixtures />,
     },
     {
       key: "2",
