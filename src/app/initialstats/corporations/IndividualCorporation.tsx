@@ -31,7 +31,9 @@ const IndividualCorporation = (props: InitCorporation) => {
           <Input defaultValue={corporationName} onChange={handleNameChange} />
         </Col>
       </Row>
+
       <h4>Initial Resources</h4>
+
       <Row className="mb-5">
         {resources.map((value, index) => (
           <Col key={index} className="mr-5">
@@ -42,12 +44,14 @@ const IndividualCorporation = (props: InitCorporation) => {
           </Col>
         ))}
       </Row>
+
       <Row>
         <Col className="mr-5">
           <Button onClick={handleUpdate} type="primary">
             Update
           </Button>
         </Col>
+
         <Col>
           <Button
             danger
