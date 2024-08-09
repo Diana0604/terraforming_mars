@@ -30,7 +30,6 @@ export async function GET(request: Request) {
         await building.populate("tile");
       }
     }
-    // console.log(corporations);
     return NextResponse.json({ corporations: corporations });
   }
 
