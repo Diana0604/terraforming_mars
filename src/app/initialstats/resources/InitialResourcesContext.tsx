@@ -23,12 +23,13 @@ const InitialResourcesContextProvider = ({
   //props and setters
   const [resources, setResources] = useState<string[]>([]);
 
-  const fetchInitResources = () => {
-    fetchGet(INIT_RESOURCE_ROUTE, (data: { name: string }[]) => {
-      const newResources = data.map((value) => value.name);
-      setResources(newResources);
-    });
+  const fetchGetCallback = (data: { name: string }[]) => {
+    const newResources = data.map((value) => value.name);
+    setResources(newResources);
   };
+
+  const fetchInitResources = () =>
+    fetchGet(INIT_RESOURCE_ROUTE, fetchGetCallback);
 
   //get resources from db
   useEffect(() => fetchInitResources, []);
