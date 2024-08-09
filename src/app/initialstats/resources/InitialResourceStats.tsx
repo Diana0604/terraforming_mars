@@ -13,13 +13,16 @@ const ResourceStats = () => {
       <h4>List all resources that can be used / found</h4>
       {resources.map((resource, index) => (
         <Row key={index}>
-          <Col>
+          <Col className="mr-5 mb-5">
             <Input defaultValue={resource}></Input>
+          </Col>
+          <Col>
+            <Button danger>Delete</Button>
           </Col>
         </Row>
       ))}
       <Row>
-        <Col>
+        <Col className="mr-5">
           <Input
             onChange={(event) => setResource(event.target.value)}
             value={newResource}
