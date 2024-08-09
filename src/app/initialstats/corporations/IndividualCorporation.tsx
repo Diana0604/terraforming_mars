@@ -5,17 +5,21 @@ import { InitialCorporationContext } from "./InitialCorporationContext";
 import { InitCorporation } from "@/types";
 
 const IndividualCorporation = (props: InitCorporation) => {
+  //get resources list from context
   const { resources } = useContext(InitialResourcesContext);
-
-  const [corporationName, setCorporationName] = useState<string>(props.name);
-
+  //get deleters and updaters from context
   const { deleteCorporation, updateCorporation } = useContext(
     InitialCorporationContext
   );
 
+  //create local corporation objects and setters
+  const [corporationName, setCorporationName] = useState<string>(props.name);
+
+  //on corp name change -> update local name
   const handleNameChange: ChangeEventHandler<HTMLInputElement> = (event) =>
     setCorporationName(event.target.value);
 
+  //on update send -> request to context
   const handleUpdate = () =>
     updateCorporation(props.name, { ...props, name: corporationName });
 
