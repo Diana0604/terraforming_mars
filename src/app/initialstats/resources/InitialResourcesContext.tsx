@@ -35,7 +35,7 @@ const InitialResourcesContextProvider = ({
 
   //add new resource function
   const addNewResource = async (name: string) => {
-    const res = await fetch(INIT_RESOURCE_ROUTE, {
+    await fetch(INIT_RESOURCE_ROUTE, {
       method: "post",
       body: JSON.stringify({ name }),
     });
