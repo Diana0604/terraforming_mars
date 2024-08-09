@@ -29,13 +29,19 @@ const InitialResourcesContextProvider = ({
   //props and setters
   const [resources, setResources] = useState<string[]>([]);
 
+  useEffect(() => {
+    console.log('from context', resources);
+  }, [resources])
+
   const fetchGetCallback = (data: { name: string }[]) => {
     const newResources = data.map((value) => value.name);
     setResources(newResources);
   };
 
-  const fetchInitResources = () =>
+  const fetchInitResources = () =>{
+    console.log('fetching init resources');
     fetchGet(INIT_RESOURCE_ROUTE, fetchGetCallback);
+  }
 
   //get resources from db
   useEffect(() => fetchInitResources, []);

@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import buildingModel from "./models/building.model";
 import tileModel from "./models/tile.model";
 import corporationModel from "./models/corporation.model";
+import initialresourcesModel from "./models/initialstats/initialresources.model";
+import initialcorpsModel from "./models/initialstats/initialcorps.model";
 
 //================== TO BE CALLED FROM SERVER SIDE ==================
 export const dbConnect = async () => {
@@ -24,6 +26,8 @@ export const dbConnect = async () => {
     await buildingModel.find();
     await tileModel.find();
     await corporationModel.find();
+    await initialresourcesModel.find();
+    await initialcorpsModel.find();
 
     console.log(
       "=================== MODELS DEFINED =========================="

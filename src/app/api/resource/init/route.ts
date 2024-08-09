@@ -6,6 +6,8 @@ export async function GET(_request: NextRequest) {
   //connect to db
   await dbConnect();
 
+  console.log('=============================== GETTING RESOURCES ======================')
+
   //get list of resources
   const res = await initialresourcesModel.find();
 
@@ -14,6 +16,7 @@ export async function GET(_request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  console.log('=============================== POSTING RESOURCES ======================')
   //check request contains appropriate body
   const body = await request.json();
 
@@ -32,6 +35,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  console.log('=============================== DELETING RESOURCES ======================')
   //check request contains appropriate body
   const body = await request.json();
 
