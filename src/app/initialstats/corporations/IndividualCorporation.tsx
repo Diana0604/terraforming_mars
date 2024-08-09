@@ -36,6 +36,18 @@ const IndividualCorporation = (props: InitCorporation) => {
         newCorporationResources.push({ name: resource, quantity: 0 });
     }
 
+    //remove any resources in newCorporationResources that may have been deleted
+    let i = 0;
+    while (newCorporationResources[i]) {
+      const corpResource = newCorporationResources[i];
+
+      const resourceIndex = resources.indexOf(corpResource.name);
+
+      //if resource cannot be found in resources list, delete it
+      if (resourceIndex === -1) newCorporationResources.splice(i, 1);
+      else i++;
+    }
+
     //update corporation resources
     setCorporationResources(newCorporationResources);
   }, [resources, props.resourcesOwned]);
