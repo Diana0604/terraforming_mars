@@ -29,22 +29,16 @@ const InitialResourcesContextProvider = ({
   //props and setters
   const [resources, setResources] = useState<string[]>([]);
 
-  useEffect(() => {
-    console.log('from context', resources);
-  }, [resources])
-
   const fetchGetCallback = (data: { name: string }[]) => {
     const newResources = data.map((value) => value.name);
     setResources(newResources);
   };
 
-  const fetchInitResources = () =>{
-    console.log('fetching init resources');
+  const fetchInitResources = () =>
     fetchGet(INIT_RESOURCE_ROUTE, fetchGetCallback);
-  }
 
   //get resources from db
-  useEffect(() => (fetchInitResources), []);
+  useEffect(() => fetchInitResources, []);
 
   //add new resource function
   const addNewResource = async (name: string) =>

@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
-import buildingModel from "./models/building.model";
 import tileModel from "./models/tile.model";
-import corporationModel from "./models/corporation.model";
-import initialresourcesModel from "./models/initialstats/initialresources.model";
-import initialcorpsModel from "./models/initialstats/initialcorps.model";
 
 //================== TO BE CALLED FROM SERVER SIDE ==================
 export const dbConnect = async () => {
@@ -20,18 +16,7 @@ export const dbConnect = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
 
-    await mongoose.connection.db.dropDatabase();
-
     console.log("================== MONGOOSE CONNECTED ==================");
-    await buildingModel.find();
-    await tileModel.find();
-    await corporationModel.find();
-    await initialresourcesModel.find();
-    await initialcorpsModel.find();
-
-    console.log(
-      "=================== MODELS DEFINED =========================="
-    );
   } catch (error) {
     throw error;
   }

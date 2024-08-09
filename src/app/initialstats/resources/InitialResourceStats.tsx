@@ -8,10 +8,6 @@ const ResourceStats = () => {
     InitialResourcesContext
   );
 
-  useEffect(() => {
-    console.log('from resource stats', resources)
-  }, [resources])
-
   const [newResource, setResource] = useState<string>("");
 
   return (

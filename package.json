@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "seed": "ts-node src/init/init.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

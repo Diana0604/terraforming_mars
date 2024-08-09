@@ -9,10 +9,6 @@ interface IndividualCorporationProps {
 const IndividualCorporation = (props: IndividualCorporationProps) => {
   const { resources } = useContext(InitialResourcesContext);
 
-  useEffect(() => {
-    console.log('from corp stats', resources)
-  }, [resources])
-
   return (
     <>
       <Row>
