@@ -1,5 +1,9 @@
 import { INIT_RESOURCE_ROUTE } from "@/constants";
-import { fetchDelete, fetchGet, fetchPost } from "@/functions/database/database.fetchers";
+import {
+  fetchDelete,
+  fetchGet,
+  fetchPost,
+} from "@/functions/database/database.fetchers";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface InitialResourcesProps {
@@ -37,18 +41,18 @@ const InitialResourcesContextProvider = ({
   useEffect(() => fetchInitResources, []);
 
   //add new resource function
-  const addNewResource = async (name: string) => {
+  const addNewResource = async (name: string) =>
     fetchPost(INIT_RESOURCE_ROUTE, { name }, fetchInitResources);
-  };
 
   //delete resource
-  const deleteResource = async (name: string) => {
-    fetchDelete(INIT_RESOURCE_ROUTE, {name}, fetchInitResources);
-  }
+  const deleteResource = async (name: string) =>
+    fetchDelete(INIT_RESOURCE_ROUTE, { name }, fetchInitResources);
 
   //return provider
   return (
-    <InitialResourcesContext.Provider value={{ resources, addNewResource, deleteResource }}>
+    <InitialResourcesContext.Provider
+      value={{ resources, addNewResource, deleteResource }}
+    >
       {children}
     </InitialResourcesContext.Provider>
   );
