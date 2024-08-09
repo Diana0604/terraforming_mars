@@ -1,5 +1,5 @@
 import { Button, Card, Col, Input, InputNumber, Row, Space } from "antd";
-import { useContext, useState } from "react";
+import { ChangeEventHandler, useContext, useState } from "react";
 import { InitialResourcesContext } from "../resources/InitialResourcesContext";
 import { InitialCorporationContext } from "./InitialCorporationContext";
 import { InitCorporation } from "@/types";
@@ -7,16 +7,24 @@ import { InitCorporation } from "@/types";
 const IndividualCorporation = (props: InitCorporation) => {
   const { resources } = useContext(InitialResourcesContext);
 
-  const [corporation, setCorporation] = useState<InitCorporation>(props)
+  const [corporationName, setCorporationName] = useState<string>(props.name);
 
-  const { deleteCorporation, updateCorporation } = useContext(InitialCorporationContext);
+  const { deleteCorporation, updateCorporation } = useContext(
+    InitialCorporationContext
+  );
+
+  const handleNameChange: ChangeEventHandler<HTMLInputElement> = (event) =>
+    setCorporationName(event.target.value);
+
+  const handleUpdate = () =>
+    updateCorporation(props.name, { ...props, name: corporationName });
 
   return (
     <>
       <Row>
         <Col className="mr-5">Corporation Name</Col>
         <Col className="mr-5">
-          <Input defaultValue={corporation.name}></Input>
+          <Input defaultValue={corporationName} onChange={handleNameChange} />
         </Col>
       </Row>
       <h4>Initial Resources</h4>
@@ -32,7 +40,9 @@ const IndividualCorporation = (props: InitCorporation) => {
       </Row>
       <Row>
         <Col className="mr-5">
-          <Button type="primary">Update</Button>
+          <Button onClick={handleUpdate} type="primary">
+            Update
+          </Button>
         </Col>
         <Col>
           <Button

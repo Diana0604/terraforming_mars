@@ -15,7 +15,8 @@ export async function GET(request: Request) {
 
   //return all corporations
   if (!id && !name) {
-    const corporations = await initialCorporationModel.find()
+    const corporations = await initialCorporationModel.find().populate("resourcesOwned");
+
     return NextResponse.json({ corporations: corporations });
   }
 
@@ -23,9 +24,9 @@ export async function GET(request: Request) {
   let corporation;
 
   if (id) {
-    corporation = await initialCorporationModel.findById(id);
+    corporation = await initialCorporationModel.findById(id).populate("resourcesOwned");
   } else {
-    corporation = await initialCorporationModel.findOne({ name: name });
+    corporation = await initialCorporationModel.findOne({ name: name }).populate("resourcesOwned");
   }
   if (!corporation)
     return NextResponse.json(
@@ -83,16 +84,16 @@ export async function PUT(request: Request) {
   //get name from body
   const body = await request.json();
 
-  const { name, resourcesOwned, player } = body;
+  const { name, resourcesOwned, player, oldName } = body;
 
-  if (!name) NextResponse.json({ error: 'need a name to update' });
+  if (!oldName) NextResponse.json({ error: 'need a name to update' });
 
   //check doesn't exist
-  const corp = await initialCorporationModel.findOne({ name });
+  const corp = await initialCorporationModel.findOne({ name: oldName });
   if (!corp) return NextResponse.json({ error: "Corporation not in databse" }, { status: 300 });
 
   //edit corp
-  corp.name = name;
+  if(name) corp.name = name;
   if (resourcesOwned) corp.resourcesOwned = resourcesOwned;
   if (player) corp.player = player;
 

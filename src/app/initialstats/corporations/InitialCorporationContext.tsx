@@ -6,23 +6,25 @@ import {
   fetchDelete,
   fetchGet,
   fetchPost,
+  fetchPut,
 } from "@/functions/database/database.fetchers";
 
 interface initialStatsProps {
   corporations: InitCorporation[];
   addCorporation: (name: string) => void;
   deleteCorporation: (name: string) => void;
-  updateCorporation: (corporation: InitCorporation) => void;
+  updateCorporation: (oldName: string, corporation: InitCorporation) => void;
 }
 
 const initProps = {
   corporations: [],
   addCorporation: () => {},
   deleteCorporation: () => {},
-  updateCorporation: () => {}
+  updateCorporation: () => {},
 };
 
-export const InitialCorporationContext = createContext<initialStatsProps>(initProps);
+export const InitialCorporationContext =
+  createContext<initialStatsProps>(initProps);
 
 const InitialStatsContextProvider = ({ children }: { children: ReactNode }) => {
   const [corporations, setCorporations] = useState<InitCorporation[]>([]);
@@ -47,12 +49,20 @@ const InitialStatsContextProvider = ({ children }: { children: ReactNode }) => {
     fetchDelete(INIT_CORPORATION_ROUTE, { name }, fetchInitCorporations);
 
   //update corporation
-  const updateCorporation = (corporation: InitCorporation) => {
-
-  }
+  const updateCorporation = (oldName: string, corporation: InitCorporation) => {
+    const body = { oldName, ...corporation };
+    fetchPut(INIT_CORPORATION_ROUTE, body, fetchInitCorporations);
+  };
 
   return (
-    <InitialCorporationContext.Provider value={{ corporations, addCorporation, deleteCorporation, updateCorporation }}>
+    <InitialCorporationContext.Provider
+      value={{
+        corporations,
+        addCorporation,
+        deleteCorporation,
+        updateCorporation,
+      }}
+    >
       {children}
     </InitialCorporationContext.Provider>
   );
