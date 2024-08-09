@@ -17,7 +17,7 @@ export async function GET(request: Request) {
   if (!id && !name) {
     const corporations = await initialCorporationModel.find().populate("resourcesOwned");
 
-    return NextResponse.json({ corporations: corporations });
+    return NextResponse.json(corporations);
   }
 
   //if only one corporation asked for return single corporation

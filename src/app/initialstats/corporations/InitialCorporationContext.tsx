@@ -30,8 +30,8 @@ const InitialStatsContextProvider = ({ children }: { children: ReactNode }) => {
   const [corporations, setCorporations] = useState<InitCorporation[]>([]);
 
   //fetch corporation callback
-  const fetchCorporationCallback = (data: { corporations: Corporation[] }) =>
-    setCorporations(data.corporations);
+  const fetchCorporationCallback = (data: Corporation[]) =>
+    setCorporations(data);
 
   //fetch init corporations
   const fetchInitCorporations = () =>
