@@ -6,10 +6,21 @@ export const fetchGet = (route: string, callback: (data: any) => void) => {
   })
 }
 
+//poster
 export const fetchPost = (route: string, body: any, callback: () => void) => {
   fetch(route, {
     method: "post",
     body: JSON.stringify(body),
+  }).then(async (_response) => {
+    callback();
+  })
+}
+
+//deleter
+export const fetchDelete = (route: string, body: any, callback: () => void) => {
+  fetch(route, {
+    method: "delete",
+    body: JSON.stringify(body)
   }).then(async (_response) => {
     callback();
   })

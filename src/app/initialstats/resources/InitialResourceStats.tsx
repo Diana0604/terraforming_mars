@@ -4,7 +4,9 @@ import { useContext, useState } from "react";
 import { InitialResourcesContext } from "./InitialResourcesContext";
 
 const ResourceStats = () => {
-  const { resources, addNewResource } = useContext(InitialResourcesContext);
+  const { resources, addNewResource, deleteResource } = useContext(
+    InitialResourcesContext
+  );
 
   const [newResource, setResource] = useState<string>("");
 
@@ -17,7 +19,14 @@ const ResourceStats = () => {
             <Input defaultValue={resource}></Input>
           </Col>
           <Col>
-            <Button danger>Delete</Button>
+            <Button
+              danger
+              onClick={() => {
+                deleteResource(resource);
+              }}
+            >
+              Delete
+            </Button>
           </Col>
         </Row>
       ))}

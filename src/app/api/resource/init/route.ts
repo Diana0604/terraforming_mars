@@ -14,9 +14,6 @@ export async function GET(_request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  console.log('==================== POST NEW RESOURCE =====================')
-
-  //get name
   //check request contains appropriate body
   const body = await request.json();
 
@@ -29,6 +26,24 @@ export async function POST(request: NextRequest) {
 
   //add
   await initialresourcesModel.create({ name });
+
+  //success
+  return NextResponse.json({ message: "succesfully created" }, { status: 200 });
+}
+
+export async function DELETE(request: NextRequest) {
+  //check request contains appropriate body
+  const body = await request.json();
+
+  const name = body.name;
+  if (!name) return NextResponse.json({ error: "need a name" }, { status: 300 });
+
+  //check doesn't exist yet
+  const other = await initialresourcesModel.find({ name });
+  if (other.length === 0) return NextResponse.json({ message: "resource not in db" }, { status: 200 });
+
+  //delete
+  await initialresourcesModel.deleteMany({ name });
 
   //success
   return NextResponse.json({ message: "succesfully created" }, { status: 200 });
