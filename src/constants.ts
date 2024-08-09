@@ -12,6 +12,7 @@ export const SKIP_TO_DARK = `${ROUND_MANAGER_ROUTE}/skip`;
 
 //api for init stats
 export const INIT_CORPORATION_ROUTE = `${BASE_API_URL}/corporation/init`;
+export const INIT_RESOURCE_ROUTE = `${BASE_API_URL}/resource/init`;
 
 //success messages
 export const DATABASE_SUCCESSFULLY_UPDATED =

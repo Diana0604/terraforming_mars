@@ -1,19 +1,24 @@
+"use client"
 import { Collapse, CollapseProps } from "antd";
-import Text from "antd/lib/typography/Text"
+import Text from "antd/lib/typography/Text";
 
 import BuildingStats from "./buildings/BuildingStats";
-import ResourceStats from "./resources/ResourceStats";
+import ResourceStats from "./resources/InitialResourceStats";
 import CorporationStats from "./corporations/InitialCorporationStats";
 import RoundStats from "./round/RoundStats";
 import InitialStatsContextProvider from "./corporations/InitialCorporationContext";
-
+import InitialResourcesContextProvider from "./resources/InitialResourcesContext";
 
 const Admin = () => {
   const items: CollapseProps["items"] = [
     {
       key: "1",
       label: "Resources",
-      children: <ResourceStats />,
+      children: (
+        <InitialResourcesContextProvider>
+          <ResourceStats />
+        </InitialResourcesContextProvider>
+      ),
     },
     {
       key: "2",
