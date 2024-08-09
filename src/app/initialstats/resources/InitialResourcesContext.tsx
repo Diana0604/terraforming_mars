@@ -1,4 +1,5 @@
 import { INIT_RESOURCE_ROUTE } from "@/constants";
+import { fetchGet, fetchPost } from "@/functions/database/database.fetchers";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface InitialResourcesProps {
@@ -23,8 +24,7 @@ const InitialResourcesContextProvider = ({
   const [resources, setResources] = useState<string[]>([]);
 
   const fetchInitResources = () => {
-    fetch(INIT_RESOURCE_ROUTE, { method: "get" }).then(async (response) => {
-      const data: { name: string }[] = await response.json();
+    fetchGet(INIT_RESOURCE_ROUTE, (data: { name: string }[]) => {
       const newResources = data.map((value) => value.name);
       setResources(newResources);
     });
@@ -35,11 +35,7 @@ const InitialResourcesContextProvider = ({
 
   //add new resource function
   const addNewResource = async (name: string) => {
-    await fetch(INIT_RESOURCE_ROUTE, {
-      method: "post",
-      body: JSON.stringify({ name }),
-    });
-    fetchInitResources();
+    fetchPost(INIT_RESOURCE_ROUTE, { name }, fetchInitResources);
   };
 
   //return provider
