@@ -1,12 +1,16 @@
 import { Row, Col, Button } from "antd";
 import Input from "antd/es/input/Input";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { InitialResourcesContext } from "./InitialResourcesContext";
 
 const ResourceStats = () => {
   const { resources, addNewResource, deleteResource } = useContext(
     InitialResourcesContext
   );
+
+  useEffect(() => {
+    console.log('from resource stats', resources)
+  }, [resources])
 
   const [newResource, setResource] = useState<string>("");
 

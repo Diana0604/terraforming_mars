@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Collapse, CollapseProps } from "antd";
 import Text from "antd/lib/typography/Text";
 
@@ -14,11 +14,7 @@ const Admin = () => {
     {
       key: "1",
       label: "Resources",
-      children: (
-        <InitialResourcesContextProvider>
-          <ResourceStats />
-        </InitialResourcesContextProvider>
-      ),
+      children: <ResourceStats />,
     },
     {
       key: "2",
@@ -47,7 +43,9 @@ const Admin = () => {
         This is the initstats page. You can change the initial value of things
         here.
       </Text>
-      <Collapse items={items} />
+      <InitialResourcesContextProvider>
+        <Collapse items={items} />
+      </InitialResourcesContextProvider>
     </div>
   );
 };

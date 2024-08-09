@@ -56,10 +56,21 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  //connect to db
   await dbConnect();
-  const { searchParams } = new URL(request.url);
 
-  const id = searchParams.get("id");
-  const name = searchParams.get("name");
+  //get name from body
+  const body = await request.json();
+
+  const name = body.name;
+
+  //check doesn't exist
+  const repeated = await initialCorporationModel.find({ name });
+  if (repeated.length > 0) return NextResponse.json({ error: "Corporation arleady exists" }, { status: 300 });
+
+  //add
+  await initialCorporationModel.create({ name });
+
+  return NextResponse.json({ message: "success" }, { status: 200 });
 
 }

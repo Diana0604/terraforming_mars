@@ -1,10 +1,18 @@
 import { Card, Col, Input, InputNumber, Row, Space } from "antd";
+import { useContext, useEffect } from "react";
+import { InitialResourcesContext } from "../resources/InitialResourcesContext";
 
 interface IndividualCorporationProps {
   name: string;
 }
 
 const IndividualCorporation = (props: IndividualCorporationProps) => {
+  const { resources } = useContext(InitialResourcesContext);
+
+  useEffect(() => {
+    console.log('from corp stats', resources)
+  }, [resources])
+
   return (
     <>
       <Row>
@@ -15,42 +23,14 @@ const IndividualCorporation = (props: IndividualCorporationProps) => {
       </Row>
       <h4>Initial Resources</h4>
       <Row>
-        <Col style={{ marginRight: "5px" }}>
-          <Space direction="vertical" size={16}></Space>
-          <Card size="small" title="Water">
-            <InputNumber />
-          </Card>
-        </Col>
-        <Col style={{ marginRight: "5px" }}>
-          <Space direction="vertical" size={16}></Space>
-          <Card size="small" title="Rare Metal">
-            <InputNumber />
-          </Card>
-        </Col>
-        <Col style={{ marginRight: "5px" }}>
-          <Space direction="vertical" size={16}></Space>
-          <Card size="small" title="Oxygen">
-            <InputNumber />
-          </Card>
-        </Col>
-        <Col style={{ marginRight: "5px" }}>
-          <Space direction="vertical" size={16}></Space>
-          <Card size="small" title="Food">
-            <InputNumber />
-          </Card>
-        </Col>
-        <Col style={{ marginRight: "5px" }}>
-          <Space direction="vertical" size={16}></Space>
-          <Card size="small" title="Synthetics">
-            <InputNumber />
-          </Card>
-        </Col>
-        <Col style={{ marginRight: "5px" }}>
-          <Space direction="vertical" size={16}></Space>
-          <Card size="small" title="Minerals">
-            <InputNumber />
-          </Card>
-        </Col>
+        {resources.map((value, index) => (
+          <Col key={index} className="mr-5">
+            <Space direction="vertical" size={16} />
+            <Card size="small" title={value}>
+              <InputNumber />
+            </Card>
+          </Col>
+        ))}
       </Row>
     </>
   );
