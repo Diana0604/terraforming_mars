@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 import buildingModel from "./models/building.model";
 import tileModel from "./models/tile.model";
 import corporationModel from "./models/corporation.model";
-import { createAllTiles } from "./database.seeder";
-import { BuildingConstant, Resource } from "@/types";
 
 //================== TO BE CALLED FROM SERVER SIDE ==================
 export const dbConnect = async () => {
