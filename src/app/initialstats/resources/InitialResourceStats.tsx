@@ -1,10 +1,12 @@
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 import Input from "antd/es/input/Input";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { InitialResourcesContext } from "./InitialResourcesContext";
 
 const ResourceStats = () => {
   const { resources } = useContext(InitialResourcesContext);
+
+  const [newResource, setResource] = useState<string>("");
 
   return (
     <>
@@ -16,6 +18,17 @@ const ResourceStats = () => {
           </Col>
         </Row>
       ))}
+      <Row>
+        <Col>
+          <Input
+            onChange={(event) => setResource(event.target.value)}
+            value={newResource}
+          />
+        </Col>
+        <Col>
+          <Button>Add Resource</Button>
+        </Col>
+      </Row>
     </>
   );
 };
