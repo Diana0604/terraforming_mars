@@ -11,7 +11,6 @@ const InitialCorporationStats = () => {
   const [items, setItems] = useState<CollapseProps["items"]>();
 
   useEffect(() => {
-    console.log(corporations);
     if(corporations) {
       const newItems: CollapseProps["items"] = corporations.map((corporation, index) => {
         return {

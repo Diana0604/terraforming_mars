@@ -25,9 +25,7 @@ const InitialStatsContextProvider = ({ children }: { children: ReactNode }) => {
     //get params for init corporations
     fetch(INIT_CORPORATION_ROUTE, { method: "get" }).then(
       async (response) => {
-        console.log('got response')
         const data = await response.json();
-        console.log(data);
         setCorporations(data.corporations);
       },
       (error) => {
