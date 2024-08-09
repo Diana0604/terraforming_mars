@@ -14,11 +14,13 @@ export async function GET(_request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  console.log('==================== POST NEW RESOURCE =====================')
 
   //get name
-  const { searchParams } = new URL(request.url);
+  //check request contains appropriate body
+  const body = await request.json();
 
-  const name = searchParams.get("name");
+  const name = body.name;
   if (!name) return NextResponse.json({ error: "need a name" }, { status: 300 });
 
   //check doesn't exist yet
