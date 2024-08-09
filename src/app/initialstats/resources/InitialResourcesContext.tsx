@@ -39,7 +39,6 @@ const InitialResourcesContextProvider = ({
       method: "post",
       body: JSON.stringify({ name }),
     });
-    const data = await res.json();
     fetchInitResources();
   };
 
