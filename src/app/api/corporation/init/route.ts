@@ -8,7 +8,6 @@ import { dbConnect } from "@/functions/database/database.server";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  console.log('==================== init corp req ====================')
   await dbConnect();
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
