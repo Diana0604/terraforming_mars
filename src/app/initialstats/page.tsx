@@ -12,17 +12,17 @@ const Admin = () => {
   const items: CollapseProps["items"] = [
     {
       key: "1",
-      label: "Resource Fixtures",
+      label: "Resources",
       children: <ResourceStats />,
     },
     {
       key: "2",
-      label: "Building Fixtures",
+      label: "Buildings",
       children: <BuildingStats />,
     },
     {
       key: "3",
-      label: "Corporation Fixtures",
+      label: "Corporations",
       children: (
         <InitialStatsContextProvider>
           <CorporationStats />
@@ -31,7 +31,7 @@ const Admin = () => {
     },
     {
       key: "4",
-      label: "Round Fixtures",
+      label: "Round",
       children: <RoundStats />,
     },
   ];
