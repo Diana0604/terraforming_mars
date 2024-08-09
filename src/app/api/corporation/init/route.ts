@@ -73,3 +73,23 @@ export async function POST(request: Request) {
   return NextResponse.json({ message: "success" }, { status: 200 });
 
 }
+
+export async function DELETE(request: Request) {
+  //connect to db
+  await dbConnect();
+
+  //get name from body
+  const body = await request.json();
+
+  const name = body.name;
+
+  //check doesn't exist
+  const repeated = await initialCorporationModel.find({ name });
+  if (repeated.length === 0) return NextResponse.json({ error: "Corporation does not exist" }, { status: 200 });
+
+  //add
+  await initialCorporationModel.deleteMany({name})
+
+  return NextResponse.json({ message: "success" }, { status: 200 });
+
+}

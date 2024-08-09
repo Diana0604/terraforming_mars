@@ -2,10 +2,10 @@
 import { Button, Col, Collapse, CollapseProps, Input, Row } from "antd";
 import IndividualCorporation from "./IndividualCorporation";
 import { useContext, useEffect, useState } from "react";
-import { InitialStatsContext } from "./InitialCorporationContext";
+import { InitialCorporationContext } from "./InitialCorporationContext";
 
 const InitialCorporationStats = () => {
-  const { corporations, addCorporation } = useContext(InitialStatsContext);
+  const { corporations, addCorporation } = useContext(InitialCorporationContext);
 
   const [items, setItems] = useState<CollapseProps["items"]>();
   const [corporationName, setCorporationName] = useState<string>("");
