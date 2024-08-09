@@ -1,8 +1,12 @@
 import { Collapse, CollapseProps } from "antd";
+import Text from "antd/lib/typography/Text"
+
 import BuildingStats from "./buildings/BuildingStats";
 import ResourceStats from "./resources/ResourceStats";
-import CorporationStats from "./corporations/CorporationStats";
+import CorporationStats from "./corporations/InitialCorporationStats";
 import RoundStats from "./round/RoundStats";
+import InitialStatsContextProvider from "./corporations/InitialCorporationContext";
+
 
 const Admin = () => {
   const items: CollapseProps["items"] = [
@@ -19,7 +23,11 @@ const Admin = () => {
     {
       key: "3",
       label: "Corporation Fixtures",
-      children: <CorporationStats />,
+      children: (
+        <InitialStatsContextProvider>
+          <CorporationStats />
+        </InitialStatsContextProvider>
+      ),
     },
     {
       key: "4",
@@ -30,8 +38,10 @@ const Admin = () => {
 
   return (
     <div>
-      This is the fixtures page. You can change the initial value of things
-      here.
+      <Text>
+        This is the initstats page. You can change the initial value of things
+        here.
+      </Text>
       <Collapse items={items} />
     </div>
   );

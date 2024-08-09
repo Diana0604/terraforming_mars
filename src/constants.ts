@@ -10,6 +10,9 @@ export const ROUND_MANAGER_ROUTE = `${BASE_API_URL}/round`;
 export const ALERT_MANAGER_ROUTE = `${BASE_API_URL}/alert`;
 export const SKIP_TO_DARK = `${ROUND_MANAGER_ROUTE}/skip`;
 
+//api for init stats
+export const INIT_CORPORATION_ROUTE = `${BASE_API_URL}/corporation/init`;
+
 //success messages
 export const DATABASE_SUCCESSFULLY_UPDATED =
   "database has been successfully updated";
