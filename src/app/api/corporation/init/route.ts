@@ -15,21 +15,7 @@ export async function GET(request: Request) {
 
   //return all corporations
   if (!id && !name) {
-    const corporations = await initialCorporationModel
-      .find()
-      .populate("buildingsOwned")
-      .populate("tilesCanBuild")
-      .populate("newBuildingsNextRound");
-
-    for (const corporation of corporations) {
-      for (const building of corporation.buildingsOwned) {
-        await building.populate("tile");
-      }
-
-      for (const building of corporation.newBuildingsNextRound) {
-        await building.populate("tile");
-      }
-    }
+    const corporations = await initialCorporationModel.find()
     return NextResponse.json({ corporations: corporations });
   }
 
@@ -37,13 +23,9 @@ export async function GET(request: Request) {
   let corporation;
 
   if (id) {
-    corporation = await initialCorporationModel
-      .findById(id)
-      .populate("buildingsOwned");
+    corporation = await initialCorporationModel.findById(id);
   } else {
-    corporation = await initialCorporationModel
-      .findOne({ name: name })
-      .populate("buildingsOwned");
+    corporation = await initialCorporationModel.findOne({ name: name });
   }
   if (!corporation)
     return NextResponse.json(
@@ -88,8 +70,34 @@ export async function DELETE(request: Request) {
   if (repeated.length === 0) return NextResponse.json({ error: "Corporation does not exist" }, { status: 200 });
 
   //add
-  await initialCorporationModel.deleteMany({name})
+  await initialCorporationModel.deleteMany({ name })
 
   return NextResponse.json({ message: "success" }, { status: 200 });
 
+}
+
+export async function PUT(request: Request) {
+  //connect to db
+  await dbConnect();
+
+  //get name from body
+  const body = await request.json();
+
+  const { name, resourcesOwned, player } = body;
+
+  if (!name) NextResponse.json({ error: 'need a name to update' });
+
+  //check doesn't exist
+  const corp = await initialCorporationModel.findOne({ name });
+  if (!corp) return NextResponse.json({ error: "Corporation not in databse" }, { status: 300 });
+
+  //edit corp
+  corp.name = name;
+  if (resourcesOwned) corp.resourcesOwned = resourcesOwned;
+  if (player) corp.player = player;
+
+  //save
+  await corp.save();
+
+  return NextResponse.json({ message: "success" }, { status: 200 });
 }

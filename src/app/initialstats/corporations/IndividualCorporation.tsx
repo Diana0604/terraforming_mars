@@ -1,23 +1,22 @@
 import { Button, Card, Col, Input, InputNumber, Row, Space } from "antd";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { InitialResourcesContext } from "../resources/InitialResourcesContext";
 import { InitialCorporationContext } from "./InitialCorporationContext";
+import { InitCorporation } from "@/types";
 
-interface IndividualCorporationProps {
-  name: string;
-}
-
-const IndividualCorporation = (props: IndividualCorporationProps) => {
+const IndividualCorporation = (props: InitCorporation) => {
   const { resources } = useContext(InitialResourcesContext);
 
-  const { deleteCorporation } = useContext(InitialCorporationContext);
+  const [corporation, setCorporation] = useState<InitCorporation>(props)
+
+  const { deleteCorporation, updateCorporation } = useContext(InitialCorporationContext);
 
   return (
     <>
       <Row>
         <Col className="mr-5">Corporation Name</Col>
         <Col className="mr-5">
-          <Input defaultValue={props.name}></Input>
+          <Input defaultValue={corporation.name}></Input>
         </Col>
       </Row>
       <h4>Initial Resources</h4>
@@ -32,14 +31,19 @@ const IndividualCorporation = (props: IndividualCorporationProps) => {
         ))}
       </Row>
       <Row>
-        <Button
-          danger
-          onClick={() => {
-            deleteCorporation(props.name);
-          }}
-        >
-          Delete Corporation
-        </Button>
+        <Col className="mr-5">
+          <Button type="primary">Update</Button>
+        </Col>
+        <Col>
+          <Button
+            danger
+            onClick={() => {
+              deleteCorporation(props.name);
+            }}
+          >
+            Delete
+          </Button>
+        </Col>
       </Row>
     </>
   );

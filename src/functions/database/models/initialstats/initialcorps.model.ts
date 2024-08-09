@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const InitialCorporationSchema = new mongoose.Schema({
   name: { type: String },
@@ -10,16 +10,6 @@ const InitialCorporationSchema = new mongoose.Schema({
       resourceId: { type: Number }
     },
   ],
-  buildingsOwned: [{ type: Schema.Types.ObjectId, ref: "Building" }],
-  resourcesNextRound: [
-    {
-      name: { type: String },
-      quantity: { type: Number },
-      resourceId: { type: Number }
-    },
-  ],
-  newBuildingsNextRound: [{ type: Schema.Types.ObjectId, ref: "Building" }],
-  tilesCanBuild: [{ type: Schema.Types.ObjectId, ref: "Tile" }],
 });
 
 export default mongoose.models.InitialCorporation ||

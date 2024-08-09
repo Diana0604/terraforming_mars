@@ -1,6 +1,6 @@
 "use client";
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { Corporation } from "@/types";
+import { Corporation, InitCorporation } from "@/types";
 import { INIT_CORPORATION_ROUTE } from "@/constants";
 import {
   fetchDelete,
@@ -9,21 +9,23 @@ import {
 } from "@/functions/database/database.fetchers";
 
 interface initialStatsProps {
-  corporations: Corporation[];
+  corporations: InitCorporation[];
   addCorporation: (name: string) => void;
   deleteCorporation: (name: string) => void;
+  updateCorporation: (corporation: InitCorporation) => void;
 }
 
 const initProps = {
   corporations: [],
   addCorporation: () => {},
   deleteCorporation: () => {},
+  updateCorporation: () => {}
 };
 
 export const InitialCorporationContext = createContext<initialStatsProps>(initProps);
 
 const InitialStatsContextProvider = ({ children }: { children: ReactNode }) => {
-  const [corporations, setCorporations] = useState<Corporation[]>([]);
+  const [corporations, setCorporations] = useState<InitCorporation[]>([]);
 
   //fetch corporation callback
   const fetchCorporationCallback = (data: { corporations: Corporation[] }) =>
@@ -44,8 +46,13 @@ const InitialStatsContextProvider = ({ children }: { children: ReactNode }) => {
   const deleteCorporation = (name: string) =>
     fetchDelete(INIT_CORPORATION_ROUTE, { name }, fetchInitCorporations);
 
+  //update corporation
+  const updateCorporation = (corporation: InitCorporation) => {
+
+  }
+
   return (
-    <InitialCorporationContext.Provider value={{ corporations, addCorporation, deleteCorporation }}>
+    <InitialCorporationContext.Provider value={{ corporations, addCorporation, deleteCorporation, updateCorporation }}>
       {children}
     </InitialCorporationContext.Provider>
   );

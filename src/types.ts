@@ -44,6 +44,12 @@ export type Corporation = {
   player: boolean;
 };
 
+export type InitCorporation = {
+  name: string;
+  resourcesOwned: Resource[];
+  player: boolean;
+}
+
 export type Resource = {
   name: string;
   quantity: number;
