@@ -34,10 +34,8 @@ const InitialBuildingContextProvider = ({
   const [buildings, setBuildings] = useState<BuildingConstant[]>([]);
 
   //fetch building callback
-  const fetchBuildingCallback = (data: BuildingConstant[]) =>{
-    console.log(data);
+  const fetchBuildingCallback = (data: BuildingConstant[]) =>
     setBuildings(data);
-  }
 
   //fetch init building
   const fetchInitBuildings = () =>
@@ -49,16 +47,16 @@ const InitialBuildingContextProvider = ({
   }, []);
 
   //add building
-  const addBuilding = (name: string) =>
-    fetchPost(INIT_BUILDINGS_ROUTE, { name }, fetchInitBuildings);
+  const addBuilding = (type: string) =>
+    fetchPost(INIT_BUILDINGS_ROUTE, { type }, fetchInitBuildings);
 
   //delete building
-  const deleteBuilding = (name: string) =>
-    fetchDelete(INIT_BUILDINGS_ROUTE, { name }, fetchInitBuildings);
+  const deleteBuilding = (type: string) =>
+    fetchDelete(INIT_BUILDINGS_ROUTE, { type }, fetchInitBuildings);
 
   //update building
-  const updateBuilding = (oldName: string, corporation: BuildingConstant) => {
-    const body = { oldName, ...corporation };
+  const updateBuilding = (type: string, building: BuildingConstant) => {
+    const body = { type, ...building };
     fetchPut(INIT_BUILDINGS_ROUTE, body, fetchInitBuildings);
   };
 

@@ -20,7 +20,6 @@ export async function GET(request: Request) {
 
     const buildings = await initialbuildingModel.find().populate("buildingCost").populate("dailyCost").populate("dailyProduction");
 
-    console.log(buildings);
     return NextResponse.json(buildings);
   }
 
