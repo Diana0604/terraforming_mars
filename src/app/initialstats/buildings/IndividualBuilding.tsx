@@ -53,32 +53,26 @@ const IndividualBuilding = (props: BuildingConstant) => {
           />
         </Col>
       </Row>
-      <h4>Building Cost</h4>
-      <Row>
-        <EditResourceStats
-          resources={resources}
-          resourceList={buildingCost}
-          setter={setBuildingCost}
-        />
-      </Row>
+      <EditResourceStats
+        title="Building Cost"
+        resources={resources}
+        resourceList={buildingCost}
+        setter={setBuildingCost}
+      />
 
-      <h4>Daily Production</h4>
-      <Row>
-        <EditResourceStats
-          resources={resources}
-          resourceList={dailyProduction}
-          setter={setdailyProduction}
-        />
-      </Row>
+      <EditResourceStats
+        title="Daily Production"
+        resources={resources}
+        resourceList={dailyProduction}
+        setter={setdailyProduction}
+      />
 
-      <h4>Daily Cost</h4>
-      <Row>
-        <EditResourceStats
-          resources={resources}
-          resourceList={dailyCost}
-          setter={setDailyCost}
-        />
-      </Row>
+      <EditResourceStats
+        title="Daily Cost"
+        resources={resources}
+        resourceList={dailyCost}
+        setter={setDailyCost}
+      />
 
       <Row>
         <UpdateStat handleUpdate={handleUpdate} />

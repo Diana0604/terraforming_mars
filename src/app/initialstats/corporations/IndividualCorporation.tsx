@@ -1,10 +1,5 @@
 import { Col, Input, Row } from "antd";
-import {
-  ChangeEventHandler,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEventHandler, useContext, useEffect, useState } from "react";
 import { InitialResourcesContext } from "../resources/InitialResourcesContext";
 import { InitialCorporationContext } from "./InitialCorporationContext";
 import { InitCorporation, Resource } from "@/types";
@@ -57,15 +52,12 @@ const IndividualCorporation = (props: InitCorporation) => {
         </Col>
       </Row>
 
-      <h4>Initial Resources</h4>
-
-      <Row className="mb-5">
-        <EditResourceStats
-          resources={resources}
-          resourceList={corporationResources}
-          setter={setCorporationResources}
-        />
-      </Row>
+      <EditResourceStats
+        title="Initial Resources"
+        resources={resources}
+        resourceList={corporationResources}
+        setter={setCorporationResources}
+      />
 
       <Row>
         <UpdateStat handleUpdate={handleUpdate} />
