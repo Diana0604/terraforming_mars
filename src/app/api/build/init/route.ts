@@ -13,7 +13,7 @@ export async function GET(request: Request) {
   //get id, name from search params
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-  const buildingType = searchParams.get("type");
+  const buildingType = searchParams.get("buildingType");
 
   //return all corporations
   if (!id && !buildingType) {
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
   if (id) {
     building = await initialbuildingModel.findById(id).populate("resourcesOwned");
   } else {
-    building = await initialbuildingModel.findOne({ name: name }).populate("resourcesOwned");
+    building = await initialbuildingModel.findOne({ buildingType: buildingType }).populate("resourcesOwned");
   }
   if (!building)
     return NextResponse.json(
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
   //get name from body
   const body = await request.json();
 
-  const buildingType = body.type;
+  const buildingType = body.buildingType;
 
   //check doesn't exist
   const repeated = await initialbuildingModel.find({ buildingType });
@@ -67,7 +67,7 @@ export async function DELETE(request: Request) {
   //get name from body
   const body = await request.json();
 
-  const buildingType = body.type;
+  const buildingType = body.buildingType;
 
   //check doesn't exist
   const repeated = await initialbuildingModel.find({ buildingType });
@@ -87,15 +87,16 @@ export async function PUT(request: Request) {
   //get name from body
   const body = await request.json();
 
-  const { type, dailyCost, dailyProduction, buildingCost } = body;
+  const { oldType, buildingType, dailyCost, dailyProduction, buildingCost } = body;
 
-  if (!type) NextResponse.json({ error: 'need a type to update' });
+  if (!oldType) NextResponse.json({ error: 'need a type to update' });
 
   //check exists
-  const building = await initialbuildingModel.findOne({ type });
+  const building = await initialbuildingModel.findOne({ buildingType: oldType });
   if (!building) return NextResponse.json({ error: "Corporation not in databse" }, { status: 300 });
 
   //edit building
+  if (buildingType) building.buildingType = buildingType;
   if (dailyCost) building.dailyCost = dailyCost;
   if (dailyProduction) building.dailyProduction = dailyProduction;
   if (buildingCost) building.buildingCost = buildingCost;

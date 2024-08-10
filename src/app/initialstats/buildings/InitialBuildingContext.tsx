@@ -47,16 +47,16 @@ const InitialBuildingContextProvider = ({
   }, []);
 
   //add building
-  const addBuilding = (type: string) =>
-    fetchPost(INIT_BUILDINGS_ROUTE, { type }, fetchInitBuildings);
+  const addBuilding = (buildingType: string) =>
+    fetchPost(INIT_BUILDINGS_ROUTE, { buildingType }, fetchInitBuildings);
 
   //delete building
-  const deleteBuilding = (type: string) =>
-    fetchDelete(INIT_BUILDINGS_ROUTE, { type }, fetchInitBuildings);
+  const deleteBuilding = (buildingType: string) =>
+    fetchDelete(INIT_BUILDINGS_ROUTE, { buildingType }, fetchInitBuildings);
 
   //update building
-  const updateBuilding = (type: string, building: BuildingConstant) => {
-    const body = { type, ...building };
+  const updateBuilding = (oldType: string, building: BuildingConstant) => {
+    const body = { oldType, ...building };
     fetchPut(INIT_BUILDINGS_ROUTE, body, fetchInitBuildings);
   };
 

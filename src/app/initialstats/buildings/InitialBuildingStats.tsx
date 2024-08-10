@@ -14,7 +14,7 @@ const BuildingStats = () => {
     return {
       key: index,
       label: value.buildingType,
-      children: <IndividualBuilding name={value.buildingType} />,
+      children: <IndividualBuilding {...value} />,
     };
   });
 
