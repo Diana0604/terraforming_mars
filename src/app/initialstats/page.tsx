@@ -2,12 +2,13 @@
 import { Collapse, CollapseProps } from "antd";
 import Text from "antd/lib/typography/Text";
 
-import BuildingStats from "./buildings/BuildingStats";
+import BuildingStats from "./buildings/InitialBuildingStats";
 import ResourceStats from "./resources/InitialResourceStats";
 import CorporationStats from "./corporations/InitialCorporationStats";
 import RoundStats from "./round/RoundStats";
 import InitialStatsContextProvider from "./corporations/InitialCorporationContext";
 import InitialResourcesContextProvider from "./resources/InitialResourcesContext";
+import InitialBuildingContextProvider from "./buildings/InitialBuildingContext";
 
 const Admin = () => {
   const items: CollapseProps["items"] = [
@@ -19,7 +20,11 @@ const Admin = () => {
     {
       key: "2",
       label: "Buildings",
-      children: <BuildingStats />,
+      children: (
+        <InitialBuildingContextProvider>
+          <BuildingStats />
+        </InitialBuildingContextProvider>
+      ),
     },
     {
       key: "3",
