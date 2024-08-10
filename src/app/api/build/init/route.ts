@@ -10,24 +10,15 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   await dbConnect();
 
-  console.log('========================== GET =====================');
-
-  console.log('========================== GET - search params =====================');
-
   //get id, name from search params
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-  const type = searchParams.get("type");
+  const buildingType = searchParams.get("type");
 
-  console.log('========================== GET - check !id !type =====================');
   //return all corporations
-  if (!id && !type) {
-
-    console.log('========================== GET - buildings =====================');
+  if (!id && !buildingType) {
 
     const buildings = await initialbuildingModel.find().populate("buildingCost").populate("dailyCost").populate("dailyProduction");
-
-    console.log('========================== GET - about to respond =====================');
 
     console.log(buildings);
     return NextResponse.json(buildings);
@@ -57,14 +48,14 @@ export async function POST(request: Request) {
   //get name from body
   const body = await request.json();
 
-  const type = body.type;
+  const buildingType = body.type;
 
   //check doesn't exist
-  const repeated = await initialbuildingModel.find({ type });
+  const repeated = await initialbuildingModel.find({ buildingType });
   if (repeated.length > 0) return NextResponse.json({ error: "Corporation arleady exists" }, { status: 300 });
 
   //add
-  await initialbuildingModel.create({ type });
+  await initialbuildingModel.create({ buildingType });
 
   return NextResponse.json({ message: "success" }, { status: 200 });
 
@@ -77,14 +68,14 @@ export async function DELETE(request: Request) {
   //get name from body
   const body = await request.json();
 
-  const type = body.type;
+  const buildingType = body.type;
 
   //check doesn't exist
-  const repeated = await initialbuildingModel.find({ type });
+  const repeated = await initialbuildingModel.find({ buildingType });
   if (repeated.length === 0) return NextResponse.json({ error: "Corporation does not exist" }, { status: 200 });
 
   //add
-  await initialbuildingModel.deleteMany({ type })
+  await initialbuildingModel.deleteMany({ buildingType })
 
   return NextResponse.json({ message: "success" }, { status: 200 });
 

@@ -34,8 +34,10 @@ const InitialBuildingContextProvider = ({
   const [buildings, setBuildings] = useState<BuildingConstant[]>([]);
 
   //fetch building callback
-  const fetchBuildingCallback = (data: BuildingConstant[]) =>
+  const fetchBuildingCallback = (data: BuildingConstant[]) =>{
+    console.log(data);
     setBuildings(data);
+  }
 
   //fetch init building
   const fetchInitBuildings = () =>
