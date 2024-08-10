@@ -2,6 +2,7 @@ import { Row, Col, Button } from "antd";
 import Input from "antd/es/input/Input";
 import { useContext, useState } from "react";
 import { InitialResourcesContext } from "./InitialResourcesContext";
+import DeleteStat from "../components/DeleteStat";
 
 const ResourceStats = () => {
   const { resources, addNewResource, deleteResource } = useContext(
@@ -9,6 +10,11 @@ const ResourceStats = () => {
   );
 
   const [newResource, setResource] = useState<string>("");
+
+  const handleAddResource = () => {
+    addNewResource(newResource);
+    setResource("");
+  };
 
   return (
     <>
@@ -18,16 +24,7 @@ const ResourceStats = () => {
           <Col className="mr-5 mb-5">
             <Input defaultValue={resource}></Input>
           </Col>
-          <Col>
-            <Button
-              danger
-              onClick={() => {
-                deleteResource(resource);
-              }}
-            >
-              Delete
-            </Button>
-          </Col>
+          <DeleteStat handleDelete={() => deleteResource(resource)} />
         </Row>
       ))}
       <Row>
@@ -38,9 +35,7 @@ const ResourceStats = () => {
           />
         </Col>
         <Col>
-          <Button onClick={() => addNewResource(newResource)}>
-            Add Resource
-          </Button>
+          <Button onClick={handleAddResource}>Add Resource</Button>
         </Col>
       </Row>
     </>
