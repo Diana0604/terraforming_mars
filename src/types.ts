@@ -53,6 +53,7 @@ export type InitCorporation = {
 export type Resource = {
   name: string;
   quantity: number;
+  _id?: mongoose.Types.ObjectId
 };
 
 export type Tile = {

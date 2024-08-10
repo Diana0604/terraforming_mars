@@ -1,6 +1,6 @@
 import { Row, Col, Button } from "antd";
 import Input from "antd/es/input/Input";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { InitialResourcesContext } from "./InitialResourcesContext";
 
 const ResourceStats = () => {

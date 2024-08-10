@@ -38,7 +38,9 @@ const InitialResourcesContextProvider = ({
     fetchGet(INIT_RESOURCE_ROUTE, fetchGetCallback);
 
   //get resources from db
-  useEffect(() => fetchInitResources, []);
+  useEffect(() => {
+    fetchInitResources();
+  }, []);
 
   //add new resource function
   const addNewResource = async (name: string) =>

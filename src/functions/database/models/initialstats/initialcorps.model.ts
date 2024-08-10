@@ -5,8 +5,8 @@ const InitialCorporationSchema = new mongoose.Schema({
   player: { type: Boolean },
   resourcesOwned: [
     {
-      resource: { type: mongoose.Schema.Types.ObjectId, ref: "InitialResources" },
-      quantity: { type: Number }
+      quantity: { type: Number },
+      name: {type: String}
     },
   ],
 });

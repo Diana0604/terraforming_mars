@@ -9,6 +9,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   await dbConnect();
+
+  //get id, name from search params
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
   const name = searchParams.get("name");
@@ -93,7 +95,7 @@ export async function PUT(request: Request) {
   if (!corp) return NextResponse.json({ error: "Corporation not in databse" }, { status: 300 });
 
   //edit corp
-  if(name) corp.name = name;
+  if (name) corp.name = name;
   if (resourcesOwned) corp.resourcesOwned = resourcesOwned;
   if (player) corp.player = player;
 

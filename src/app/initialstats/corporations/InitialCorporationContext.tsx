@@ -38,7 +38,9 @@ const InitialStatsContextProvider = ({ children }: { children: ReactNode }) => {
     fetchGet(INIT_CORPORATION_ROUTE, fetchCorporationCallback);
 
   //get params for init corporations
-  useEffect(() => fetchInitCorporations, []);
+  useEffect(() => {
+    fetchInitCorporations();
+  }, []);
 
   //add corporation
   const addCorporation = (name: string) =>
