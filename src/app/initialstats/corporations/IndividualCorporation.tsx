@@ -1,7 +1,6 @@
-import { Button, Card, Col, Input, InputNumber, Row, Space } from "antd";
+import { Col, Input, Row } from "antd";
 import {
   ChangeEventHandler,
-  SetStateAction,
   useContext,
   useEffect,
   useState,
@@ -11,6 +10,8 @@ import { InitialCorporationContext } from "./InitialCorporationContext";
 import { InitCorporation, Resource } from "@/types";
 import { updateFromResources } from "../initialstats.helpers";
 import EditResourceStats from "../components/EditResourceStats";
+import UpdateStat from "../components/UpdateStat";
+import DeleteStat from "../components/DeleteStat";
 
 const IndividualCorporation = (props: InitCorporation) => {
   //get resources list from context
@@ -67,22 +68,12 @@ const IndividualCorporation = (props: InitCorporation) => {
       </Row>
 
       <Row>
-        <Col className="mr-5">
-          <Button onClick={handleUpdate} type="primary">
-            Update
-          </Button>
-        </Col>
-
-        <Col>
-          <Button
-            danger
-            onClick={() => {
-              deleteCorporation(props.name);
-            }}
-          >
-            Delete
-          </Button>
-        </Col>
+        <UpdateStat handleUpdate={handleUpdate} />
+        <DeleteStat
+          handleDelete={() => {
+            deleteCorporation(props.name);
+          }}
+        />
       </Row>
     </>
   );

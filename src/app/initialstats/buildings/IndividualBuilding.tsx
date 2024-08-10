@@ -1,16 +1,12 @@
-import { Row, Col, Input, InputNumber, Space, Card, Button } from "antd";
-import {
-  useContext,
-  useState,
-  useEffect,
-  SetStateAction,
-  Dispatch,
-} from "react";
+import { Row, Col, Input } from "antd";
+import { useContext, useState, useEffect } from "react";
 import { InitialBuildingContext } from "./InitialBuildingContext";
 import { BuildingConstant, Resource } from "@/types";
 import { InitialResourcesContext } from "../resources/InitialResourcesContext";
 import { updateFromResources } from "../initialstats.helpers";
 import EditResourceStats from "../components/EditResourceStats";
+import UpdateStat from "../components/UpdateStat";
+import DeleteStat from "../components/DeleteStat";
 
 const IndividualBuilding = (props: BuildingConstant) => {
   //get resources list from context
@@ -85,22 +81,12 @@ const IndividualBuilding = (props: BuildingConstant) => {
       </Row>
 
       <Row>
-        <Col className="mr-5">
-          <Button onClick={handleUpdate} type="primary">
-            Update
-          </Button>
-        </Col>
-
-        <Col>
-          <Button
-            danger
-            onClick={() => {
-              deleteBuilding(props.buildingType);
-            }}
-          >
-            Delete
-          </Button>
-        </Col>
+        <UpdateStat handleUpdate={handleUpdate} />
+        <DeleteStat
+          handleDelete={() => {
+            deleteBuilding(props.buildingType);
+          }}
+        />
       </Row>
     </>
   );
