@@ -7,7 +7,14 @@ export async function GET(_request: NextRequest) {
   await dbConnect();
 
   //get list of resources
-  const res = await initialstatsModel.find();
+  let res = await initialstatsModel.findOne();
+
+  if (!res) {
+    res = await initialstatsModel.create({ secondsPerRound: 0 })
+  }
+
+  if (!res.secondsPerRound) res.secondsPerRound = 0;
+  res.save();
 
   //return to frontend
   return NextResponse.json(res);
@@ -21,13 +28,13 @@ export async function PUT(request: NextRequest) {
   if (!secondsPerRound) return NextResponse.json({ error: "need time in seconds" }, { status: 300 });
 
   //check doesn't exist yet
-  const other = await initialstatsModel.findOne();
+  const initstats = await initialstatsModel.findOne();
 
   //change properties
-  other.secondsPerRound = secondsPerRound;
+  initstats.secondsPerRound = secondsPerRound;
 
   //save
-  await other.save();
+  await initstats.save();
 
   //success
   return NextResponse.json({ message: "succesfully added new initialstats" }, { status: 200 });

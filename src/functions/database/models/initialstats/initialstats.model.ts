@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const InitialStatsSchema = new mongoose.Schema({
-  name: { type: String }
+  secondsPerRound: { type: Number }
 })
 
 export default mongoose.models.InitalStats || mongoose.model("InitalStats", InitialStatsSchema);

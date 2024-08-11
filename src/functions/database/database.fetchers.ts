@@ -23,10 +23,10 @@ export const fetchDelete = (route: string, body: any, callback: () => void) =>
     callback();
   })
 
-export const fetchPut = (route: string, body: any, callback: () => void) =>
+export const fetchPut = (route: string, body: any, callback?: () => void) =>
   fetch(route, {
     method: "put",
     body: JSON.stringify(body)
   }).then(async (_response) => {
-    callback();
+    if (callback) callback();
   })
