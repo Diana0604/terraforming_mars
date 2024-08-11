@@ -1,4 +1,7 @@
 //============================ API CONSTANTS ====================
+
+import { InitTile } from "./types";
+
 //api variables
 export const BASE_API_URL = "/api";
 export const RESET_DATABASE_ROUTE = `${BASE_API_URL}/reset`;
@@ -55,6 +58,213 @@ export const MAP_COLUMNS: String[] = [
   "K",
 ];
 export const MAP_ROWS: Number[] = [1, 2, 3, 4, 5];
+
+export const initTiles: InitTile[] = [
+  {
+    column: "A",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "B",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "B",
+    row: 2,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "C",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "C",
+    row: 2,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "C",
+    row: 3,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "D",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "D",
+    row: 2,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "D",
+    row: 3,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "D",
+    row: 4,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "E",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "E",
+    row: 2,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "E",
+    row: 3,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "E",
+    row: 4,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "E",
+    row: 5,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "F",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "F",
+    row: 2,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "F",
+    row: 3,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "F",
+    row: 4,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "G",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "G",
+    row: 2,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "G",
+    row: 3,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "G",
+    row: 4,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "G",
+    row: 5,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "H",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "H",
+    row: 2,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "H",
+    row: 3,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "H",
+    row: 4,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "I",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "I",
+    row: 2,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "I",
+    row: 3,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "J",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "J",
+    row: 2,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+  {
+    column: "K",
+    row: 1,
+    resourcesAvailable: [],
+    hazards: [],
+  },
+];
 
 //resources
 export const RARE_METAL_NAME = "Rare Metal";

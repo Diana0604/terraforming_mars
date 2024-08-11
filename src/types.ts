@@ -69,6 +69,15 @@ export type Tile = {
   save?: Function;
 };
 
+export type InitTile = {
+  _id?: mongoose.Types.ObjectId;
+  column: MAP_COLUMNS;
+  row: MAP_ROWS;
+  resourcesAvailable: string[];
+  hazards: string[];
+  landmark?: string;
+}
+
 export type Building = {
   _id?: mongoose.Types.ObjectId;
   owner?: Corporation | mongoose.Types.ObjectId;

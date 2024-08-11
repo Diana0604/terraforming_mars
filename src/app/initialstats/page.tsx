@@ -9,6 +9,7 @@ import RoundStats from "./round/RoundStats";
 import InitialStatsContextProvider from "./corporations/InitialCorporationContext";
 import InitialResourcesContextProvider from "./resources/InitialResourcesContext";
 import InitialBuildingContextProvider from "./buildings/InitialBuildingContext";
+import TileStats from "./tiles/TileStats";
 
 const Admin = () => {
   const items: CollapseProps["items"] = [
@@ -39,6 +40,11 @@ const Admin = () => {
       key: "4",
       label: "Round",
       children: <RoundStats />,
+    },
+    {
+      key: "5",
+      label: "Tiles",
+      children: <TileStats />,
     },
   ];
 
