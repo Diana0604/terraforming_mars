@@ -1,6 +1,5 @@
 import { dbConnect } from "@/functions/database/database.server";
 import { NextRequest, NextResponse } from "next/server";
-import { Resource } from "@/types";
 import initialstatsModel from "@/functions/database/models/initialstats/initialstats.model";
 
 export async function GET(_request: NextRequest) {
