@@ -1,10 +1,9 @@
 import { InitTile } from "@/types";
-import { Col, Card, Checkbox, Button, Row, Input } from "antd";
+import { Col, Card, Checkbox, Row } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { InitialResourcesContext } from "../resources/InitialResourcesContext";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import Title from "antd/es/typography/Title";
-import { DeleteFilled } from "@ant-design/icons";
 import EditableStringList from "./components/EditableStringList";
 
 const IndividualTile = (initTile: InitTile) => {
