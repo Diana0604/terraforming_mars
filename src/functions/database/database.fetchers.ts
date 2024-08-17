@@ -6,13 +6,11 @@ export const fetchGet = (route: string, callback: (data: any) => void) =>
   })
 
 //poster
-export const fetchPost = (route: string, body: any, callback: () => void) =>
+export const fetchPost = (route: string, body: any, callback: (response: any) => void) =>
   fetch(route, {
     method: "post",
     body: JSON.stringify(body),
-  }).then(async (_response) => {
-    callback();
-  })
+  }).then(async (response) => callback ? callback(response) : undefined)
 
 //deleter
 export const fetchDelete = (route: string, body: any, callback: () => void) =>
@@ -23,10 +21,8 @@ export const fetchDelete = (route: string, body: any, callback: () => void) =>
     callback();
   })
 
-export const fetchPut = (route: string, body: any, callback?: () => void) =>
+export const fetchPut = (route: string, body: any, callback?: (response: any) => void) =>
   fetch(route, {
     method: "put",
     body: JSON.stringify(body)
-  }).then(async (_response) => {
-    if (callback) callback();
-  })
+  }).then(async (response) => callback ? callback(response) : undefined)

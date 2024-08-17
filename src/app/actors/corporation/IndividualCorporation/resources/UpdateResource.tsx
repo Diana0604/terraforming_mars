@@ -1,10 +1,12 @@
 "use client";
 //database routes
 import { RESOURCE_DATABASE_ROUTE } from "@/constants";
-import RESOURCES_LIST from "../../../../../fixtures/resources.fixtures";
 
 //react hooks
 import { useState } from "react";
+import { fetchPost } from "@/functions/database/database.fetchers";
+
+import { Button, InputNumber, message } from "antd";
 
 interface UpdateStatProp {
   corporation: string;
@@ -16,45 +18,54 @@ interface UpdateStatProp {
  * Update resource input and button to send info to database
  */
 const UpdateResource = (props: UpdateStatProp) => {
-  const [displayMessage, setDisplayMessage] = useState<string>();
-  const [quantity, setQuantity] = useState<string>();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Database updated",
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "There was an error updating the database",
+    });
+  };
+
+  const [quantity, setQuantity] = useState<number>(0);
+
+  const postCallback = async (res: any) => {
+    const data = await res.json();
+    setQuantity(0);
+    if (data.error) return error();
+    return success();
+  };
 
   const onClick = async () => {
-    setDisplayMessage("Adding resource to database");
-
     //check quantity is a number
     if (Number.isNaN(Number(quantity))) return alert("Quantity must be number");
 
-    const res = await fetch(RESOURCE_DATABASE_ROUTE, {
-      method: "post",
-      body: JSON.stringify({
-        quantity: quantity || '0',
-        corporation: props.corporation,
-        resource: props.resource
-      }),
-    });
-    const data = await res.json();
-    if (data.error) {
-      setDisplayMessage(data.error);
-    }
-    setQuantity("");
-    setTimeout(() => {
-      setDisplayMessage(undefined);
-    }, 3000);
+    const body = {
+      quantity: quantity || "0",
+      corporation: props.corporation,
+      resource: props.resource,
+    };
+
+    fetchPost(RESOURCE_DATABASE_ROUTE, body, postCallback);
   };
 
   return (
     <div>
+      {contextHolder}
       Add / Remove {props.resource}:{" "}
-      <input
+      <InputNumber
         type="number"
-        value={quantity || ""}
-        onChange={(event) => {
-          setQuantity(event.target.value);
-        }}
-      ></input>
-      <button onClick={onClick}>Add</button>
-      {displayMessage ? displayMessage : <></>}
+        value={quantity}
+        onChange={(value) => setQuantity(value || 0)}
+      />
+      <Button onClick={onClick}>Add</Button>
     </div>
   );
 };
