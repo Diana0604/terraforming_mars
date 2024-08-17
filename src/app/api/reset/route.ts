@@ -1,5 +1,5 @@
 import { dbConnect } from "@/functions/database/database.server";
-import { seedDB } from "@/functions/database/database.seeder";
+import { resetDB } from "@/functions/database/database.seeder";
 import { NextResponse } from "next/server";
 
 export async function POST() {
@@ -8,7 +8,7 @@ export async function POST() {
     await dbConnect();
 
     //seed database
-    await seedDB();
+    await resetDB();
 
     //respond with success
     return NextResponse.json({

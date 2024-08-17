@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+export enum RESET_DB_ACTION {
+  SEED,
+  GAME_RESET
+}
+
 export type MAP_COLUMNS =
   | "A"
   | "B"
