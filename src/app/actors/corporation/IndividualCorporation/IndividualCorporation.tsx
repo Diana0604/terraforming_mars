@@ -1,8 +1,8 @@
 import { Row, Col } from "antd";
-import BuildingStats from "../BuildingStats";
+import BuildingStats from "./build/BuildingStats";
 import ResourceStats from "./resources/ResourceStats";
 import { useContext } from "react";
-import { IndividualCorporationContext } from "../contexts/IndividualCorporationContext";
+import { IndividualCorporationContext } from "./IndividualCorporationContext";
 
 const IndividualCorporation = () => {
   const corporation = useContext(IndividualCorporationContext);

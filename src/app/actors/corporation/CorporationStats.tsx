@@ -5,12 +5,12 @@ import { Col, Collapse, Row } from "antd";
 
 //components
 import ResourceStats from "./IndividualCorporation/resources/ResourceStats";
-import BuildingStats from "./BuildingStats";
+import BuildingStats from "./IndividualCorporation/build/BuildingStats";
 import { useEffect, useState } from "react";
 import { Corporation } from "@/types";
 import { fetchGet } from "@/functions/database/database.fetchers";
 import { CORPORATION_ROUTE } from "@/constants";
-import IndividualCorporationContextProvider from "./contexts/IndividualCorporationContext";
+import IndividualCorporationContextProvider from "./IndividualCorporation/IndividualCorporationContext";
 import IndividualCorporation from "./IndividualCorporation/IndividualCorporation";
 
 /**

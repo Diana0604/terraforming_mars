@@ -15,7 +15,7 @@ import { CorporationsContext } from "@/contexts/CorporationsContexts";
 
 //components
 import UpdateResource from "./UpdateResource";
-import { IndividualCorporationContext } from "../../contexts/IndividualCorporationContext";
+import { IndividualCorporationContext } from "../IndividualCorporationContext";
 
 /**
  * Display list of resources and update form

@@ -1,7 +1,7 @@
 "use client";
 //database routes
 import { BUILD_DATABASE_ROUTE } from "@/constants";
-import getBuildingList from "../../../fixtures/buildings.fixtures";
+import getBuildingList from "../../../../../fixtures/buildings.fixtures";
 
 //react
 import { useContext, useState } from "react";
