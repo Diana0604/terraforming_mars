@@ -18,11 +18,7 @@ const Build = () => {
   // get corporation form context
   const corporation = useContext(IndividualCorporationContext);
 
-  //keep state of when building is in progress
-  const [building, setBuilding] = useState<Boolean>(false);
-  const [buildingButtonMessage, setBuildingButtonMessage] =
-    useState<String>("Show Build Menu");
-
+  // get tiles from context
   const { tiles } = useContext(TilesContext);
 
   const PRESET_BUILDINGS_LIST = getBuildingList();
@@ -56,16 +52,6 @@ const Build = () => {
       };
     });
 
-  //toggle build menu event handler
-  const toggleBuildMenu = async () => {
-    if (building) {
-      setBuildingButtonMessage("Show Build Menu");
-    } else {
-      setBuildingButtonMessage("Hide Build Menu");
-    }
-    setBuilding(!building);
-  };
-
   //onclickbuild event handler
   const onClickBuild = async () => {
     try {
@@ -90,39 +76,34 @@ const Build = () => {
   };
 
   return (
-    <>
-      <Button onClick={toggleBuildMenu}>{buildingButtonMessage}</Button>
-      {building && (
-        <Card>
-          <h3>Add Building to Tile</h3>
-          <div>
-            <span style={{ width: "200px" }}>building: </span>{" "}
-            <Select
-              showSearch
-              onChange={setBuildingIndex}
-              style={{ width: "200px" }}
-              options={buildingSelectOptions}
-            ></Select>
-          </div>
-          <div>
-            <span style={{ width: "200px" }}>tile: </span>{" "}
-            <Select
-              showSearch
-              onChange={setTile}
-              style={{ width: "200px" }}
-              options={filteredTiles}
-            ></Select>
-          </div>
-          <Button
-            onClick={onClickBuild}
-            disabled={buildingIndex === undefined && !tile}
-          >
-            Build
-          </Button>
-          <div>{errorDisplayMessage}</div>
-        </Card>
-      )}
-    </>
+    <Card>
+      <h3>Add Building to Tile</h3>
+      <div>
+        <span style={{ width: "200px" }}>building: </span>{" "}
+        <Select
+          showSearch
+          onChange={setBuildingIndex}
+          style={{ width: "200px" }}
+          options={buildingSelectOptions}
+        ></Select>
+      </div>
+      <div>
+        <span style={{ width: "200px" }}>tile: </span>{" "}
+        <Select
+          showSearch
+          onChange={setTile}
+          style={{ width: "200px" }}
+          options={filteredTiles}
+        ></Select>
+      </div>
+      <Button
+        onClick={onClickBuild}
+        disabled={buildingIndex === undefined && !tile}
+      >
+        Build
+      </Button>
+      <div>{errorDisplayMessage}</div>
+    </Card>
   );
 };
 
