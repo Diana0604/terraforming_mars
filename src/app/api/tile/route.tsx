@@ -141,6 +141,7 @@ export async function PUT(request: NextRequest) {
   //edit tile
   if(body.resourcesAvailable) tile.resourcesAvailable = body.resourcesAvailable;
   if(body.hazards) tile.hazards = body.hazards;
+  if(body.landmark) tile.landmark = body.landmark;
   await tile.save();
 
   //return
