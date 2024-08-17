@@ -39,23 +39,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
 
-    if (!body.id)
-      return NextResponse.json(
-        { error: elementMissingFromBody("id") },
-        { status: 400 }
-      );
-
-    //check id is correct
-    const id = Number(body.id);
-
-    if (!RESOURCES_LIST[id]) {
-      return NextResponse.json({ error: "id out of bounds" }, { status: 400 });
-    }
-
-    if (!RESOURCES_LIST[id].includes(body.resource)) {
-      return NextResponse.json({ error: "Wrong name" }, { status: 400 });
-    }
-
     //obtain params from body
     const quantity = Number(body.quantity);
 
@@ -65,15 +48,23 @@ export async function POST(request: NextRequest) {
     }) as Corporation;
     if (!corporation) return NextResponse.json({ message: "error" });
 
-    //update corporation's resources
-    const currentlyOwned = Number(corporation.resourcesOwned[id].quantity);
+    //find index
+    console.log('finding index of ', body.resource, ' in ', corporation.resourcesOwned);
+    const index = corporation.resourcesOwned.map(value => value.name).indexOf(body.resource);
 
-    corporation.resourcesOwned[id].quantity = currentlyOwned + quantity;
+    //update corporation's resources
+    const currentlyOwned = Number(corporation.resourcesOwned[index].quantity);
+
+    console.log('updating resources onwed')
+
+    corporation.resourcesOwned[index].quantity = currentlyOwned + quantity;
+
+    console.log('updating next round', corporation.resourcesNextRound);
 
     //update next round
     if (corporation.resourcesNextRound) {
-      const nextRound = Number(corporation.resourcesNextRound[id].quantity);
-      corporation.resourcesNextRound[id].quantity = nextRound + quantity;
+      const nextRound = Number(corporation.resourcesNextRound[index].quantity);
+      corporation.resourcesNextRound[index].quantity = nextRound + quantity;
     }
 
     //save object in database

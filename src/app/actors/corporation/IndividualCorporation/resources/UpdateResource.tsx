@@ -19,10 +19,6 @@ const UpdateResource = (props: UpdateStatProp) => {
   const [displayMessage, setDisplayMessage] = useState<string>();
   const [quantity, setQuantity] = useState<string>();
 
-  const id = RESOURCES_LIST.findIndex((resource) => {
-    return resource.includes(props.resource);
-  });
-
   const onClick = async () => {
     setDisplayMessage("Adding resource to database");
 
@@ -34,8 +30,7 @@ const UpdateResource = (props: UpdateStatProp) => {
       body: JSON.stringify({
         quantity: quantity || '0',
         corporation: props.corporation,
-        resource: props.resource,
-        id: String(id)
+        resource: props.resource
       }),
     });
     const data = await res.json();

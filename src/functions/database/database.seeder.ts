@@ -81,23 +81,24 @@ export const resetDB = async () => {
 
   //round reset
   const initBuildings = await initialbuildingModel.find();
-  for(const building of initBuildings) {
+  for (const building of initBuildings) {
     building._id = new mongoose.Types.ObjectId();
     building.isNew = true;
     await buildingModel.create(building);
   }
 
   const initCorporations = await initialcorpsModel.find();
-  for(const corporation of initCorporations) {
+  for (const corporation of initCorporations) {
     corporation._id = new mongoose.Types.ObjectId();
     corporation.isNew = true;
-    await corporationModel.create(corporation);
+    corporation.resourcesNextRound = corporation.resourcesOwned;
+    const newCorp = await corporationModel.create(corporation);
+    newCorp.resourcesNextRound = corporation.resourcesOwned;
+    await newCorp.save();
   }
 
-  // resources?
-
   let round = await roundModel.findOne();
-  if(!round) round = await roundModel.create({});
+  if (!round) round = await roundModel.create({});
   round = await roundModel.findOne();
   round.number = 0;
   round.playing = false;
@@ -105,7 +106,7 @@ export const resetDB = async () => {
   await round.save();
 
   const tiles = await tileModel.find();
-  for(const tile of tiles) {
+  for (const tile of tiles) {
     tile.colonizedBy = null;
     tile.buildings = [];
     tile.destroyed = false;
