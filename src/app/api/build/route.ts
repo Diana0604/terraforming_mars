@@ -18,6 +18,8 @@ import {
 //function helpers
 import { build, canBuild, isValidBuilding, setTileAsColonized } from "./build.functions";
 import getBuildingList from "@/fixtures/buildings.fixtures";
+import initialbuildingModel from "@/functions/database/models/initialstats/initialbuilding.model";
+import { Building, BuildingConstant } from "@/types";
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,7 +30,7 @@ export async function POST(request: NextRequest) {
     const requestBody = await request.json();
 
     const corporationName = requestBody.corporation;
-    const buildingIndex = requestBody.buildingIndex;
+    const buildingType = requestBody.buildingType;
     const tileRowCol = requestBody.tile;
 
     if (!corporationName)
@@ -36,9 +38,9 @@ export async function POST(request: NextRequest) {
         { error: elementMissingFromBody("corporation") },
         { status: 400 }
       );
-    if (Number.isNaN(buildingIndex))
+    if (!buildingType)
       return NextResponse.json(
-        { error: elementMissingFromBody("buildingIndex") },
+        { error: elementMissingFromBody("buildingType") },
         { status: 400 }
       );
     if (!tileRowCol)
@@ -57,13 +59,16 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
 
-    //find building in list
-    const PRESET_BUILDINGS_LIST = getBuildingList();
-    const building = PRESET_BUILDINGS_LIST[buildingIndex];
-    if (!building)
+    //find building in database
+    const buildings: BuildingConstant[] = await initialbuildingModel.find();
+    const index = buildings.map(value => value.buildingType).indexOf(buildingType);
+    if (index === -1)
       return NextResponse.json(
         { error: "building is not valid" },
         { status: 400 })
+    const building = buildings[index];
+
+    console.log('ready to build', building);
 
 
     //find tile in database
@@ -77,8 +82,6 @@ export async function POST(request: NextRequest) {
         { message: elementNotFoundInDatabase("tile") },
         { status: 500 }
       );
-    
-    const buildingType = building.buildingType;
 
     //check building validiity
     const validBuilding = await isValidBuilding(tile, buildingType, corporation);
@@ -88,7 +91,7 @@ export async function POST(request: NextRequest) {
         { error: "Building is not valid. Check Colony Hub Exists / Not repeated / not already colonized" },
         { status: 400 }
       );
-    
+
     //check enough resources
     if (!canBuild(corporation.resourcesNextRound, building))
       return NextResponse.json(

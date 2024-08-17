@@ -88,7 +88,9 @@ export const build = async (building: BuildingConstant, corporation: Corporation
 
   //create building
   const buildingObject = await buildingModel.create({
-    ...building,
+    dailyCost: building.dailyCost,
+    dailyProduction: building.dailyProduction,
+    buildingType: building.buildingType,
     owner: corporation._id,
     tile: tile._id,
   });

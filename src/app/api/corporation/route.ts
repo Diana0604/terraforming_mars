@@ -39,17 +39,27 @@ export async function GET(request: Request) {
   if (id) {
     corporation = await corporationModel
       .findById(id)
-      .populate("buildingsOwned");
+      .populate("buildingsOwned")
+      .populate("newBuildingsNextRound");
   } else {
     corporation = await corporationModel
       .findOne({ name })
-      .populate("buildingsOwned");
+      .populate("buildingsOwned")
+      .populate("newBuildingsNextRound");
   }
   if (!corporation)
     return NextResponse.json(
       { error: "Corporation not found" },
       { status: 500 }
     );
+
+  for (const building of corporation.buildingsOwned) {
+    await building.populate("tile");
+  }
+
+  for (const building of corporation.newBuildingsNextRound) {
+    await building.populate("tile");
+  }
 
   return NextResponse.json(corporation);
 }
