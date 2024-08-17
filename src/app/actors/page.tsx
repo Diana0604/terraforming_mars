@@ -5,6 +5,8 @@ import MapManager from "./map/MapManager";
 import CustomBuilding from "./corporation/CustomBuilding";
 import AlertManager from "./AlertManager";
 import MessageContextProvider from "@/contexts/MessageContext";
+import InitialResourcesContextProvider from "../initialstats/resources/InitialResourcesContext";
+import InitialBuildingContextProvider from "../initialstats/buildings/InitialBuildingContext";
 
 /**
  * menu for actors to update database
@@ -22,7 +24,11 @@ const ActorsPage = async () => {
 
       <MapManager></MapManager>
 
-      <CustomBuilding />
+      <InitialResourcesContextProvider>
+        <InitialBuildingContextProvider>
+          <CustomBuilding />
+        </InitialBuildingContextProvider>
+      </InitialResourcesContextProvider>
 
       <AlertManager />
     </>

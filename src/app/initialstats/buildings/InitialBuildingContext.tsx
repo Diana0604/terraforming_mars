@@ -14,6 +14,7 @@ interface InitialStatsProps {
   addBuilding: (name: string) => void;
   deleteBuilding: (name: string) => void;
   updateBuilding: (oldName: string, corporation: BuildingConstant) => void;
+  addCustomBuilding: (building: BuildingConstant) => void;
 }
 
 const initProps: InitialStatsProps = {
@@ -21,6 +22,7 @@ const initProps: InitialStatsProps = {
   addBuilding: () => {},
   deleteBuilding: () => {},
   updateBuilding: () => {},
+  addCustomBuilding: () => {},
 };
 
 export const InitialBuildingContext =
@@ -31,7 +33,6 @@ const InitialBuildingContextProvider = ({
 }: {
   children: ReactNode;
 }) => {
-
   const [buildings, setBuildings] = useState<BuildingConstant[]>([]);
 
   //fetch building callback
@@ -61,6 +62,10 @@ const InitialBuildingContextProvider = ({
     fetchPut(INIT_BUILDINGS_ROUTE, body, fetchInitBuildings);
   };
 
+  // add custom building
+  const addCustomBuilding = (building: BuildingConstant) => 
+    fetchPost(INIT_BUILDINGS_ROUTE, building, fetchInitBuildings);
+
   return (
     <InitialBuildingContext.Provider
       value={{
@@ -68,6 +73,7 @@ const InitialBuildingContextProvider = ({
         addBuilding,
         deleteBuilding,
         updateBuilding,
+        addCustomBuilding,
       }}
     >
       {children}

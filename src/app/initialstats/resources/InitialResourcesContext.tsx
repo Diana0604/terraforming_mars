@@ -1,3 +1,4 @@
+"use client"
 import { INIT_RESOURCE_ROUTE } from "@/constants";
 import {
   fetchDelete,
