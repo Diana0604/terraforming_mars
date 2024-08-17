@@ -1,17 +1,18 @@
 import { Col, Card, Checkbox, Row } from "antd";
-import {
-  useContext,
-} from "react";
+import { useContext } from "react";
 import { InitialResourcesContext } from "../resources/InitialResourcesContext";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import Title from "antd/es/typography/Title";
 import HazardsList from "./components/HazardsList";
 import UpdateStat from "../components/UpdateStat";
 import { IndividualTileContext } from "./IndividualTileContext";
+import LandmarkInput from "./components/LandmarkInput";
 
 const IndividualTile = () => {
   const { resources } = useContext(InitialResourcesContext);
-  const {tile, updateResourcesAvailable, saveTile} = useContext(IndividualTileContext);
+  const { tile, updateResourcesAvailable, saveTile } = useContext(
+    IndividualTileContext
+  );
 
   const onCheckboxChange = (event: CheckboxChangeEvent, value: string) => {
     const newResources = JSON.parse(JSON.stringify(tile.resourcesAvailable));
@@ -48,11 +49,11 @@ const IndividualTile = () => {
           );
         })}
 
-        {/* landmakrs */}
-        {/* <EditableStringList title={"Landmarks"} initialList={landmark} /> */}
+        {/* landmark */}
+        <LandmarkInput />
 
         {/* list of present hazards which can be deleted */}
-        <HazardsList list={tile.hazards} />
+        <HazardsList />
 
         {/* update tile */}
         <UpdateStat handleUpdate={saveTile} />

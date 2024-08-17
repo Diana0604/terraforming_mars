@@ -7,7 +7,6 @@ import { getAllTiles } from "@/functions/database/database.server";
 import buildingModel from "@/functions/database/models/building.model";
 import corporationModel from "@/functions/database/models/corporation.model";
 import tileModel from "@/functions/database/models/tile.model";
-import { Tile } from "@/types";
 
 export async function GET(request: Request) {
   await dbConnect();
@@ -141,6 +140,7 @@ export async function PUT(request: NextRequest) {
     );
   //edit tile
   if(body.resourcesAvailable) tile.resourcesAvailable = body.resourcesAvailable;
+  if(body.hazards) tile.hazards = body.hazards;
   await tile.save();
 
   //return

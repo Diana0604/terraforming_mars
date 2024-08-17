@@ -1,30 +1,27 @@
 import { Row, Col, Input, Button } from "antd";
 import Title from "antd/lib/typography/Title";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { DeleteFilled } from "@ant-design/icons";
+import { IndividualTileContext } from "../IndividualTileContext";
 
-interface EditableStringListProps {
-  list: string[];
-}
+const HazardsList = () => {
 
-const HazardsList = (props: EditableStringListProps) => {
-  const [list, setList] = useState<string[]>(props.list);
+  const {tile, updateHazards} = useContext(IndividualTileContext);
 
   const [newElement, setNewElement] = useState<string>("");
 
   const handleAddElement = () => {
     if (newElement.length === 0) return;
-    const allElements = JSON.parse(JSON.stringify(list));
+    const allElements = JSON.parse(JSON.stringify(tile.hazards));
     allElements.push(newElement);
-    setList(allElements);
-    setNewElement("");
+    updateHazards(allElements);
   };
 
   const handleDeleteElement = (landmark: string) => {
-    const allElements = JSON.parse(JSON.stringify(list));
+    const allElements = JSON.parse(JSON.stringify(tile.hazards));
     const index = allElements.indexOf(landmark);
     allElements.splice(index, 1);
-    setList(allElements);
+    updateHazards(allElements);
   };
 
   return (
@@ -32,7 +29,7 @@ const HazardsList = (props: EditableStringListProps) => {
       <Title level={5}>{"Hazards"}</Title>
 
       {/* list of present elements which can be deleted */}
-      {list.map((value, index) => (
+      {tile.hazards.map((value, index) => (
         <Row key={index} className="mb-5 flex-one-right">
           <Col className="mr-5">{value}</Col>
           <Col>
