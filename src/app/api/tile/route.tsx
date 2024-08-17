@@ -139,9 +139,12 @@ export async function PUT(request: NextRequest) {
       { status: 400 }
     );
   //edit tile
-  if(body.resourcesAvailable) tile.resourcesAvailable = body.resourcesAvailable;
-  if(body.hazards) tile.hazards = body.hazards;
-  if(body.landmark) tile.landmark = body.landmark;
+  if (body.resourcesAvailable)
+    tile.resourcesAvailable = body.resourcesAvailable;
+  if (body.hazards) tile.hazards = body.hazards;
+  if (body.landmark) tile.landmark = body.landmark;
+  if (body.destroyed != undefined) tile.destroyed = body.destroyed;
+
   await tile.save();
 
   //return

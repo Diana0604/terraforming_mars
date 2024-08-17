@@ -1,66 +1,110 @@
-"use client"
+"use client";
 
-import { TILE_ROUTE } from "@/constants"
-import { TilesContext } from "@/contexts/TileContext"
-import { Button, Select } from "antd"
-import { useContext, useEffect, useState } from "react"
+import { TILE_ROUTE } from "@/constants";
+import { MessageContext } from "@/contexts/MessageContext";
+import { TilesContext } from "@/contexts/TileContext";
+import { fetchPut } from "@/functions/database/database.fetchers";
+import { Button, Select } from "antd";
+import { useContext, useEffect, useState } from "react";
 
 const TileDestroyer = () => {
+  const { success, error } = useContext(MessageContext);
+  const { tiles } = useContext(TilesContext);
 
-  const { tiles } = useContext(TilesContext)
+  const [tileToDestroy, setTileToDestroy] = useState<string>();
+  const [tileToRecover, setTileToRecover] = useState<string>();
 
-  const [tileToDestroy, setTileToDestroy] = useState<string>()
-  const [tileToRecover, setTileToRecover] = useState<string>()
-
-  const [tileSelectOptions, setTileSelectOptions] = useState<{ value: string, label: string }[]>()
-  const [destroyedTiles, setDestroyedTiles] = useState<{ value: string, label: string }[]>()
+  const [tileSelectOptions, setTileSelectOptions] =
+    useState<{ value: string; label: string }[]>();
+  const [destroyedTiles, setDestroyedTiles] =
+    useState<{ value: string; label: string }[]>();
 
   useEffect(() => {
-    const newSelectOptions = []
-    const newDestroyedTiles = []
+    const newSelectOptions = [];
+    const newDestroyedTiles = [];
     for (const tile of tiles) {
       if (!tile.destroyed) {
-        newSelectOptions.push({ value: tile._id?.toString() || '', label: `${tile.column}${tile.row}` })
+        newSelectOptions.push({
+          value: tile._id?.toString() || "",
+          label: `${tile.column}${tile.row}`,
+        });
       } else {
-        newDestroyedTiles.push({ value: tile._id?.toString() || '', label: `${tile.column}${tile.row}` })
+        newDestroyedTiles.push({
+          value: tile._id?.toString() || "",
+          label: `${tile.column}${tile.row}`,
+        });
       }
     }
-    setTileSelectOptions(newSelectOptions)
-    setDestroyedTiles(newDestroyedTiles)
-  }, [tiles])
+    setTileSelectOptions(newSelectOptions);
+    setDestroyedTiles(newDestroyedTiles);
+  }, [tiles]);
 
-  const onDestroyTile = async () => {
-    try {
-      await fetch(`${TILE_ROUTE}`, { method: 'delete', body: JSON.stringify({ id: tileToDestroy }) })
-      setTileToDestroy(undefined)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const destroyCallback = async (res: any) => {
+    const data = await res.json();
+    setTileToDestroy(undefined);
+    if (data.error) return error(data.error);
+    success("Tile Destroyed");
+  };
 
-  const onRecoverTile = async () => {
-    try {
-      await fetch(`${TILE_ROUTE}`, { method: 'post', body: JSON.stringify({ id: tileToRecover }) })
-      setTileToRecover(undefined)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const onDestroyTile = () => {
+    // set body to destroy tile
+    const body = {
+      id: tileToDestroy,
+      destroyed: true,
+    };
 
+    // put reqeust
+    fetchPut(TILE_ROUTE, body, destroyCallback);
+  };
 
-  return (<>
-    <div>
-      Destroy Tile:
-      <Select value={tileToDestroy} showSearch onChange={setTileToDestroy} style={{ width: "200px" }} options={tileSelectOptions}></Select>
-      <Button  disabled={!tileToDestroy} onClick={onDestroyTile}>Destroy</Button>
-    </div>
-    <div>
+  const recoverCallback = async (res: any) => {
+    const data = await res.json();
+    setTileToRecover(undefined);
+    if (data.error) return error(data.error);
+    success("Tile Recovered");
+  };
 
-      Recover Tile:
-      <Select value={tileToRecover} showSearch onChange={setTileToRecover} style={{ width: "200px" }} options={destroyedTiles}></Select>
-      <Button disabled={!tileToRecover} onClick={onRecoverTile}>Recover</Button>
-    </div>
-  </>)
-}
+  const onRecoverTile = () => {
+    // set body to undestroy tile
+    const body = {
+      id: tileToRecover,
+      destroyed: false,
+    };
 
-export default TileDestroyer
+    // put request
+    fetchPut(TILE_ROUTE, body, recoverCallback);
+  };
+
+  return (
+    <>
+      <div>
+        Destroy Tile:
+        <Select
+          value={tileToDestroy}
+          showSearch
+          onChange={setTileToDestroy}
+          style={{ width: "200px" }}
+          options={tileSelectOptions}
+        ></Select>
+        <Button disabled={!tileToDestroy} onClick={onDestroyTile}>
+          Destroy
+        </Button>
+      </div>
+      <div>
+        Recover Tile:
+        <Select
+          value={tileToRecover}
+          showSearch
+          onChange={setTileToRecover}
+          style={{ width: "200px" }}
+          options={destroyedTiles}
+        ></Select>
+        <Button disabled={!tileToRecover} onClick={onRecoverTile}>
+          Recover
+        </Button>
+      </div>
+    </>
+  );
+};
+
+export default TileDestroyer;

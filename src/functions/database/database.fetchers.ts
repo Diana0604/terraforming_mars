@@ -13,12 +13,12 @@ export const fetchPost = (route: string, body: any, callback: (response: any) =>
   }).then(async (response) => callback ? callback(response) : undefined)
 
 //deleter
-export const fetchDelete = (route: string, body: any, callback: () => void) =>
+export const fetchDelete = (route: string, body: any, callback: (response: any) => void) =>
   fetch(route, {
     method: "delete",
     body: JSON.stringify(body)
-  }).then(async (_response) => {
-    callback();
+  }).then(async (response) => {
+    callback(response);
   })
 
 export const fetchPut = (route: string, body: any, callback?: (response: any) => void) =>
