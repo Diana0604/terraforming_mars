@@ -9,6 +9,7 @@ import RoundStats from "./round/RoundStats";
 import InitialStatsContextProvider from "./corporations/InitialCorporationContext";
 import InitialResourcesContextProvider from "./resources/InitialResourcesContext";
 import InitialBuildingContextProvider from "./buildings/InitialBuildingContext";
+import { TilesContextProvider } from "@/contexts/TileContext";
 import TileStats from "./tiles/TileStats";
 
 const Admin = () => {
@@ -44,7 +45,11 @@ const Admin = () => {
     {
       key: "5",
       label: "Tiles",
-      children: <TileStats />,
+      children: (
+        <TilesContextProvider>
+          <TileStats />
+        </TilesContextProvider>
+      ),
     },
   ];
 

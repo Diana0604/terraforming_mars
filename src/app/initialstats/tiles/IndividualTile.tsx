@@ -1,58 +1,61 @@
-import { InitTile } from "@/types";
 import { Col, Card, Checkbox, Row } from "antd";
-import { useContext, useEffect, useState } from "react";
+import {
+  useContext,
+} from "react";
 import { InitialResourcesContext } from "../resources/InitialResourcesContext";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import Title from "antd/es/typography/Title";
-import EditableStringList from "./components/EditableStringList";
+import HazardsList from "./components/HazardsList";
+import UpdateStat from "../components/UpdateStat";
+import { IndividualTileContext } from "./IndividualTileContext";
 
-const IndividualTile = (initTile: InitTile) => {
+const IndividualTile = () => {
   const { resources } = useContext(InitialResourcesContext);
-
-  const [resourcesPresent, setResourcesPresent] = useState<string[]>([]);
+  const {tile, updateResourcesAvailable, saveTile} = useContext(IndividualTileContext);
 
   const onCheckboxChange = (event: CheckboxChangeEvent, value: string) => {
-    const newResources = JSON.parse(JSON.stringify(resourcesPresent));
+    const newResources = JSON.parse(JSON.stringify(tile.resourcesAvailable));
 
     // case checked -> add to resources
     if (event.target.checked) {
-      console.log("checked");
-      console.log(resourcesPresent);
       newResources.push(value);
-      console.log(newResources);
-      setResourcesPresent(newResources);
+      updateResourcesAvailable(newResources);
     } else {
-      console.log("not checked");
       //case unchecked -> remove from resources
       const index = newResources.indexOf(value);
       newResources.splice(index, 1);
 
-      setResourcesPresent(newResources);
+      updateResourcesAvailable(newResources);
     }
   };
-  useEffect(() => {
-    console.log("resources present", resourcesPresent);
-  }, [resourcesPresent]);
 
   return (
     <Col className="mr-10 mb-10">
-      <Card size={"default"} title={`${initTile.column}${initTile.row}`}>
+      <Card size={"default"} title={`${tile.column}${tile.row}`}>
         {/* resources */}
         <Title level={5}>Resources</Title>
 
-        {resources.map((value, index) => (
-          <Row key={index}>
-            <Checkbox onChange={(event) => onCheckboxChange(event, value)}>
-              {value}
-            </Checkbox>
-          </Row>
-        ))}
+        {resources.map((value, index) => {
+          return (
+            <Row key={index}>
+              <Checkbox
+                checked={tile.resourcesAvailable.includes(value)}
+                onChange={(event) => onCheckboxChange(event, value)}
+              >
+                {value}
+              </Checkbox>
+            </Row>
+          );
+        })}
 
         {/* landmakrs */}
-        <EditableStringList title={"Landmarks"} />
+        {/* <EditableStringList title={"Landmarks"} initialList={landmark} /> */}
 
         {/* list of present hazards which can be deleted */}
-        <EditableStringList title={"Hazards"} />
+        <HazardsList list={tile.hazards} />
+
+        {/* update tile */}
+        <UpdateStat handleUpdate={saveTile} />
       </Card>
     </Col>
   );

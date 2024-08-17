@@ -1,13 +1,20 @@
-import { initTiles } from "@/constants";
 import { Row } from "antd";
 import IndividualTile from "./IndividualTile";
+import { TilesContext } from "@/contexts/TileContext";
+import { useContext } from "react";
+import {
+  IndividualTileContextProvider,
+} from "./IndividualTileContext";
 
 const TileStats = () => {
+  const { tiles } = useContext(TilesContext);
 
   return (
     <Row>
-      {initTiles.map((value, index) => (
-        <IndividualTile {...value} key={index}/>
+      {tiles.map((tile, index) => (
+        <IndividualTileContextProvider key={index} tile={tile}>
+          <IndividualTile />
+        </IndividualTileContextProvider>
       ))}
     </Row>
   );

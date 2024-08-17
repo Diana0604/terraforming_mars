@@ -4,11 +4,11 @@ import { useState } from "react";
 import { DeleteFilled } from "@ant-design/icons";
 
 interface EditableStringListProps {
-  title: string;
+  list: string[];
 }
 
-const EditableStringList = (props: EditableStringListProps) => {
-  const [list, setList] = useState<string[]>([]);
+const HazardsList = (props: EditableStringListProps) => {
+  const [list, setList] = useState<string[]>(props.list);
 
   const [newElement, setNewElement] = useState<string>("");
 
@@ -29,7 +29,7 @@ const EditableStringList = (props: EditableStringListProps) => {
 
   return (
     <>
-      <Title level={5}>{props.title}</Title>
+      <Title level={5}>{"Hazards"}</Title>
 
       {/* list of present elements which can be deleted */}
       {list.map((value, index) => (
@@ -62,4 +62,4 @@ const EditableStringList = (props: EditableStringListProps) => {
   );
 };
 
-export default EditableStringList;
+export default HazardsList;
