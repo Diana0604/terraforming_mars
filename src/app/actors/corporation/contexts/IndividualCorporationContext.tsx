@@ -1,7 +1,7 @@
 import { CORPORATION_ROUTE } from "@/constants";
 import { fetchGet } from "@/functions/database/database.fetchers";
 import { Corporation } from "@/types";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { useInterval } from "usehooks-ts";
 
 const initProps: Corporation = {
@@ -12,7 +12,8 @@ const initProps: Corporation = {
   player: true,
 };
 
-export const IndividualCorporationContext = createContext<Corporation>(initProps);
+export const IndividualCorporationContext =
+  createContext<Corporation>(initProps);
 
 const IndividualCorporationContextProvider = ({
   children,
@@ -23,9 +24,7 @@ const IndividualCorporationContextProvider = ({
 }) => {
   const [corporation, setCorporation] = useState<Corporation>(initProps);
 
-  const getCallback = (data: Corporation) => {
-    setCorporation(data);
-  };
+  const getCallback = (data: Corporation) => setCorporation(data);
 
   const handleInterval = () =>
     fetchGet(
