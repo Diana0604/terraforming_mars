@@ -1,7 +1,7 @@
 "use client";
 //database routes
 import { RESOURCE_DATABASE_ROUTE } from "@/constants";
-import RESOURCES_LIST from "../../../fixtures/resources.fixtures";
+import RESOURCES_LIST from "../../../../../fixtures/resources.fixtures";
 
 //react hooks
 import { useState } from "react";

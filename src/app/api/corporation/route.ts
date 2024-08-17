@@ -42,7 +42,7 @@ export async function GET(request: Request) {
       .populate("buildingsOwned");
   } else {
     corporation = await corporationModel
-      .findOne({ name: name })
+      .findOne({ name })
       .populate("buildingsOwned");
   }
   if (!corporation)
