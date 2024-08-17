@@ -74,10 +74,7 @@ const BuildingStats = () => {
       </Row>
 
       {/* build new */}
-      <Build
-        corporationName={corporation.name}
-        corporationId={corporation._id}
-      ></Build>
+      <Build/>
     </Card>
   );
 };

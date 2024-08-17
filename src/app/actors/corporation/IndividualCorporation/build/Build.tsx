@@ -9,18 +9,15 @@ import { useContext, useState } from "react";
 //ant design
 import { Card, Select, Button } from "antd";
 import { TilesContext } from "@/contexts/TileContext";
-import mongoose from "mongoose";
-
-interface BuildProps {
-  //tilesCanBuild: Tile[],
-  corporationName: String;
-  corporationId?: mongoose.Types.ObjectId;
-}
+import { IndividualCorporationContext } from "../IndividualCorporationContext";
 
 /**
  * Interactive building menu
  */
-const Build = (props: BuildProps) => {
+const Build = () => {
+  // get corporation form context
+  const corporation = useContext(IndividualCorporationContext);
+
   //keep state of when building is in progress
   const [building, setBuilding] = useState<Boolean>(false);
   const [buildingButtonMessage, setBuildingButtonMessage] =
@@ -46,18 +43,18 @@ const Build = (props: BuildProps) => {
   });
 
   //create list for tile choosing select
-  const filteredTiles = tiles.filter((tile) => {
-    return (
-      !tile.destroyed &&
-      (!tile.colonizedBy || tile.colonizedBy._id === props.corporationId)
-    );
-  });
-  const tilesSelectOptions = filteredTiles.map((tile) => {
-    return {
-      value: `${tile.column}${tile.row}`,
-      label: `${tile.column}${tile.row}`,
-    };
-  });
+  const filteredTiles = tiles
+    .filter(
+      (tile) =>
+        !tile.destroyed &&
+        (!tile.colonizedBy || tile.colonizedBy._id === corporation._id)
+    )
+    .map((tile) => {
+      return {
+        value: `${tile.column}${tile.row}`,
+        label: `${tile.column}${tile.row}`,
+      };
+    });
 
   //toggle build menu event handler
   const toggleBuildMenu = async () => {
@@ -77,7 +74,7 @@ const Build = (props: BuildProps) => {
         method: "post",
         body: JSON.stringify({
           buildingIndex: buildingIndex,
-          corporation: props.corporationName,
+          corporation: corporation.name,
           tile: tile,
         }),
       });
@@ -113,7 +110,7 @@ const Build = (props: BuildProps) => {
               showSearch
               onChange={setTile}
               style={{ width: "200px" }}
-              options={tilesSelectOptions}
+              options={filteredTiles}
             ></Select>
           </div>
           <Button
