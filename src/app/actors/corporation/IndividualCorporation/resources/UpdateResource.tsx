@@ -3,10 +3,11 @@
 import { RESOURCE_DATABASE_ROUTE } from "@/constants";
 
 //react hooks
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { fetchPost } from "@/functions/database/database.fetchers";
 
 import { Button, InputNumber, message } from "antd";
+import { MessageContext } from "@/contexts/MessageContext";
 
 interface UpdateStatProp {
   corporation: string;
@@ -18,29 +19,15 @@ interface UpdateStatProp {
  * Update resource input and button to send info to database
  */
 const UpdateResource = (props: UpdateStatProp) => {
-  const [messageApi, contextHolder] = message.useMessage();
-
-  const success = () => {
-    messageApi.open({
-      type: "success",
-      content: "Database updated",
-    });
-  };
-
-  const error = () => {
-    messageApi.open({
-      type: "error",
-      content: "There was an error updating the database",
-    });
-  };
+  const { success, error } = useContext(MessageContext);
 
   const [quantity, setQuantity] = useState<number>(0);
 
   const postCallback = async (res: any) => {
     const data = await res.json();
     setQuantity(0);
-    if (data.error) return error();
-    return success();
+    if (data.error) return error("There was an error updating the database");
+    return success("Database updated");
   };
 
   const onClick = async () => {
@@ -58,7 +45,6 @@ const UpdateResource = (props: UpdateStatProp) => {
 
   return (
     <div>
-      {contextHolder}
       Add / Remove {props.resource}:{" "}
       <InputNumber
         type="number"
