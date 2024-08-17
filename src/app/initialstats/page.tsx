@@ -11,6 +11,7 @@ import InitialResourcesContextProvider from "./resources/InitialResourcesContext
 import InitialBuildingContextProvider from "./buildings/InitialBuildingContext";
 import { TilesContextProvider } from "@/contexts/TileContext";
 import TileStats from "./tiles/TileStats";
+import HasChangedContextProvider from "@/contexts/HasChangedContext";
 
 const Admin = () => {
   const items: CollapseProps["items"] = [
@@ -40,7 +41,9 @@ const Admin = () => {
     {
       key: "4",
       label: "Round",
-      children: <RoundStats />,
+      children: <HasChangedContextProvider>
+        <RoundStats />
+        </HasChangedContextProvider>,
     },
     {
       key: "5",

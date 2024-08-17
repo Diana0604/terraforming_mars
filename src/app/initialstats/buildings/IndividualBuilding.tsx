@@ -7,8 +7,11 @@ import { updateFromResources } from "../initialstats.helpers";
 import EditResourceStats from "../components/EditResourceStats";
 import UpdateStat from "../components/UpdateStat";
 import DeleteStat from "../components/DeleteStat";
+import { HasChangedContext } from "@/contexts/HasChangedContext";
 
 const IndividualBuilding = (props: BuildingConstant) => {
+  const { setHasChanged } = useContext(HasChangedContext);
+
   //get resources list from context
   const { resources } = useContext(InitialResourcesContext);
 
@@ -49,7 +52,10 @@ const IndividualBuilding = (props: BuildingConstant) => {
         <Col>
           <Input
             value={buildingType}
-            onChange={(event) => setBuildingType(event.target.value)}
+            onChange={(event) => {
+              setHasChanged(true);
+              setBuildingType(event.target.value);
+            }}
           />
         </Col>
       </Row>

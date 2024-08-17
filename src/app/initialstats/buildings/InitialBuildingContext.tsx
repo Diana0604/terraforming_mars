@@ -31,6 +31,7 @@ const InitialBuildingContextProvider = ({
 }: {
   children: ReactNode;
 }) => {
+
   const [buildings, setBuildings] = useState<BuildingConstant[]>([]);
 
   //fetch building callback

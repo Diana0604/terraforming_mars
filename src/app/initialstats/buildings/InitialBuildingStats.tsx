@@ -2,6 +2,7 @@ import { Button, Col, Collapse, CollapseProps, Input, Row } from "antd";
 import IndividualBuilding from "./IndividualBuilding";
 import { useContext, useState } from "react";
 import { InitialBuildingContext } from "./InitialBuildingContext";
+import HasChangedContextProvider from "@/contexts/HasChangedContext";
 
 const BuildingStats = () => {
   //get buildings from context
@@ -14,7 +15,7 @@ const BuildingStats = () => {
     return {
       key: index,
       label: value.buildingType,
-      children: <IndividualBuilding {...value} />,
+      children: <HasChangedContextProvider><IndividualBuilding {...value} /></HasChangedContextProvider>,
     };
   });
 

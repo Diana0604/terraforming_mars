@@ -3,6 +3,7 @@ import { Button, Col, Collapse, CollapseProps, Input, Row } from "antd";
 import IndividualCorporation from "./IndividualCorporation";
 import { useContext, useEffect, useState } from "react";
 import { InitialCorporationContext } from "./InitialCorporationContext";
+import HasChangedContextProvider from "@/contexts/HasChangedContext";
 
 const InitialCorporationStats = () => {
   const { corporations, addCorporation } = useContext(InitialCorporationContext);
@@ -17,7 +18,7 @@ const InitialCorporationStats = () => {
           return {
             key: index,
             label: corporation.name,
-            children: <IndividualCorporation {...corporation} />,
+            children: <HasChangedContextProvider><IndividualCorporation {...corporation} /></HasChangedContextProvider>,
           };
         }
       );

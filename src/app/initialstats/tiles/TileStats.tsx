@@ -2,9 +2,8 @@ import { Row } from "antd";
 import IndividualTile from "./IndividualTile";
 import { TilesContext } from "@/contexts/TileContext";
 import { useContext } from "react";
-import {
-  IndividualTileContextProvider,
-} from "./IndividualTileContext";
+import { IndividualTileContextProvider } from "./IndividualTileContext";
+import HasChangedContextProvider from "@/contexts/HasChangedContext";
 
 const TileStats = () => {
   const { tiles } = useContext(TilesContext);
@@ -12,9 +11,11 @@ const TileStats = () => {
   return (
     <Row>
       {tiles.map((tile, index) => (
-        <IndividualTileContextProvider key={index} tile={tile}>
-          <IndividualTile />
-        </IndividualTileContextProvider>
+        <HasChangedContextProvider key={index}>
+          <IndividualTileContextProvider tile={tile}>
+            <IndividualTile />
+          </IndividualTileContextProvider>
+        </HasChangedContextProvider>
       ))}
     </Row>
   );

@@ -1,6 +1,7 @@
+import { HasChangedContext } from "@/contexts/HasChangedContext";
 import { Resource } from "@/types";
 import { Card, Col, InputNumber, Row, Space } from "antd";
-import { SetStateAction } from "react";
+import { SetStateAction, useContext } from "react";
 
 interface Props {
   title: string;
@@ -11,6 +12,7 @@ interface Props {
 
 const EditResourceStats = (props: Props) => {
   const { resources, resourceList, setter } = props;
+  const { setHasChanged } = useContext(HasChangedContext);
 
   return (
     <>
@@ -31,12 +33,14 @@ const EditResourceStats = (props: Props) => {
 
           //on input change, update quantity of previously found index
           const onInputChange = (value: number | null) => {
-            if (!value) return;
+            const newValue = Number(value);
+            if (isNaN(newValue)) return;
             const newResources: Resource[] = JSON.parse(
               JSON.stringify(resourceList)
             );
-            newResources[resourceIndex].quantity = value;
+            newResources[resourceIndex].quantity = newValue;
             setter(newResources);
+            setHasChanged(true);
           };
 
           return (

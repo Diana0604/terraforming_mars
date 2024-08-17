@@ -35,7 +35,7 @@ const ResourceStats = () => {
           />
         </Col>
         <Col>
-          <Button onClick={handleAddResource}>Add Resource</Button>
+          <Button disabled={!newResource.length} onClick={handleAddResource}>Add Resource</Button>
         </Col>
       </Row>
     </>
