@@ -33,7 +33,7 @@ const BuildingStats = () => {
         </Col>
         <Col>
           <Button onClick={() => addBuilding(buildingType)}>
-            Add Corporation
+            Add Building
           </Button>
         </Col>
       </Row>
