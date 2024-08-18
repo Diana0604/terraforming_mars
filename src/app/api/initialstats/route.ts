@@ -41,7 +41,7 @@ export async function PUT(request: NextRequest) {
   return NextResponse.json({ message: "succesfully added new initialstats" }, { status: 200 });
 }
 
-export async function PUSH() {
+export async function POST() {
   await createAllTiles();
   return NextResponse.json({ message: "success" }, { status: 200 })
 }

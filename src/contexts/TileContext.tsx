@@ -3,7 +3,7 @@ import { compareTiles } from "@/functions/comparers";
 import { Tile } from "@/types";
 import React, { useState, useEffect } from "react";
 import { initTiles } from "@/constants";
-import { fetchPut } from "@/functions/database/database.fetchers";
+import { fetchPost, fetchPut } from "@/functions/database/database.fetchers";
 
 //tiles can be accessed from context
 type contextProps = {
@@ -42,7 +42,7 @@ export const TilesContextProvider = ({
             const newTiles = data.tiles;
 
             if (newTiles.length === 0) {
-              return fetchPut(TILE_ROUTE, {}, updateTiles);
+              return fetchPost(TILE_ROUTE, {}, updateTiles);
             }
 
             newTiles.sort(compareTiles);
