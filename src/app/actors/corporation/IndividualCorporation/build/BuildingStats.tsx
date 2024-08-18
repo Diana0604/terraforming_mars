@@ -21,7 +21,10 @@ const BuildingStats = () => {
   //setup the display for each corporation
 
   return (
-    <Card>
+    <Card style={{ width: "50%", height: "100%" }}>
+      {/* build new */}
+      <Build />
+
       {/* currently owned */}
       <div>
         <div>Buildings currently owned by this corporation:</div>
@@ -29,9 +32,6 @@ const BuildingStats = () => {
           <BuildingsInTile tile={tile} corporation={corporation} key={index} />
         ))}
       </div>
-
-      {/* build new */}
-      <Build />
     </Card>
   );
 };
