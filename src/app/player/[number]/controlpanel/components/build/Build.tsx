@@ -13,6 +13,8 @@ import { fetchGet, fetchPost } from "@/functions/database/database.fetchers";
 import { MessageContext } from "@/contexts/MessageContext";
 import { IndividualCorporationContext } from "@/app/actors/corporation/IndividualCorporation/IndividualCorporationContext";
 import styles from "../../controlpanel.module.css";
+import InitialResourcesContextProvider from "@/app/initialstats/resources/InitialResourcesContext";
+import CustomBuilding from "./CustomBuilding";
 
 /**
  * Interactive building menu
@@ -28,8 +30,8 @@ const Build = () => {
 
   const [buildingList, setBuildingList] = useState<BuildingConstant[]>([]);
 
-  //error display message
-  const [errorDisplayMessage, setErrorDisplayMessage] = useState<String>();
+  // indicates if we are currently building a custom building, which will open the custom buildings panel
+  const [buildingCustom, setBuildingCustiom] = useState<Boolean>(false);
 
   //save buildingType and tile desired to build
   const [buildingType, setBuildingType] = useState<string>();
@@ -109,7 +111,21 @@ const Build = () => {
       <Button className={styles.basic} onClick={onClickBuild}>
         Build
       </Button>
-      <div>{errorDisplayMessage}</div>
+
+      {/* custom building stuff */}
+      <Button
+        style={{ marginLeft: "5px" }}
+        className={styles.basic}
+        onClick={() => setBuildingCustiom(!buildingCustom)}
+      >
+        Add Custom Building
+      </Button>
+
+      {buildingCustom ? (
+        <InitialResourcesContextProvider>
+          <CustomBuilding onBuild={() => setBuildingCustiom(!buildingCustom)} />
+        </InitialResourcesContextProvider>
+      ) : undefined}
     </Card>
   );
 };
