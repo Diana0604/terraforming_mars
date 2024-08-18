@@ -159,7 +159,6 @@ const Chart = ({ num }: ChartProps) => {
         });
       });
 
-      // console.log('with hexes', hexes)
       const colonizations = hexes.map((d) => {
         const tileData: any = getTile(d[0], updatedTiles);
 

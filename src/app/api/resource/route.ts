@@ -49,17 +49,12 @@ export async function POST(request: NextRequest) {
     if (!corporation) return NextResponse.json({ message: "error" });
 
     //find index
-    console.log('finding index of ', body.resource, ' in ', corporation.resourcesOwned);
     const index = corporation.resourcesOwned.map(value => value.name).indexOf(body.resource);
 
     //update corporation's resources
     const currentlyOwned = Number(corporation.resourcesOwned[index].quantity);
 
-    console.log('updating resources onwed')
-
     corporation.resourcesOwned[index].quantity = currentlyOwned + quantity;
-
-    console.log('updating next round', corporation.resourcesNextRound);
 
     //update next round
     if (corporation.resourcesNextRound) {

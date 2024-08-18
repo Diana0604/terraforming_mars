@@ -17,8 +17,6 @@ interface PlayerParams {
 export default function Home({ params }: { params: PlayerParams }) {
   //check the number on ulr is correct
   const number = Number(params.number);
-  console.log(number);
-  console.log(params.number);
   if (isNaN(number) || number < 0)
     return <div>Number needs to be a number greater than 0</div>;
 

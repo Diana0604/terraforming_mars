@@ -10,7 +10,7 @@ import corporationModel from "../src/functions/database/models/corporation.model
 import { compareTiles, compareCorporations } from "../src/functions/comparers";
 import { COLONY_HUB } from "../src/fixtures/buildings.fixtures";
 import buildingModel from "../src/functions/database/models/building.model";
-import { Building, Corporation, Tile } from "@/types";
+import { Building, Corporation, RESET_DB_ACTION, Tile } from "@/types";
 import { prepareEnv } from "./loadTests";
 import RESOURCES from "../src/fixtures/resources.fixtures";
 
@@ -48,7 +48,7 @@ describe('database tests', () => {
   describe('seeders', () => {
 
     beforeEach(async () => {
-      await deleteAllModels();
+      await deleteAllModels(RESET_DB_ACTION.SEED);
     });
 
     test('tiles', async () => {
