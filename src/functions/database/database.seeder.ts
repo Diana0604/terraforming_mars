@@ -7,7 +7,7 @@ import roundModel from "./models/round.model";
 import buildingModel from "./models/building.model";
 import alertModel from "./models/alert.model";
 import { getAllTiles } from "./database.server";
-import { Corporation, Tile, RESET_DB_ACTION } from "@/types";
+import { Corporation, Tile, RESET_DB_ACTION } from "../../types";
 import initialcorpsModel from "./models/initialstats/initialcorps.model";
 import initialbuildingModel from "./models/initialstats/initialbuilding.model";
 import mongoose from "mongoose";
