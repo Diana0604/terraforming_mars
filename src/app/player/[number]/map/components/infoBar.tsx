@@ -2,24 +2,20 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "../map.module.css"
 import { Resource } from "@/types";
-import { CorporationsContext } from "@/contexts/CorporationsContexts";
 import { Col, Row } from 'antd';
+import { IndividualCorporationContext } from "@/app/actors/corporation/IndividualCorporation/IndividualCorporationContext";
 
-type InfoBarProps = {
-  num: number
-}
-
-const InfoBar = ({num} : InfoBarProps) => {
+const InfoBar = () => {
 
     const [resources, setResources] = useState<Resource[]>();
     const [resourcesNextRound, setResourcesNextRound] = useState<Resource[]>();
-    const corporations = useContext(CorporationsContext);
+    const corporation = useContext(IndividualCorporationContext);
 
     useEffect(() => {
-        setResources(corporations[num].resourcesOwned)
+        setResources(corporation.resourcesOwned)
 
-        setResourcesNextRound(corporations[num].resourcesNextRound)
-    }, [corporations[num]])
+        setResourcesNextRound(corporation.resourcesNextRound)
+    }, [corporation])
 
     const switchIcons = (name: string) => {
         switch (name) {
@@ -43,7 +39,7 @@ const InfoBar = ({num} : InfoBarProps) => {
 
     return (
         <div className={styles.infoBar}>
-            <p>{corporations[num].name}</p>
+            <p>{corporation.name}</p>
             {resources && resources.map((resource, index) => {
                 return <Row key={index} style={{ padding: "10px" }}>
                     <Col span={12} style={{ width: "30px" }} >

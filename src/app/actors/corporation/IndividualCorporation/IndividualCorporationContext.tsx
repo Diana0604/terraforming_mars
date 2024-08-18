@@ -26,11 +26,13 @@ const IndividualCorporationContextProvider = ({
 
   const getCallback = (data: Corporation) => setCorporation(data);
 
-  const handleInterval = () =>
-    fetchGet(
-      `${CORPORATION_ROUTE}?${new URLSearchParams({ name }).toString()}`,
-      getCallback
-    );
+  const handleInterval = () => {
+    if (name && name != "loading")
+      fetchGet(
+        `${CORPORATION_ROUTE}?${new URLSearchParams({ name }).toString()}`,
+        getCallback
+      );
+  };
 
   useInterval(handleInterval, 1000);
 
