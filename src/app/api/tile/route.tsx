@@ -48,6 +48,9 @@ export async function DELETE(request: NextRequest) {
     else {
       tile = await tileModel.findOne({ row: body.row, column: body.column });
     }
+
+    console.log('======================= DESTROYING TILE ==============')
+
     if (tile.colonizedBy) {
       //get corporation that has it colonized
       const corporation = await corporationModel
@@ -56,6 +59,7 @@ export async function DELETE(request: NextRequest) {
         .populate("newBuildingsNextRound");
 
       //remove buildings from references in the corporation database
+      console.log('colonized by', corporation);
       for (const index in corporation.buildingsOwned) {
         const building = corporation.buildingsOwned[index];
         if (building.tile === tile._id) {

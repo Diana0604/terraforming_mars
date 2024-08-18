@@ -3,7 +3,7 @@
 import { TILE_ROUTE } from "@/constants";
 import { MessageContext } from "@/contexts/MessageContext";
 import { TilesContext } from "@/contexts/TileContext";
-import { fetchPut } from "@/functions/database/database.fetchers";
+import { fetchDelete, fetchPut } from "@/functions/database/database.fetchers";
 import { Button, Select } from "antd";
 import { useContext, useEffect, useState } from "react";
 
@@ -54,7 +54,7 @@ const TileDestroyer = () => {
     };
 
     // put reqeust
-    fetchPut(TILE_ROUTE, body, destroyCallback);
+    fetchDelete(TILE_ROUTE, body, destroyCallback);
   };
 
   const recoverCallback = async (res: any) => {
