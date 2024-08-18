@@ -15,11 +15,6 @@ interface PlayerParams {
 }
 
 export default function Home({ params }: { params: PlayerParams }) {
-  //check the number on ulr is correct
-  const number = Number(params.number);
-  if (isNaN(number) || number < 0)
-    return <div>Number needs to be a number greater than 0</div>;
-
   // const [corporation, setCorporation] = useState<Corporation>();
   const placeholderCorp: Corporation = {
     name: "",
@@ -39,6 +34,11 @@ export default function Home({ params }: { params: PlayerParams }) {
   useEffect(() => {
     fetchGet(CORPORATION_ROUTE, handleGetCorporations);
   }, []);
+
+  //check the number on ulr is correct
+  const number = Number(params.number);
+  if (isNaN(number) || number < 0)
+    return <div>Number needs to be a number greater than 0</div>;
 
   return (
     <IndividualCorporationContextProvider name={corporation.name}>

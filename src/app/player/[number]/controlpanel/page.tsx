@@ -17,10 +17,6 @@ interface PlayerParams {
 
 const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
   const svg = useRef<SVGSVGElement>(null);
-  //check the number on ulr is correct
-  const number = Number(params.number);
-  if (isNaN(number) || number < 0)
-    return <div>Number needs to be a number greater than 0</div>;
 
   // const [corporation, setCorporation] = useState<Corporation>();
   const placeholderCorp: Corporation = {
@@ -41,6 +37,12 @@ const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
   useEffect(() => {
     fetchGet(CORPORATION_ROUTE, handleGetCorporations);
   }, []);
+
+
+  //check the number on ulr is correct
+  const number = Number(params.number);
+  if (isNaN(number) || number < 0)
+    return <div>Number needs to be a number greater than 0</div>;
 
   return (
     <div className={styles.main}>

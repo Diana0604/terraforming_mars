@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { IndividualTileContext } from "./IndividualTileContext";
 
 const IndividualTile = () => {
-  const {tile, saveTile, hasChanged} = useContext(IndividualTileContext);
+  const {tile, saveTile} = useContext(IndividualTileContext);
 
   return (
     <Col className="mr-10 mb-10">
@@ -22,7 +22,7 @@ const IndividualTile = () => {
         <HazardsList />
 
         {/* update tile */}
-        <UpdateStat disabled={!hasChanged} handleUpdate={saveTile} />
+        <UpdateStat handleUpdate={saveTile} />
       </Card>
     </Col>
   );
