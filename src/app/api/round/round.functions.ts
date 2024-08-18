@@ -2,13 +2,19 @@
 import { BuildingConstant, Corporation, Round, Tile } from "@/types";
 
 //constants
-import { SECONDS_PER_ROUND } from '@/fixtures/round.fixtures';
+// import { SECONDS_PER_ROUND } from '@/fixtures/round.fixtures';
 
 //database
 import { dbConnect } from "../../../functions/database/database.server";
 import roundModel from "../../../functions/database/models/round.model";
 import corporationModel from "../../../functions/database/models/corporation.model";
 import tileModel from "../../../functions/database/models/tile.model";
+import initialstatsModel from "@/functions/database/models/initialstats/initialstats.model";
+
+
+//get seconds per gamer
+let secondsPerRound = 0;
+initialstatsModel.findOne().then(data => secondsPerRound = data.secondsPerRound)
 
 
 let roundTimeout: NodeJS.Timeout;
@@ -63,14 +69,14 @@ const updateCorporationStats = async () => {
       for (const index in building.dailyProduction) {
         const resource = building.dailyProduction[index];
         corporation.resourcesOwned[index].quantity += resource.quantity;
-        if(corporation.resourcesNextRound)
+        if (corporation.resourcesNextRound)
           corporation.resourcesNextRound[index].quantity += resource.quantity;
       }
 
       for (const index in building.dailyCost) {
         const resource = building.dailyCost[index];
         corporation.resourcesOwned[index].quantity -= resource.quantity;
-        if(corporation.resourcesNextRound)
+        if (corporation.resourcesNextRound)
           corporation.resourcesNextRound[index].quantity -= resource.quantity;
       }
     }
@@ -90,8 +96,9 @@ const startNewRound = async (currentRound: Round) => {
   currentRound.darkHour = false;
   currentRound.number = currentRound.number + 1;
 
+
   //set timeout to change round at end of turn
-  roundTimeout = setTimeout(endOfRound, SECONDS_PER_ROUND * 1000);
+  roundTimeout = setTimeout(endOfRound, secondsPerRound * 1000);
 
   //save round
   if (currentRound.save)
@@ -132,7 +139,7 @@ export const playGame = async () => {
   currentRound.startTime = new Date(Number(new Date().getTime()) - timePlayed);
 
   //set timeout to change round at end of turn
-  roundTimeout = setTimeout(endOfRound, (SECONDS_PER_ROUND * 1000 - timePlayed));
+  roundTimeout = setTimeout(endOfRound, (secondsPerRound * 1000 - timePlayed));
 
   //update database object
   if (currentRound.save)
@@ -167,7 +174,7 @@ export const skipToDarkHour = async () => {
   const currentRound: Round = await pauseGame();
   currentRound.darkHour = true;
   currentRound.startTime = new Date(
-    Number(new Date().getTime()) - (SECONDS_PER_ROUND - 1) * 1000
+    Number(new Date().getTime()) - (secondsPerRound - 1) * 1000
   );
   if (currentRound.save)
     currentRound.save();
