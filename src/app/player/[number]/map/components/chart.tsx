@@ -10,9 +10,9 @@ import {
 } from "react";
 //@ts-ignore
 import * as d3 from "d3";
-import styles from "../page.module.css";
+import styles from "../map.module.css";
 import Stars from "./stars";
-import { Corporation, Tile } from "../../types";
+import { Corporation, Tile } from "../../../../../types";
 import { TilesContext } from "@/contexts/TileContext";
 import { RoundContext } from "@/contexts/RoundContext";
 import { Card } from "antd";
@@ -271,7 +271,7 @@ const Chart = ({ num }: ChartProps) => {
         <image
           className={styles.image}
           xmlnsXlink="http://www.w3.org/1999/xlink"
-          xlinkHref="bareMap.png"
+          xlinkHref={`${window.location.origin}/bareMap.png`}
           mask="url(#clip)"
           width="1460"
           height="920"
@@ -327,7 +327,14 @@ const Chart = ({ num }: ChartProps) => {
           <p>Tile Destroyed</p>
         ) : (
           <>
-            <p>Colonized By: {tileState? tileState.colonizedBy ? (tileState.colonizedBy as Corporation).name : '' : ''}</p>
+            <p>
+              Colonized By:{" "}
+              {tileState
+                ? tileState.colonizedBy
+                  ? (tileState.colonizedBy as Corporation).name
+                  : ""
+                : ""}
+            </p>
             <p>
               Buildings:{" "}
               {tileState &&

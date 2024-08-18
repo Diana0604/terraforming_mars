@@ -1,6 +1,6 @@
 "use client"
 import { useContext, useEffect, useState } from "react";
-import styles from "../page.module.css"
+import styles from "../map.module.css"
 import { Resource } from "@/types";
 import { CorporationsContext } from "@/contexts/CorporationsContexts";
 import { Col, Row } from 'antd';
