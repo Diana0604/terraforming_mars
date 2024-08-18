@@ -16,14 +16,9 @@ import { Corporation, Tile } from "../../../../../types";
 import { TilesContext } from "@/contexts/TileContext";
 import { RoundContext } from "@/contexts/RoundContext";
 import { Card } from "antd";
-import { CorporationsContext } from "@/contexts/CorporationsContexts";
 import { IndividualCorporationContext } from "@/app/actors/corporation/IndividualCorporation/IndividualCorporationContext";
 
-type ChartProps = {
-  num: number;
-};
-
-const Chart = ({ num }: ChartProps) => {
+const Chart = () => {
   const svg = useRef<SVGSVGElement>(null);
   const tooltip = useRef(null);
   const [tileState, setTileState] = useState<Tile | null>(null);

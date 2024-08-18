@@ -45,7 +45,7 @@ export default function Home({ params }: { params: PlayerParams }) {
       <main className={styles.main}>
         <Timer />
         <InfoBar />
-        <Chart num={number} />
+        <Chart />
         <Alert />
       </main>
     </IndividualCorporationContextProvider>
