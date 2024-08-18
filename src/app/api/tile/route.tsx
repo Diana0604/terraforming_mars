@@ -7,6 +7,7 @@ import { getAllTiles } from "@/functions/database/database.server";
 import buildingModel from "@/functions/database/models/building.model";
 import corporationModel from "@/functions/database/models/corporation.model";
 import tileModel from "@/functions/database/models/tile.model";
+import { createAllTiles } from "@/functions/database/database.seeder";
 
 export async function GET(request: Request) {
   await dbConnect();
@@ -150,4 +151,9 @@ export async function PUT(request: NextRequest) {
 
   //return
   return NextResponse.json({ message: "success" }, { status: 200 });
+}
+
+export async function POST() {
+    await createAllTiles();
+    return NextResponse.json({ message: "success" }, { status: 200 });
 }

@@ -40,8 +40,3 @@ export async function PUT(request: NextRequest) {
   //success
   return NextResponse.json({ message: "succesfully added new initialstats" }, { status: 200 });
 }
-
-export async function POST() {
-  await createAllTiles();
-  return NextResponse.json({ message: "success" }, { status: 200 })
-}
