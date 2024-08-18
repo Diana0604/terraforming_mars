@@ -17,6 +17,7 @@ import { TilesContext } from "@/contexts/TileContext";
 import { RoundContext } from "@/contexts/RoundContext";
 import { Card } from "antd";
 import { CorporationsContext } from "@/contexts/CorporationsContexts";
+import { IndividualCorporationContext } from "@/app/actors/corporation/IndividualCorporation/IndividualCorporationContext";
 
 type ChartProps = {
   num: number;
@@ -29,13 +30,7 @@ const Chart = ({ num }: ChartProps) => {
   const [darkHour, setDarkHour] = useState<boolean>(false);
   const tiles = useContext(TilesContext);
   const round = useContext(RoundContext);
-  const corporations = useContext(CorporationsContext);
-  const myCorp = corporations[num];
-
-  // useEffect(() => {
-  //   const initRound:Promise<Round> = fetch("/api/round").then(res => res.json())
-  //   initRound.then(data => setDarkHour(data.darkHour))
-  // }, [])
+  const corporation = useContext(IndividualCorporationContext);
 
   const getTile = (d: { column: number; row: any }, updatedTiles: Tile[]) => {
     let column: string;
@@ -97,7 +92,8 @@ const Chart = ({ num }: ChartProps) => {
       svgRef: React.RefObject<SVGSVGElement>,
       tooltip: MutableRefObject<null>,
       darkHour: boolean,
-      updatedTiles: Tile[]
+      updatedTiles: Tile[],
+      corporation: Corporation
     ) => {
       const h = "100%";
       const w = "100%";
@@ -163,18 +159,22 @@ const Chart = ({ num }: ChartProps) => {
         });
       });
 
+      // console.log('with hexes', hexes)
       const colonizations = hexes.map((d) => {
         const tileData: any = getTile(d[0], updatedTiles);
-        if (!tileData?.colonizedBy) {
-          if (tileData.destroyed) {
-            return "rgba(255,0,0,0.4)";
-          }
-          return "transparent";
-        } else if (tileData.colonizedBy.name.includes(myCorp.name)) {
+
+        // tile is destroyed
+        if (tileData.destroyed) return "rgba(255,0,0,0.4)";
+
+        // tile is not colonized
+        if (!tileData?.colonizedBy) return "transparent";
+
+        // tile is colonized by someone
+        if (tileData.colonizedBy.name.includes(corporation.name))
           return "rgba(0, 255, 0, 0.4)";
-        } else if (!tileData.colonizedBy.name.includes(myCorp.name)) {
-          return "rgba(0, 0, 255, 0.4)";
-        } else return "transparent";
+
+        // data is colonzied by enemy
+        return "rgba(0, 0, 255, 0.4)";
       });
 
       //clear existing maps
@@ -242,9 +242,9 @@ const Chart = ({ num }: ChartProps) => {
 
   useEffect(() => {
     if (tiles.tiles.length > 0) {
-      drawChart(svg, tooltip, darkHour, tiles.tiles);
+      drawChart(svg, tooltip, darkHour, tiles.tiles, corporation);
     }
-  }, [tiles, darkHour, drawChart]);
+  }, [tiles, darkHour, drawChart, corporation]);
 
   useEffect(() => {
     if (round != null && round.round.darkHour != darkHour)
