@@ -3,17 +3,20 @@ import IndividualCorporationContextProvider from "@/app/actors/corporation/Indiv
 import { CORPORATION_ROUTE } from "@/constants";
 import { fetchGet } from "@/functions/database/database.fetchers";
 import { Corporation } from "@/types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./controlpanel.module.css";
-import BuildingStats from "@/app/actors/corporation/IndividualCorporation/build/BuildingStats";
+import BuildingStats from "./components/BuildingStats";
 import DisplayResources from "./components/DisplayReources";
 import { Row } from "antd";
+import MessageContextProvider from "@/contexts/MessageContext";
+import Stars from "../map/components/stars";
 
 interface PlayerParams {
   number: string;
 }
 
 const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
+  const svg = useRef<SVGSVGElement>(null);
   //check the number on ulr is correct
   const number = Number(params.number);
   if (isNaN(number) || number < 0)
@@ -40,13 +43,36 @@ const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
   }, []);
 
   return (
-    <IndividualCorporationContextProvider name={corporation.name}>
-      <Row style={{height: "100vh"}}>
-        <BuildingStats />
-        <DisplayResources />
-      </Row>
-    </IndividualCorporationContextProvider>
+    <div className={styles.main}>
+      <svg ref={svg} style={{ width: "100vw", height: "100vh", position: "absolute"}}>
+        <Stars />
+      </svg>
+      <IndividualCorporationContextProvider name={corporation.name}>
+        <MessageContextProvider>
+          <Row className={styles.main}>
+            <BuildingStats />
+            <DisplayResources/>
+          </Row>
+        </MessageContextProvider>
+      </IndividualCorporationContextProvider>
+    </div>
   );
+  // <IndividualCorporationContextProvider name={corporation.name}>
+  // <MessageContextProvider>
+  {
+    /* <Row className={styles.main}> */
+  }
+  {
+    /* <BuildingStats /> */
+  }
+  {
+    /* <DisplayResources /> */
+  }
+  {
+    /* </Row> */
+  }
+  // </MessageContextProvider>
+  // </IndividualCorporationContextProvider>
 };
 
 export default ControlPanelPage;

@@ -252,8 +252,8 @@ const Chart = () => {
   // const name = (tileState?.colonizedBy as Corporation).name
 
   return (
-    <div className={styles.chart} id="chart">
-      <svg ref={svg}>
+    <div className={styles.chart} id="chart" style={{width: '100vw', height: '100vh'}}>
+      <svg ref={svg} style={{width: '100vw', height: '100vh'}}>
         <Stars />
         <ellipse
           cx="500"
