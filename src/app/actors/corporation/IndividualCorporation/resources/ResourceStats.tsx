@@ -1,17 +1,5 @@
-//types
-import { Corporation } from "@/types";
-
-//constants
-import {
-  PLAYER1_CORPORATION_NAME,
-  PLAYER2_CORPORATION_NAME,
-} from "@/fixtures/corporations.fixtures";
-
 //react
 import { useContext } from "react";
-
-//context
-import { CorporationsContext } from "@/contexts/CorporationsContexts";
 
 //components
 import UpdateResource from "./UpdateResource";
