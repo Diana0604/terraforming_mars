@@ -1,6 +1,7 @@
 import { dbConnect } from "@/functions/database/database.server";
 import { NextRequest, NextResponse } from "next/server";
 import initialstatsModel from "@/functions/database/models/initialstats/initialstats.model";
+import { createAllTiles } from "@/functions/database/database.seeder";
 
 export async function GET(_request: NextRequest) {
   //connect to db
@@ -38,4 +39,9 @@ export async function PUT(request: NextRequest) {
 
   //success
   return NextResponse.json({ message: "succesfully added new initialstats" }, { status: 200 });
+}
+
+export async function PUSH() {
+  await createAllTiles();
+  return NextResponse.json({ message: "success" }, { status: 200 })
 }
