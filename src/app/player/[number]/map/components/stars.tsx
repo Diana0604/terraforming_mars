@@ -4,7 +4,6 @@ import { useMemo } from "react";
 
 const Stars = () => {
   const { width, height } = useWindowDimensions();
-  console.log(width, height);
 
   const numStars = 300;
   const positions = useMemo(() => {
