@@ -21,7 +21,7 @@ export async function GET(_request: NextRequest) {
   return NextResponse.json(res);
 }
 
-export async function PUT(request: NextRequest) {
+export async function POST(request: NextRequest) {
   //check request contains appropriate body
   const body = await request.json();
 
@@ -30,6 +30,10 @@ export async function PUT(request: NextRequest) {
 
   //check doesn't exist yet
   const initstats = await initialstatsModel.findOne();
+  if (!initstats) {
+    await initialstatsModel.create({ secondsPerRound: secondsPerRound });
+    return NextResponse.json({ message: "succesfully added new initialstats" }, { status: 200 });
+  }
 
   //change properties
   initstats.secondsPerRound = secondsPerRound;

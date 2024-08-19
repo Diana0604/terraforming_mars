@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import InputTime from "./components/InputTime";
 import Title from "antd/es/typography/Title";
 import UpdateStat from "../components/UpdateStat";
-import { fetchGet, fetchPut } from "@/functions/database/database.fetchers";
+import {
+  fetchGet,
+  fetchPost,
+  fetchPut,
+} from "@/functions/database/database.fetchers";
 import { INITSTATS_ROUTE } from "@/constants";
 
 const RoundStats = () => {
@@ -44,7 +48,7 @@ const RoundStats = () => {
 
   const handleUpdate = () => {
     const secondsPerRound = hours * 3600 + minutes * 60 + seconds;
-    fetchPut(INITSTATS_ROUTE, { secondsPerRound });
+    fetchPost(INITSTATS_ROUTE, { secondsPerRound });
   };
 
   return (

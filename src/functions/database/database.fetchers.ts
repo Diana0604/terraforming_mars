@@ -6,7 +6,7 @@ export const fetchGet = (route: string, callback: (data: any) => void) =>
   })
 
 //poster
-export const fetchPost = (route: string, body: any, callback: (response: any) => void) =>
+export const fetchPost = (route: string, body: any, callback?: (response: any) => void) =>
   fetch(route, {
     method: "post",
     body: JSON.stringify(body),
