@@ -32,7 +32,7 @@ const RoundStats = () => {
     // set minutes and hours
     setMinutes(newMins);
     setHours(hours + addedHours);
-  }, [minutes]);
+  }, [minutes, hours]);
 
   useEffect(() => {
     if (seconds < 60) return;
@@ -43,8 +43,8 @@ const RoundStats = () => {
 
     // set minutes and seconds
     setSeconds(newSeconds);
-    setMinutes(hours + addedMinutes);
-  }, [seconds]);
+    setMinutes(minutes + addedMinutes);
+  }, [seconds, minutes]);
 
   const handleUpdate = () => {
     const secondsPerRound = hours * 3600 + minutes * 60 + seconds;
