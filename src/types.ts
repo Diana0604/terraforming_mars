@@ -47,6 +47,7 @@ export type Corporation = {
   newBuildingsNextRound?: Building[];
   tilesCanBuild: Tile[];
   player: boolean;
+  readyForNextRound?: boolean
 };
 
 export type InitCorporation = {
