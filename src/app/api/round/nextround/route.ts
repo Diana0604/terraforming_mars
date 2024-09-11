@@ -3,6 +3,7 @@ import { dbConnect } from "@/functions/database/database.server";
 import corporationModel from "@/functions/database/models/corporation.model";
 import { Corporation } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
+import { playGame } from "../round.functions";
 
 export async function POST(request: NextRequest) {
   await dbConnect();
@@ -27,6 +28,16 @@ export async function POST(request: NextRequest) {
   corporation.readyForNextRound = true;
   if (corporation.save)
     await corporation.save();
+
+  // check if need playing
+  const allCorps = await corporationModel.find();
+  for (const corp of allCorps) {
+    if (!corp.readyForNextRound)
+      return NextResponse.json({ message: "success" }, { status: 200 });
+  }
+
+  // start game if all corps are ready
+  playGame();
 
   return NextResponse.json({ message: "success" }, { status: 200 });
 }
