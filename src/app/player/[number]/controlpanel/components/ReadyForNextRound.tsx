@@ -12,13 +12,14 @@ const ReadyForNextRound = () => {
   const corporation = useContext(IndividualCorporationContext);
   const { success, error } = useContext(MessageContext);
 
-  // callback for receiving building post response
+  // callback for receiving result of ready request
   const postReadyCallback = async (response: any) => {
     const data = await response.json();
     if (data.error) return error(data.error);
     return success("Database udpated");
   };
 
+  // tell db company is ready for next day
   const setReady = () =>
     fetchPost(
       READY_FOR_NEXT_ROUND_ROUTE,
