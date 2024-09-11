@@ -8,8 +8,6 @@ const Stars = () => {
   const numStars = 300;
   const positions = useMemo(() => {
     return Array(numStars).fill(1).map(() => {
-      console.log('width', width)
-      console.log('height', height)
       return {
         x: Math.random() * (2 * width) - 0.5 * width,
         y: Math.random() * (2 * height) - 0.5 * height,

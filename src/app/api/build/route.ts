@@ -68,8 +68,6 @@ export async function POST(request: NextRequest) {
         { status: 400 })
     const building = buildings[index];
 
-    console.log('ready to build', building);
-
 
     //find tile in database
     const tileParams = {
