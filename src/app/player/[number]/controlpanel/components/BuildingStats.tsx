@@ -24,7 +24,7 @@ const BuildingStats = () => {
 
       {/* currently owned */}
       <div>
-        <div>Buildings currently owned by this corporation:</div>
+        <div>Buildings currently owned by {corporation.name}:</div>
         {tiles.map((tile, index) => (
           <BuildingsInTile tile={tile} corporation={corporation} key={index} />
         ))}
