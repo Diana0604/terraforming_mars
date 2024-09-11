@@ -1,9 +1,9 @@
 import { TILE_ROUTE } from "@/constants";
 import { compareTiles } from "@/functions/comparers";
 import { Tile } from "@/types";
-import React, { useState, useEffect } from "react";
-import { initTiles } from "@/constants";
-import { fetchPost, fetchPut } from "@/functions/database/database.fetchers";
+import React, { useState } from "react";
+import { fetchGet, fetchPost } from "@/functions/database/database.fetchers";
+import { useInterval } from "usehooks-ts";
 
 //tiles can be accessed from context
 type contextProps = {
@@ -31,42 +31,21 @@ export const TilesContextProvider = ({
   //corporation objects and setters
   const [tiles, setTiles] = useState<Tile[]>(initialTileProps.tiles);
 
-  useEffect(() => {
-    //update corporations info every second by fetching from database
-    const updateTiles = () => {
-      try {
-        fetch(TILE_ROUTE, { method: "get" }).then(
-          async (response) => {
-            const data = await response.json();
+  // when tiles come back, check they are not empty and sort
+  const updateTilesCallback = (data: { tiles: Tile[] }) => {
+    const newTiles = data.tiles;
 
-            const newTiles = data.tiles;
+    if (newTiles.length === 0) return fetchPost(TILE_ROUTE, {});
 
-            if (newTiles.length === 0) {
-              return fetchPost(TILE_ROUTE, {}, updateTiles);
-            }
+    newTiles.sort(compareTiles);
 
-            newTiles.sort(compareTiles);
+    setTiles(newTiles);
+  };
 
-            setTiles(newTiles);
-          },
-          (error) => {
-            console.log("error on fetch", error);
-          }
-        );
-      } catch (error) {
-        console.log("error on fetch", error);
-      }
-    };
+  // set an interval to update tiles every second
+  const updateTiles = () => fetchGet(TILE_ROUTE, updateTilesCallback);
 
-    updateTiles();
-
-    const interval = setInterval(updateTiles, 1000);
-
-    //destroy interval at dismount
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+  useInterval(updateTiles, 1000);
 
   //return provider values
   return (
