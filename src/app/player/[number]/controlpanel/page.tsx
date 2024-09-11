@@ -10,6 +10,7 @@ import { Row } from "antd";
 import MessageContextProvider from "@/contexts/MessageContext";
 import Stars from "../map/components/stars";
 import Alert from "../map/components/alert";
+import Timer from "../map/components/timer";
 
 interface PlayerParams {
   number: string;
@@ -46,6 +47,7 @@ const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
   return (
     <div className={styles.main}>
       <Alert />
+      <Timer />
       <svg
         ref={svg}
         style={{ width: "100vw", height: "100vh", position: "absolute" }}
