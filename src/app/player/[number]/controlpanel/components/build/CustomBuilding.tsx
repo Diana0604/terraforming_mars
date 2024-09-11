@@ -3,10 +3,10 @@
 import { BUILD_DATABASE_ROUTE } from "@/constants";
 
 //react
-import { SetStateAction, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 //ant design
-import { Card, Select, Button, Input, Row, InputNumber } from "antd";
+import { Card, Select, Button, Input, Row } from "antd";
 import { TilesContext } from "@/contexts/TileContext";
 import { Resource } from "@/types";
 import { fetchPost } from "@/functions/database/database.fetchers";
