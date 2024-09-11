@@ -22,7 +22,7 @@ const ResourceStats = () => {
       {resources.map((resource, index) => (
         <Row key={index}>
           <Col className="mr-5 mb-5">
-            <Input defaultValue={resource}></Input>
+            <Input disabled={true} defaultValue={resource}></Input>
           </Col>
           <DeleteStat handleDelete={() => deleteResource(resource)} />
         </Row>
