@@ -44,8 +44,16 @@ const updateCorporationStats = async () => {
 
   // //update each corporation - buildings
   corporations.forEach(async (corporation) => {
-    //   //update tiles and resources next round
-    if (!corporation.newBuildingsNextRound) return;
+
+    // update ready for next round
+    corporation.readyForNextRound = false;
+
+    //update tiles and resources next round
+    if (!corporation.newBuildingsNextRound) {
+      if (corporation.save)
+        await corporation.save();
+      return;
+    }
 
 
     for (const building of corporation.newBuildingsNextRound) {
@@ -119,7 +127,6 @@ export const playGame = async () => {
 
   //check status
   if (currentRound.playing) return currentRound;
-  const now = new Date();
 
   //if it's start of round -> just start timer
   if (currentRound.darkHour) {

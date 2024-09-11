@@ -95,7 +95,7 @@ export const resetDB = async () => {
     corporation.resourcesNextRound = corporation.resourcesOwned;
     const newCorp = await corporationModel.create(corporation);
     newCorp.resourcesNextRound = corporation.resourcesOwned;
-    newCorp.readyForNextRound = true;
+    newCorp.readyForNextRound = false; //corporations will have to say they are ready to start
     await newCorp.save();
   }
   
