@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { INIT_RESOURCE_ROUTE } from "@/constants";
 import {
   fetchDelete,
@@ -41,7 +41,7 @@ const InitialResourcesContextProvider = ({
   //get resources from db
   useEffect(() => {
     fetchInitResources();
-  });
+  }, []);
 
   //add new resource function
   const addNewResource = async (name: string) =>

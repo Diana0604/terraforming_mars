@@ -46,7 +46,7 @@ const InitialBuildingContextProvider = ({
   //get params for init buildings
   useEffect(() => {
     fetchInitBuildings();
-  });
+  }, []);
 
   //add building
   const addBuilding = (buildingType: string) =>
@@ -58,6 +58,7 @@ const InitialBuildingContextProvider = ({
 
   //update building
   const updateBuilding = (oldType: string, building: BuildingConstant) => {
+    console.log('updating building')
     const body = { oldType, ...building };
     fetchPut(INIT_BUILDINGS_ROUTE, body, fetchInitBuildings);
   };
