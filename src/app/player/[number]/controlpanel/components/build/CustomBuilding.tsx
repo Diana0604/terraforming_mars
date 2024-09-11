@@ -114,7 +114,7 @@ const CustomBuilding = (props: { onBuild: () => void }) => {
           <Select
             showSearch
             onChange={setTile}
-            style={{ width: "50px" }}
+            style={{ width: "70px" }}
             options={filteredTiles}
           ></Select>
         </div>
