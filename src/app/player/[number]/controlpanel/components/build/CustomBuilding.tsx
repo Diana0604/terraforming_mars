@@ -80,7 +80,12 @@ const CustomBuilding = (props: { onBuild: () => void }) => {
     if (buildingType === undefined) return;
 
     // create body
-    const body = { buildingType, corporation: corporation.name, tile };
+    const body = {
+      buildingType,
+      corporation: corporation.name,
+      tile,
+      custom: true,
+    };
 
     // update database
     fetchPost(BUILD_DATABASE_ROUTE, body, postBuildingCallback);

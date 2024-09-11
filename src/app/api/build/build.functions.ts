@@ -139,3 +139,7 @@ export const setTileAsColonized = async (corporation: Corporation, tile: Tile) =
     await otherCorp.save();
   }
 }
+
+export const buildCustom = async () => {
+  return true;
+}

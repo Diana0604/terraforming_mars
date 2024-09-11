@@ -16,8 +16,7 @@ import {
 } from "@/constants";
 
 //function helpers
-import { build, canBuild, isValidBuilding, setTileAsColonized } from "./build.functions";
-import getBuildingList from "@/fixtures/buildings.fixtures";
+import { build, buildCustom, canBuild, isValidBuilding, setTileAsColonized } from "./build.functions";
 import initialbuildingModel from "@/functions/database/models/initialstats/initialbuilding.model";
 import { Building, BuildingConstant } from "@/types";
 
@@ -28,6 +27,12 @@ export async function POST(request: NextRequest) {
 
     //check request contains appropriate body
     const requestBody = await request.json();
+
+    if(requestBody.custom) {
+      const success = await buildCustom();
+      if(success) return NextResponse.json({message: 'success', status: 200});
+      return NextResponse.json({message: 'error', status: 400});
+    }
 
     const corporationName = requestBody.corporation;
     const buildingType = requestBody.buildingType;
