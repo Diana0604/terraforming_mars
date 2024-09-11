@@ -7,9 +7,6 @@ import ResourceStats from "./resources/InitialResourceStats";
 import CorporationStats from "./corporations/InitialCorporationStats";
 import RoundStats from "./round/RoundStats";
 import InitialStatsContextProvider from "./corporations/InitialCorporationContext";
-import InitialResourcesContextProvider from "./resources/InitialResourcesContext";
-import InitialBuildingContextProvider from "./buildings/InitialBuildingContext";
-import { TilesContextProvider } from "@/contexts/TileContext";
 import TileStats from "./tiles/TileStats";
 import HasChangedContextProvider from "@/contexts/HasChangedContext";
 
@@ -23,11 +20,7 @@ const Admin = () => {
     {
       key: "2",
       label: "Buildings",
-      children: (
-        <InitialBuildingContextProvider>
-          <BuildingStats />
-        </InitialBuildingContextProvider>
-      ),
+      children: <BuildingStats />,
     },
     {
       key: "3",
@@ -41,16 +34,16 @@ const Admin = () => {
     {
       key: "4",
       label: "Round",
-      children: <HasChangedContextProvider>
-        <RoundStats />
-        </HasChangedContextProvider>,
+      children: (
+        <HasChangedContextProvider>
+          <RoundStats />
+        </HasChangedContextProvider>
+      ),
     },
     {
       key: "5",
       label: "Tiles",
-      children: (
-          <TileStats />
-      ),
+      children: <TileStats />,
     },
   ];
 
@@ -60,9 +53,7 @@ const Admin = () => {
         This is the initstats page. You can change the initial value of things
         here.
       </Text>
-      <InitialResourcesContextProvider>
-        <Collapse items={items} />
-      </InitialResourcesContextProvider>
+      <Collapse items={items} />
     </div>
   );
 };

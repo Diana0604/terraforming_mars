@@ -13,7 +13,6 @@ import { fetchGet, fetchPost } from "@/functions/database/database.fetchers";
 import { MessageContext } from "@/contexts/MessageContext";
 import { IndividualCorporationContext } from "@/app/actors/corporation/IndividualCorporation/IndividualCorporationContext";
 import styles from "../../controlpanel.module.css";
-import InitialResourcesContextProvider from "@/app/initialstats/resources/InitialResourcesContext";
 import CustomBuilding from "./CustomBuilding";
 
 /**
@@ -122,9 +121,7 @@ const Build = () => {
       </Button>
 
       {buildingCustom ? (
-        <InitialResourcesContextProvider>
-          <CustomBuilding onBuild={() => setBuildingCustiom(!buildingCustom)} />
-        </InitialResourcesContextProvider>
+        <CustomBuilding onBuild={() => setBuildingCustiom(!buildingCustom)} />
       ) : undefined}
     </Card>
   );

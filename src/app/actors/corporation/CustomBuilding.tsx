@@ -6,10 +6,10 @@ import { Resource } from "@/types";
 import { useContext, useEffect, useState } from "react";
 
 import { Button, Col, Divider, Input, Row } from "antd";
-import { InitialBuildingContext } from "@/app/initialstats/buildings/InitialBuildingContext";
+import { InitialBuildingContext } from "../../../contexts/InitialBuildingContext";
 import EditResourceStats from "@/app/initialstats/components/EditResourceStats";
 import { updateFromResources } from "@/app/initialstats/initialstats.helpers";
-import { InitialResourcesContext } from "@/app/initialstats/resources/InitialResourcesContext";
+import { InitialResourcesContext } from "../../../contexts/InitialResourcesContext";
 import Title from "antd/lib/typography/Title";
 
 const CustomBuilding = () => {

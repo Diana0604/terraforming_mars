@@ -1,7 +1,7 @@
 import { Button, Col, Collapse, CollapseProps, Input, Row } from "antd";
 import IndividualBuilding from "./IndividualBuilding";
 import { useContext, useState } from "react";
-import { InitialBuildingContext } from "./InitialBuildingContext";
+import { InitialBuildingContext } from "../../../contexts/InitialBuildingContext";
 import HasChangedContextProvider from "@/contexts/HasChangedContext";
 
 const BuildingStats = () => {

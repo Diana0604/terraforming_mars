@@ -2,7 +2,7 @@ import { Checkbox, Row } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import Title from "antd/es/typography/Title";
 import { useContext } from "react";
-import {InitialResourcesContext} from "../../resources/InitialResourcesContext";
+import {InitialResourcesContext} from "../../../../contexts/InitialResourcesContext";
 import { IndividualTileContext } from "../IndividualTileContext";
 const ResourcesList = () => {
 

@@ -1,7 +1,7 @@
 import { Row, Col, Button } from "antd";
 import Input from "antd/es/input/Input";
 import { useContext, useState } from "react";
-import { InitialResourcesContext } from "./InitialResourcesContext";
+import { InitialResourcesContext } from "../../../contexts/InitialResourcesContext";
 import DeleteStat from "../components/DeleteStat";
 
 const ResourceStats = () => {

@@ -1,6 +1,6 @@
 import { Col, Input, Row } from "antd";
 import { ChangeEventHandler, useContext, useEffect, useState } from "react";
-import { InitialResourcesContext } from "../resources/InitialResourcesContext";
+import { InitialResourcesContext } from "../../../contexts/InitialResourcesContext";
 import { InitialCorporationContext } from "./InitialCorporationContext";
 import { InitCorporation, Resource } from "@/types";
 import { updateFromResources } from "../initialstats.helpers";

@@ -1,8 +1,8 @@
 import { Row, Col, Input } from "antd";
 import { useContext, useState, useEffect } from "react";
-import { InitialBuildingContext } from "./InitialBuildingContext";
+import { InitialBuildingContext } from "../../../contexts/InitialBuildingContext";
 import { BuildingConstant, Resource } from "@/types";
-import { InitialResourcesContext } from "../resources/InitialResourcesContext";
+import { InitialResourcesContext } from "../../../contexts/InitialResourcesContext";
 import { updateFromResources } from "../initialstats.helpers";
 import EditResourceStats from "../components/EditResourceStats";
 import UpdateStat from "../components/UpdateStat";

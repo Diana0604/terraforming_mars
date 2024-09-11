@@ -8,12 +8,12 @@ import { useContext, useState } from "react";
 //ant design
 import { Card, Select, Button, Input, Row, InputNumber } from "antd";
 import { TilesContext } from "@/contexts/TileContext";
-import { BuildingConstant, Resource } from "@/types";
-import { fetchGet, fetchPost } from "@/functions/database/database.fetchers";
+import { Resource } from "@/types";
+import { fetchPost } from "@/functions/database/database.fetchers";
 import { MessageContext } from "@/contexts/MessageContext";
 import { IndividualCorporationContext } from "@/app/actors/corporation/IndividualCorporation/IndividualCorporationContext";
 import styles from "../../controlpanel.module.css";
-import { InitialResourcesContext } from "@/app/initialstats/resources/InitialResourcesContext";
+import { InitialResourcesContext } from "@/contexts/InitialResourcesContext";
 
 /**
  * Interactive building menu
