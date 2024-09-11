@@ -1,39 +1,31 @@
-"use client"
+"use client";
 //react hooks
 import { useState } from "react";
 
 //database routes constants
 import { RESET_DATABASE_ROUTE } from "@/constants";
-
+import { fetchPost } from "@/functions/database/database.fetchers";
 
 const ResetButton = () => {
+  const [displayMessage, setDisplayMessage] = useState<String>();
 
-  const [displayMessage, setDisplayMessage] = useState<String>()
-
-  const onClick = async () => {
+  const onClick = () => {
     //set display message to calculating
-    setDisplayMessage("Resetting database")
+    setDisplayMessage("Resetting database");
 
     //reset database
-    const res = await fetch(RESET_DATABASE_ROUTE, { method: "post" });
-    const data = await res.json()
-    if (data.error) {
-      setDisplayMessage(data.error)
-      return
-    }
+    fetchPost(RESET_DATABASE_ROUTE, {});
 
     //reload window
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   return (
     <div>
       <button onClick={onClick}>Reset Database</button>
-      {
-        displayMessage ? <div>{displayMessage}</div> : <></>
-      }
+      {displayMessage ? <div>{displayMessage}</div> : <></>}
     </div>
-  )
-}
+  );
+};
 
-export default ResetButton
+export default ResetButton;
