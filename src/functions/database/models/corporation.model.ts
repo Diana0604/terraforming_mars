@@ -20,6 +20,7 @@ const CorporationSchema = new mongoose.Schema({
   ],
   newBuildingsNextRound: [{ type: Schema.Types.ObjectId, ref: "Building" }],
   tilesCanBuild: [{ type: Schema.Types.ObjectId, ref: "Tile" }],
+  readyForNextRound: { type: Boolean }
 });
 
 export default mongoose.models.Corporation ||

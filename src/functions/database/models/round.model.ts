@@ -5,7 +5,7 @@ const RoundSchema = new mongoose.Schema({
   playing: {type: Boolean},
   startTime: {type: Date},
   pausedAt: {type: Date},
-  darkHour: {type: Boolean}
+  darkHour: {type: Boolean},
 });
 
 export default mongoose.models.Round || mongoose.model("Round", RoundSchema);

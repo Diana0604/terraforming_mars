@@ -79,14 +79,15 @@ export const seedDB = async () => {
 export const resetDB = async () => {
   await deleteAllModels(RESET_DB_ACTION.GAME_RESET);
 
-  //round reset
+  // buildings reset
   const initBuildings = await initialbuildingModel.find();
   for (const building of initBuildings) {
     building._id = new mongoose.Types.ObjectId();
     building.isNew = true;
     await buildingModel.create(building);
   }
-
+  
+  // corporations reset
   const initCorporations = await initialcorpsModel.find();
   for (const corporation of initCorporations) {
     corporation._id = new mongoose.Types.ObjectId();
@@ -94,9 +95,11 @@ export const resetDB = async () => {
     corporation.resourcesNextRound = corporation.resourcesOwned;
     const newCorp = await corporationModel.create(corporation);
     newCorp.resourcesNextRound = corporation.resourcesOwned;
+    newCorp.readyForNextRound = true;
     await newCorp.save();
   }
-
+  
+  //round reset
   let round = await roundModel.findOne();
   if (!round) round = await roundModel.create({});
   round = await roundModel.findOne();
@@ -105,6 +108,7 @@ export const resetDB = async () => {
   round.darkHour = true;
   await round.save();
 
+  // tiles reset
   const tiles = await tileModel.find();
   for (const tile of tiles) {
     tile.colonizedBy = null;

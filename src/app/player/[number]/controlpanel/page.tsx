@@ -11,6 +11,7 @@ import MessageContextProvider from "@/contexts/MessageContext";
 import Stars from "../map/components/stars";
 import Alert from "../map/components/alert";
 import Timer from "../map/components/timer";
+import ReadyForNextRound from "./components/ReadyForNextRound";
 
 interface PlayerParams {
   number: string;
@@ -57,6 +58,7 @@ const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
       <MessageContextProvider>
         <Row className={`${styles.main}  ${styles.pt_20px}`}>
           <BuildingStats />
+          <ReadyForNextRound />
           <DisplayResources />
         </Row>
       </MessageContextProvider>
