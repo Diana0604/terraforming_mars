@@ -10,6 +10,7 @@ import DisplayResources from "./components/DisplayReources";
 import { Row } from "antd";
 import MessageContextProvider from "@/contexts/MessageContext";
 import Stars from "../map/components/stars";
+import Alert from "../map/components/alert";
 
 interface PlayerParams {
   number: string;
@@ -38,7 +39,6 @@ const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
     fetchGet(CORPORATION_ROUTE, handleGetCorporations);
   }, []);
 
-
   //check the number on ulr is correct
   const number = Number(params.number);
   if (isNaN(number) || number < 0)
@@ -46,35 +46,23 @@ const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
 
   return (
     <div className={styles.main}>
-      <svg ref={svg} style={{ width: "100vw", height: "100vh", position: "absolute"}}>
+      <Alert />
+      <svg
+        ref={svg}
+        style={{ width: "100vw", height: "100vh", position: "absolute" }}
+      >
         <Stars />
       </svg>
       <IndividualCorporationContextProvider name={corporation.name}>
         <MessageContextProvider>
-          <Row className={styles.main}>
+          <Row className={`${styles.main}  ${styles.pt_20px}`}>
             <BuildingStats />
-            <DisplayResources/>
+            <DisplayResources />
           </Row>
         </MessageContextProvider>
       </IndividualCorporationContextProvider>
     </div>
   );
-  // <IndividualCorporationContextProvider name={corporation.name}>
-  // <MessageContextProvider>
-  {
-    /* <Row className={styles.main}> */
-  }
-  {
-    /* <BuildingStats /> */
-  }
-  {
-    /* <DisplayResources /> */
-  }
-  {
-    /* </Row> */
-  }
-  // </MessageContextProvider>
-  // </IndividualCorporationContextProvider>
 };
 
 export default ControlPanelPage;

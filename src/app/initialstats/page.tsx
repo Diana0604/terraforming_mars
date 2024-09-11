@@ -49,9 +49,7 @@ const Admin = () => {
       key: "5",
       label: "Tiles",
       children: (
-        <TilesContextProvider>
           <TileStats />
-        </TilesContextProvider>
       ),
     },
   ];

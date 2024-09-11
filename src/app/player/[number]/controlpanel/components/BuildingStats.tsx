@@ -18,7 +18,7 @@ const BuildingStats = () => {
   //setup the display for each corporation
 
   return (
-    <Card className={styles.panel}>
+    <Card className={`${styles.panel}`}>
       {/* build new */}
       <Build />
 
