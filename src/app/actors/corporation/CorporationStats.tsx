@@ -1,11 +1,9 @@
 "use client";
 
 //antd
-import { Col, Collapse, Row } from "antd";
+import { Collapse } from "antd";
 
 //components
-import ResourceStats from "./IndividualCorporation/resources/ResourceStats";
-import BuildingStats from "./IndividualCorporation/build/BuildingStats";
 import { useEffect, useState } from "react";
 import { Corporation } from "@/types";
 import { fetchGet } from "@/functions/database/database.fetchers";

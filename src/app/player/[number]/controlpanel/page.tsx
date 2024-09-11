@@ -53,14 +53,12 @@ const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
       >
         <Stars />
       </svg>
-      <IndividualCorporationContextProvider name={corporation.name}>
-        <MessageContextProvider>
-          <Row className={`${styles.main}  ${styles.pt_20px}`}>
-            <BuildingStats />
-            <DisplayResources />
-          </Row>
-        </MessageContextProvider>
-      </IndividualCorporationContextProvider>
+      <MessageContextProvider>
+        <Row className={`${styles.main}  ${styles.pt_20px}`}>
+          <BuildingStats />
+          <DisplayResources />
+        </Row>
+      </MessageContextProvider>
     </div>
   );
 };
