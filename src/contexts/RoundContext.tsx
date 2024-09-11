@@ -1,7 +1,7 @@
 import { ROUND_MANAGER_ROUTE } from "@/constants";
 import { fetchGet } from "@/functions/database/database.fetchers";
 import { Round } from "@/types";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useInterval } from "usehooks-ts";
 
 //tiles can be accessed from context

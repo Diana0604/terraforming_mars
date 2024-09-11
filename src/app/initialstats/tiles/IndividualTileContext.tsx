@@ -1,8 +1,8 @@
 import { TILE_ROUTE } from "@/constants";
 import { HasChangedContext } from "@/contexts/HasChangedContext";
 import { fetchPut } from "@/functions/database/database.fetchers";
-import { InitTile, MAP_COLUMNS, MAP_ROWS } from "@/types";
-import { createContext, useContext, useEffect, useState } from "react";
+import { InitTile } from "@/types";
+import { createContext, useContext, useState } from "react";
 
 interface IndividualTileContextProps {
   tile: InitTile;

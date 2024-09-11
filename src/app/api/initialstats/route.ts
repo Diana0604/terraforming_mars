@@ -1,7 +1,6 @@
 import { dbConnect } from "@/functions/database/database.server";
 import { NextRequest, NextResponse } from "next/server";
 import initialstatsModel from "@/functions/database/models/initialstats/initialstats.model";
-import { createAllTiles } from "@/functions/database/database.seeder";
 
 export async function GET(_request: NextRequest) {
   //connect to db

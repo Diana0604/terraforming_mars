@@ -1,7 +1,7 @@
 import { CORPORATION_ROUTE } from "@/constants";
 import { fetchGet } from "@/functions/database/database.fetchers";
 import { Corporation } from "@/types";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { useInterval } from "usehooks-ts";
 
 const initProps: Corporation = {

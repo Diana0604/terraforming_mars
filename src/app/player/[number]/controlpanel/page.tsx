@@ -1,5 +1,4 @@
 "use client";
-import IndividualCorporationContextProvider from "@/app/actors/corporation/IndividualCorporation/IndividualCorporationContext";
 import { CORPORATION_ROUTE } from "@/constants";
 import { fetchGet } from "@/functions/database/database.fetchers";
 import { Corporation } from "@/types";

@@ -6,7 +6,7 @@ import { RESOURCE_DATABASE_ROUTE } from "@/constants";
 import { useContext, useState } from "react";
 import { fetchPost } from "@/functions/database/database.fetchers";
 
-import { Button, InputNumber, message } from "antd";
+import { Button, InputNumber } from "antd";
 import { MessageContext } from "@/contexts/MessageContext";
 
 interface UpdateStatProp {

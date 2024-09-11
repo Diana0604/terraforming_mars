@@ -6,7 +6,6 @@ import UpdateStat from "../components/UpdateStat";
 import {
   fetchGet,
   fetchPost,
-  fetchPut,
 } from "@/functions/database/database.fetchers";
 import { INITSTATS_ROUTE } from "@/constants";
 

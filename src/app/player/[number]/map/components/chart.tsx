@@ -6,7 +6,6 @@ import {
   useState,
   useCallback,
   useContext,
-  useMemo,
 } from "react";
 //@ts-ignore
 import * as d3 from "d3";

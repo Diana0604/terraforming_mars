@@ -12,7 +12,6 @@ import corporationModel from "@/functions/database/models/corporation.model";
 import {
   elementMissingFromBody,
 } from "@/constants";
-import RESOURCES_LIST from "@/fixtures/resources.fixtures";
 
 
 export async function POST(request: NextRequest) {
