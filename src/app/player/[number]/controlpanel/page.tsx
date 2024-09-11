@@ -36,7 +36,7 @@ const ControlPanelPage = ({ params }: { params: PlayerParams }) => {
 
   useEffect(() => {
     fetchGet(CORPORATION_ROUTE, handleGetCorporations);
-  }, []);
+  });
 
   //check the number on ulr is correct
   const number = Number(params.number);

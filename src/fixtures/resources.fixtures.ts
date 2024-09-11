@@ -1,1 +1,2 @@
-export default ["Water", "Rare Metal", "Oxygen", "Food", "Synthetics", "Minerals"];
+const fixtures = ["Water", "Rare Metal", "Oxygen", "Food", "Synthetics", "Minerals"];
+export default fixtures;

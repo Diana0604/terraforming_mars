@@ -46,7 +46,7 @@ const InitialBuildingContextProvider = ({
   //get params for init buildings
   useEffect(() => {
     fetchInitBuildings();
-  }, []);
+  });
 
   //add building
   const addBuilding = (buildingType: string) =>
