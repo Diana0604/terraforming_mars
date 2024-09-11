@@ -24,7 +24,7 @@ const Providers = ({ children, number }: ProviderProps) => {
   // fetch corporation at init
   useEffect(() => {
     fetchGet(CORPORATION_ROUTE, handleGetCorporations);
-  });
+  }, []);
 
   // check number in url is correct
   if (isNaN(number) || number < 0)

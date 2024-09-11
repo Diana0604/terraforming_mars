@@ -40,7 +40,7 @@ const InitialStatsContextProvider = ({ children }: { children: ReactNode }) => {
   //get params for init corporations
   useEffect(() => {
     fetchInitCorporations();
-  });
+  }, []);
 
   //add corporation
   const addCorporation = (name: string) =>
