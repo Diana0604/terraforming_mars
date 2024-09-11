@@ -3,7 +3,7 @@
 import { BUILD_DATABASE_ROUTE } from "@/constants";
 
 //react
-import { useContext, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 
 //ant design
 import { Card, Select, Button, Input, Row, InputNumber } from "antd";
@@ -14,6 +14,7 @@ import { MessageContext } from "@/contexts/MessageContext";
 import { IndividualCorporationContext } from "@/app/actors/corporation/IndividualCorporation/IndividualCorporationContext";
 import styles from "../../controlpanel.module.css";
 import { InitialResourcesContext } from "@/contexts/InitialResourcesContext";
+import EditResourceStats from "@/app/initialstats/components/EditResourceStats";
 
 /**
  * Interactive building menu
@@ -38,6 +39,16 @@ const CustomBuilding = (props: { onBuild: () => void }) => {
   const [dailyCost, setDailyCost] = useState<Resource[]>([]);
   const [dailyProduction, setdailyProduction] = useState<Resource[]>([]);
   const [buildingCost, setBuildingCost] = useState<Resource[]>([]);
+
+  // populate all costs as zero
+  useEffect(() => {
+    const initResources: Resource[] = resources.map((value) => {
+      return { name: value, quantity: 0 };
+    });
+    setDailyCost(initResources);
+    setdailyProduction(initResources);
+    setBuildingCost(initResources);
+  }, [resources]);
 
   //create list for tile choosing select
   const filteredTiles = tiles
@@ -81,64 +92,59 @@ const CustomBuilding = (props: { onBuild: () => void }) => {
       style={{
         position: "absolute",
         top: "0",
-        // left: "50vw",
         width: "70vw",
-        // marginLeft: "-250px",
         zIndex: "1",
       }}
     >
       <h3>Add Custom Building to Tile</h3>
 
-      {/* building type */}
-      <div style={{ marginBottom: "10px" }}>
-        <span style={{ width: "200px" }}>building: </span>{" "}
-        <Input
-          onChange={(event) => setBuildingType(event.target.value)}
-          style={{ width: "200px" }}
-        />
-      </div>
-
-      <Row style={{ marginBottom: "10px" }}>
-        {/* cost */}
-        <div style={{ width: "200px" }}>
-          <h4>Cost</h4>
-          {resources.map((resource, index) => (
-            <Row key={index} style={{ marginBottom: "5px" }}>
-              <div style={{ width: "70px" }}>{resource}:</div> <InputNumber />
-            </Row>
-          ))}
+      <Row>
+        {/* building type */}
+        <div style={{ marginBottom: "10px" }}>
+          <span style={{ width: "200px" }}>building name: </span>{" "}
+          <Input
+            onChange={(event) => setBuildingType(event.target.value)}
+            style={{ width: "200px" }}
+          />
         </div>
 
-        {/* daily cost */}
-        <div style={{ width: "200px" }}>
-          <h4>Daily Cost</h4>
-          {resources.map((resource, index) => (
-            <Row key={index} style={{ marginBottom: "5px" }}>
-              <div style={{ width: "70px" }}>{resource}:</div> <InputNumber />
-            </Row>
-          ))}
-        </div>
-
-        {/* production */}
-        <div style={{ width: "200px" }}>
-          <h4>Daily Production</h4>
-          {resources.map((resource, index) => (
-            <Row key={index} style={{ marginBottom: "5px" }}>
-              <div style={{ width: "70px" }}>{resource}:</div> <InputNumber />
-            </Row>
-          ))}
+        {/* choose tile  */}
+        <div style={{ marginBottom: "10px" }}>
+          <span style={{ width: "200px", marginLeft: "10px" }}>tile: </span>{" "}
+          <Select
+            showSearch
+            onChange={setTile}
+            style={{ width: "50px" }}
+            options={filteredTiles}
+          ></Select>
         </div>
       </Row>
-      {/* choose tile  */}
-      <div style={{ marginBottom: "10px" }}>
-        <span style={{ width: "200px" }}>tile: </span>{" "}
-        <Select
-          showSearch
-          onChange={setTile}
-          style={{ width: "200px" }}
-          options={filteredTiles}
-        ></Select>
-      </div>
+      {/* cost */}
+      <EditResourceStats
+        className={styles.custom_building}
+        title={"Cost"}
+        resources={resources}
+        resourceList={buildingCost}
+        setter={setBuildingCost}
+      />
+
+      {/* daily cost */}
+      <EditResourceStats
+        className={styles.custom_building}
+        title={"Daily Cost"}
+        resources={resources}
+        resourceList={dailyCost}
+        setter={setDailyCost}
+      />
+
+      {/* production */}
+      <EditResourceStats
+        className={styles.custom_building}
+        title={"Daily Production"}
+        resources={resources}
+        resourceList={dailyProduction}
+        setter={setdailyProduction}
+      />
 
       <Button className={styles.basic} onClick={onClickBuild}>
         Build

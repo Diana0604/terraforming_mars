@@ -8,6 +8,7 @@ interface Props {
   resources: string[];
   resourceList: Resource[];
   setter: (value: SetStateAction<Resource[]>) => void;
+  className?: string;
 }
 
 const EditResourceStats = (props: Props) => {
@@ -44,9 +45,14 @@ const EditResourceStats = (props: Props) => {
           };
 
           return (
-            <Col key={index} className="mr-5">
+            <Col key={index} className={`mr-5`}>
               <Space direction="vertical" size={16} />
-              <Card size="small" title={resource}>
+              <Card
+                size="small"
+                title={resource}
+                classNames={{ title: props.className }}
+                className={props.className}
+              >
                 <InputNumber value={inputValue} onChange={onInputChange} />
               </Card>
             </Col>

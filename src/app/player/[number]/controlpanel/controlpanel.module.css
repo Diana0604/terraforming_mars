@@ -37,6 +37,15 @@
   border: 1px brown solid;
 }
 
+
+.custom_building {
+  font-family: "ShareTechMono-Regular";
+  background-color: black;
+  border-color: brown;
+  color: white;
+  z-index: 11;
+}
+
 .panel {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
