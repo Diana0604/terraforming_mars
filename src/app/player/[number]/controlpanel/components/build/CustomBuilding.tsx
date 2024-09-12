@@ -85,6 +85,9 @@ const CustomBuilding = (props: { onBuild: () => void }) => {
       corporation: corporation.name,
       tile,
       custom: true,
+      buildingCost: buildingCost,
+      dailyCost: dailyCost,
+      dailyProduction: dailyProduction,
     };
 
     // update database

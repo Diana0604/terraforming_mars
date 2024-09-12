@@ -28,10 +28,11 @@ export async function POST(request: NextRequest) {
     //check request contains appropriate body
     const requestBody = await request.json();
 
-    if(requestBody.custom) {
-      const success = await buildCustom();
-      if(success) return NextResponse.json({message: 'success', status: 200});
-      return NextResponse.json({message: 'error', status: 400});
+    if (requestBody.custom) {
+      const res = await buildCustom(requestBody);
+      if (res.message)
+        return NextResponse.json({ message: res.message || "success", status: 200 });
+      return NextResponse.json({ error: res.error || "unknown error", status: 400 });
     }
 
     const corporationName = requestBody.corporation;

@@ -1,7 +1,8 @@
 import corporationModel from "../../../functions/database/models/corporation.model";
-import { COLONY_HUB_NAME } from "../../../constants";
+import { CANNOT_BUILD_ERROR_MESSAGE, COLONY_HUB_NAME } from "../../../constants";
 import buildingModel from "../../../functions/database/models/building.model"
-import { BuildingConstant, BuildingType, Corporation, Resource, Tile } from "../../../types";
+import { Building, BuildingConstant, BuildingType, Corporation, Resource, Tile } from "../../../types";
+import tileModel from "@/functions/database/models/tile.model";
 
 /**
  * Given a list of resources and a building to be built, check if there's enough resources to build it
@@ -140,6 +141,48 @@ export const setTileAsColonized = async (corporation: Corporation, tile: Tile) =
   }
 }
 
-export const buildCustom = async () => {
-  return true;
+export const buildCustom = async (body: any) => {
+
+  const { buildingType, corporation, tile, buildingCost, dailyCost, dailyProduction } = body;
+
+  // check all params are defined
+  if (!buildingType || !corporation || !tile || !buildingCost || !dailyCost || !dailyProduction) return { error: "missing params" }
+
+  // find tile & corp
+  const tileParams = {
+    column: tile[0],
+    row: Number(tile[1]),
+  };
+  const tileInDb = await tileModel.findOne(tileParams).populate("buildings");
+  if (!tileInDb) return { error: "invalid tile" };
+
+  const corporationInDb = await corporationModel.findOne({ name: corporation });
+  if (!corporationInDb) return { error: "invalid corporation name" };
+
+  // create building constant object
+  const building: BuildingConstant = {
+    buildingType: buildingType,
+    dailyCost: dailyCost,
+    dailyProduction: dailyProduction,
+    buildingCost: buildingCost
+  }
+
+  //check building validiity
+  const validBuilding = await isValidBuilding(tileInDb, buildingType, corporationInDb);
+  //check building is valid
+  if (!validBuilding)
+    return { error: "Building is not valid. Check Colony Hub Exists / Not repeated / not already colonized" }
+
+  //check enough resources
+  if (!canBuild(corporationInDb.resourcesNextRound, building)){
+    return { error: CANNOT_BUILD_ERROR_MESSAGE }
+  }
+
+  //build
+  await build(building, corporationInDb, tileInDb);
+
+  //remove from other corporations
+  await setTileAsColonized(corporationInDb, tileInDb);
+
+  return { message: "success" };
 }
