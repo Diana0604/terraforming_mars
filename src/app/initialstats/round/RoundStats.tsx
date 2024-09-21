@@ -4,22 +4,22 @@ import InputTime from "./components/InputTime";
 import Title from "antd/es/typography/Title";
 import UpdateStat from "../components/UpdateStat";
 import { fetchGet, fetchPost } from "@/functions/database/database.fetchers";
-import { INITSTATS_ROUTE } from "@/constants";
+import { INITSTATS_DARK_ALERT_ROUTE, INITSTATS_ROUTE } from "@/constants";
 
 const RoundStats = () => {
   // // round seconds
-  const [seconds, setSeconds] = useState<number>(0);
+  const [minutes, setMinutes] = useState<number>(0);
 
   // dark hour alert seconds
-  const [darkSecondsAlert, setDarkSecondsAlert] = useState<number>(0);
+  const [darkMinutesAlert, setDarkMinutesAlert] = useState<number>(0);
 
   useEffect(() => {
     const callback = (data: {
       darkHourAlertBefore: any;
       secondsPerRound: any;
     }) => {
-      setSeconds(Number(data.secondsPerRound));
-      setDarkSecondsAlert(Number(data.darkHourAlertBefore));
+      setMinutes(Number(data.secondsPerRound) / 60);
+      setDarkMinutesAlert(Number(data.darkHourAlertBefore) / 60);
     };
 
     fetchGet(INITSTATS_ROUTE, callback);
@@ -27,8 +27,10 @@ const RoundStats = () => {
 
   const handleUpdate = () => {
     fetchPost(INITSTATS_ROUTE, {
-      secondsPerRound: seconds,
-      darkHourAlertBefore: darkSecondsAlert,
+      secondsPerRound: minutes * 60,
+    });
+    fetchPost(INITSTATS_DARK_ALERT_ROUTE, {
+      darkHourAlertBefore: darkMinutesAlert * 60,
     });
   };
 
@@ -40,8 +42,8 @@ const RoundStats = () => {
       <Row>
         {/* seconds */}
         <InputTime
-          value={seconds}
-          onChange={(value) => setSeconds(Number(value))}
+          value={minutes}
+          onChange={(value) => setMinutes(Number(value))}
         />
       </Row>
 
@@ -52,8 +54,8 @@ const RoundStats = () => {
       <Row>
         {/* seconds */}
         <InputTime
-          value={darkSecondsAlert}
-          onChange={(value) => setDarkSecondsAlert(Number(value))}
+          value={darkMinutesAlert}
+          onChange={(value) => setDarkMinutesAlert(Number(value))}
         />
       </Row>
       <Row>
