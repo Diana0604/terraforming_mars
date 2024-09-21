@@ -73,8 +73,8 @@ const RoundStats = () => {
     const addedSeconds = (darkSecondsAlert - newSeconds) / 60;
 
     // set minutes and seconds
-    setSeconds(newSeconds);
-    setMinutes(darkMinutesAlert + addedSeconds);
+    setDarkSecondsAlert(newSeconds);
+    setDarkMinutesAlert(darkMinutesAlert + addedSeconds);
   }, [darkSecondsAlert, darkMinutesAlert]);
 
   const handleUpdate = () => {
