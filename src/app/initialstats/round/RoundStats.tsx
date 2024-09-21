@@ -18,8 +18,13 @@ const RoundStats = () => {
   const [darkSecondsAlert, setDarkSecondsAlert] = useState<number>(0);
 
   useEffect(() => {
-    const callback = (data: { secondsPerRound: any }) =>
+    const callback = (data: {
+      darkHourAlertBefore: any;
+      secondsPerRound: any;
+    }) => {
       setSeconds(Number(data.secondsPerRound));
+      setDarkSecondsAlert(Number(data.darkHourAlertBefore));
+    };
 
     fetchGet(INITSTATS_ROUTE, callback);
   }, []);
@@ -78,9 +83,9 @@ const RoundStats = () => {
   };
 
   const handleDarkUpdate = () => {
-    const secondsToAlert =
+    const darkHourAlertBefore =
       darkHoursAlert * 3600 + darkMinutesAlert * 60 + darkSecondsAlert;
-    fetchPost(INITSTATS_DARK_ALERT_ROUTE, { secondsToAlert });
+    fetchPost(INITSTATS_DARK_ALERT_ROUTE, { darkHourAlertBefore });
   };
 
   return (
@@ -118,19 +123,19 @@ const RoundStats = () => {
       <Row>
         {/* hours */}
         <InputTime
-          value={hours}
+          value={darkHoursAlert}
           onChange={(value) => setDarkHoursAlert(Number(value))}
         />
         :&nbsp;
         {/* minutes */}
         <InputTime
-          value={minutes}
+          value={darkMinutesAlert}
           onChange={(value) => setDarkMinutesAlert(Number(value))}
         />
         :&nbsp;
         {/* seconds */}
         <InputTime
-          value={seconds}
+          value={darkSecondsAlert}
           onChange={(value) => setDarkSecondsAlert(Number(value))}
         />
       </Row>

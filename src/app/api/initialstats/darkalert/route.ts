@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import initialstatsModel from "@/functions/database/models/initialstats/initialstats.model";
 
 export async function GET(_request: NextRequest) {
+
+  console.log('==================== RECEIVED DARK ALERT')
+
   //connect to db
   await dbConnect();
 
