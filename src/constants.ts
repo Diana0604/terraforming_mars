@@ -19,6 +19,7 @@ export const INIT_CORPORATION_ROUTE = `${BASE_API_URL}/corporation/init`;
 export const INIT_RESOURCE_ROUTE = `${BASE_API_URL}/resource/init`;
 export const INIT_BUILDINGS_ROUTE = `${BASE_API_URL}/build/init`;
 export const INITSTATS_ROUTE = `${BASE_API_URL}/initialstats`;
+export const INITSTATS_DARK_ALERT_ROUTE = `${BASE_API_URL}/initialstats/darkalert`;
 
 //success messages
 export const DATABASE_SUCCESSFULLY_UPDATED =

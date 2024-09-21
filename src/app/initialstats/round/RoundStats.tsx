@@ -3,16 +3,19 @@ import { useEffect, useState } from "react";
 import InputTime from "./components/InputTime";
 import Title from "antd/es/typography/Title";
 import UpdateStat from "../components/UpdateStat";
-import {
-  fetchGet,
-  fetchPost,
-} from "@/functions/database/database.fetchers";
-import { INITSTATS_ROUTE } from "@/constants";
+import { fetchGet, fetchPost } from "@/functions/database/database.fetchers";
+import { INITSTATS_DARK_ALERT_ROUTE, INITSTATS_ROUTE } from "@/constants";
 
 const RoundStats = () => {
+  // round times
   const [hours, setHours] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
+
+  // dark hour alert times
+  const [darkHoursAlert, setDarkHoursAlert] = useState<number>(0);
+  const [darkMinutesAlert, setDarkMinutesAlert] = useState<number>(0);
+  const [darkSecondsAlert, setDarkSecondsAlert] = useState<number>(0);
 
   useEffect(() => {
     const callback = (data: { secondsPerRound: any }) =>
@@ -34,6 +37,18 @@ const RoundStats = () => {
   }, [minutes, hours]);
 
   useEffect(() => {
+    if (darkMinutesAlert < 60) return;
+
+    // use modulo to calculate hours and minutes
+    const newMins = darkMinutesAlert % 60;
+    const addedHours = (darkMinutesAlert - newMins) / 60;
+
+    // set minutes and hours
+    setDarkMinutesAlert(newMins);
+    setDarkHoursAlert(darkHoursAlert + addedHours);
+  }, [darkMinutesAlert, darkHoursAlert]);
+
+  useEffect(() => {
     if (seconds < 60) return;
 
     // use modulo to calculate minutes and seconds
@@ -45,9 +60,27 @@ const RoundStats = () => {
     setMinutes(minutes + addedMinutes);
   }, [seconds, minutes]);
 
+  useEffect(() => {
+    if (darkSecondsAlert < 60) return;
+
+    // use modulo to calculate minutes and seconds
+    const newSeconds = darkSecondsAlert % 60;
+    const addedSeconds = (darkSecondsAlert - newSeconds) / 60;
+
+    // set minutes and seconds
+    setSeconds(newSeconds);
+    setMinutes(darkMinutesAlert + addedSeconds);
+  }, [darkSecondsAlert, darkMinutesAlert]);
+
   const handleUpdate = () => {
     const secondsPerRound = hours * 3600 + minutes * 60 + seconds;
     fetchPost(INITSTATS_ROUTE, { secondsPerRound });
+  };
+
+  const handleDarkUpdate = () => {
+    const secondsToAlert =
+      darkHoursAlert * 3600 + darkMinutesAlert * 60 + darkSecondsAlert;
+    fetchPost(INITSTATS_DARK_ALERT_ROUTE, { secondsToAlert });
   };
 
   return (
@@ -76,6 +109,33 @@ const RoundStats = () => {
       </Row>
       <Row>
         <UpdateStat handleUpdate={handleUpdate} />
+      </Row>
+
+      {/*  */}
+      <Row>
+        <Title level={4}>Alert for Dark Hour before... (h:m:s)</Title>
+      </Row>
+      <Row>
+        {/* hours */}
+        <InputTime
+          value={hours}
+          onChange={(value) => setDarkHoursAlert(Number(value))}
+        />
+        :&nbsp;
+        {/* minutes */}
+        <InputTime
+          value={minutes}
+          onChange={(value) => setDarkMinutesAlert(Number(value))}
+        />
+        :&nbsp;
+        {/* seconds */}
+        <InputTime
+          value={seconds}
+          onChange={(value) => setDarkSecondsAlert(Number(value))}
+        />
+      </Row>
+      <Row>
+        <UpdateStat handleUpdate={handleDarkUpdate} />
       </Row>
     </>
   );

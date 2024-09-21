@@ -13,7 +13,7 @@ export async function GET(_request: NextRequest) {
     res = await initialstatsModel.create({ secondsPerRound: 0, darkHourAlertBefore: 0 })
   }
 
-  if (!res.secondsPerRound) res.secondsPerRound = 0;
+  if (!res.darkHourAlertBefore) res.darkHourAlertBefore = 0;
   res.save();
 
   //return to frontend
@@ -24,18 +24,18 @@ export async function POST(request: NextRequest) {
   //check request contains appropriate body
   const body = await request.json();
 
-  const secondsPerRound = body.secondsPerRound;
-  if (!secondsPerRound) return NextResponse.json({ error: "need time in seconds" }, { status: 300 });
+  const darkHourAlertBefore = body.darkHourAlertBefore;
+  if (!darkHourAlertBefore) return NextResponse.json({ error: "need time in seconds" }, { status: 300 });
 
   //check doesn't exist yet
   const initstats = await initialstatsModel.findOne();
   if (!initstats) {
-    await initialstatsModel.create({ secondsPerRound: secondsPerRound });
+    await initialstatsModel.create({ secondsPerRound: 0, darkHourAlertBefore: darkHourAlertBefore });
     return NextResponse.json({ message: "succesfully added new initialstats" }, { status: 200 });
   }
 
   //change properties
-  initstats.secondsPerRound = secondsPerRound;
+  initstats.darkHourAlertBefore = darkHourAlertBefore;
 
   //save
   await initstats.save();
