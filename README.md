@@ -2,4 +2,4 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Show Management Notes
 
-System has been updated, new instructions soon
+System has been updated, new instructions soon.
