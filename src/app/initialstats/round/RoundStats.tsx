@@ -7,10 +7,10 @@ import { fetchGet, fetchPost } from "@/functions/database/database.fetchers";
 import { INITSTATS_DARK_ALERT_ROUTE, INITSTATS_ROUTE } from "@/constants";
 
 const RoundStats = () => {
-  // // round seconds
+  // // round minutes
   const [minutes, setMinutes] = useState<number>(0);
 
-  // dark hour alert seconds
+  // dark hour alert minutes
   const [darkMinutesAlert, setDarkMinutesAlert] = useState<number>(0);
 
   useEffect(() => {
@@ -37,10 +37,10 @@ const RoundStats = () => {
   return (
     <>
       <Row>
-        <Title level={4}>Round Time in seconds</Title>
+        <Title level={4}>Round Time in minutes</Title>
       </Row>
       <Row>
-        {/* seconds */}
+        {/* minutes */}
         <InputTime
           value={minutes}
           onChange={(value) => setMinutes(Number(value))}
@@ -49,10 +49,10 @@ const RoundStats = () => {
 
       {/*  */}
       <Row>
-        <Title level={4}>Alert for Dark Hour before... (seconds)</Title>
+        <Title level={4}>Alert for Dark Hour before... (minutes)</Title>
       </Row>
       <Row>
-        {/* seconds */}
+        {/* minutes */}
         <InputTime
           value={darkMinutesAlert}
           onChange={(value) => setDarkMinutesAlert(Number(value))}
