@@ -33,7 +33,7 @@ export const RoundContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const sound = `${window.location.origin}/sounds/darkHour.mp3`;
+  const sound = '../../sounds/darkHour.mp3';
   //corporation objects and setters
   const [round, setRound] = useState<Round>(initialRoundProps.round);
   const [alertDarkHour] = useSound(sound);
